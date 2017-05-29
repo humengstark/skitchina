@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+    <!-- 添加注解驱动 -->
+    <mvc:annotation-driven />
+    <!-- 默认扫描的包路径 -->
+    <context:component-scan base-package="com.skitchina"/>
+    <!-- 过滤静态文件的拦截   -->
+    <mvc:default-servlet-handler/>
+    <!-- 定义跳转的文件的前后缀 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    <!--<bean id="viewResolver"-->
+          <!--class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">-->
+        <!--<property name="cache" value="true" />-->
+        <!--<property name="prefix" value="" />-->
+        <!--<property name="suffix" value=".ftl" />-->
+        <!--<property name="allowSessionOverride" value="true"/>-->
+        <!--<property name="contentType" value="text/html;charset=UTF-8"></property>-->
+        <!--<property name="requestContextAttribute" value="request" />-->
+        <!--<property name="exposeSpringMacroHelpers" value="true" />-->
+        <!--<property name="exposeRequestAttributes" value="true" />-->
+        <!--<property name="exposeSessionAttributes" value="true" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;freemarker配置&ndash;&gt;-->
+
+    <!--<bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">-->
+        <!--<property name="location" value="/WEB-INF/freemarker.properties"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="freemarkerConfig"-->
+          <!--class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
+        <!--<property name="templateLoaderPath" value="/WEB-INF/views/" />-->
+        <!--<property name="freemarkerSettings" ref="freemarkerConfiguration"/>-->
+    <!--</bean>-->
+
+</beans>

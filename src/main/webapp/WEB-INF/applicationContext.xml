@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <!-- 引入jdbc.properties -->
+    <!--<context:property-placeholder location="classpath*:jdbc.properties"/>-->
+
+    <!-- kaptcha v2.3.2 -->
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.border">no</prop>
+                        <prop key="kaptcha.border.color">105,179,90</prop>
+                        <prop key="kaptcha.textproducer.font.color">black</prop>
+                        <prop key="kaptcha.image.width">250</prop>
+                        <prop key="kaptcha.textproducer.font.size">70</prop>
+                        <prop key="kaptcha.image.height">90</prop>
+                        <prop key="kaptcha.session.key">KAPTCHA_SESSION_KEY</prop>
+                        <prop key="kaptcha.obscurificator.impl">com.google.code.kaptcha.impl.WaterRipple</prop>
+                        <prop key="kaptcha.textproducer.char.length">5</prop>
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <!--本机数据库配置-->
+
+     <!--数据源  使用阿里Druid数据源  也可以用其它数据源-->
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">-->
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
+        <!--<property name="url" value="jdbc:mysql://localhost:3306/skitchina?useUnicode=true&amp;characterEncoding=UTF-8" />-->
+        <!--<property name="username" value="easybuyuser" />-->
+        <!--<property name="password" value="easypass" />-->
+        <!--<property name="maxActive" value="1500" />-->
+        <!--<property name="initialSize" value="1" />-->
+        <!--<property name="maxWait" value="1800000" />-->
+        <!--<property name="minIdle" value="10" />-->
+        <!--<property name="removeAbandoned" value="true"/>-->
+        <!--<property name="removeAbandonedTimeout" value="1800"/>-->
+        <!--<property name="timeBetweenEvictionRunsMillis" value="60000" />-->
+        <!--<property name="minEvictableIdleTimeMillis" value="300000" />-->
+
+        <!--<property name="validationQuery" value="SELECT 'x' FROM DUAL" />-->
+        <!--<property name="testWhileIdle" value="true" />-->
+        <!--<property name="testOnBorrow" value="false" />-->
+        <!--<property name="testOnReturn" value="false" />-->
+        <!--&lt;!&ndash; mysql 不支持 poolPreparedStatements&ndash;&gt;-->
+        <!--<property name="poolPreparedStatements" value="true" />-->
+        <!--<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />-->
+
+        <!--&lt;!&ndash; 开启Druid的监控统计功能 &ndash;&gt;-->
+        <!--<property name="filters" value="stat" />-->
+    <!--</bean>-->
+
+    <!--远程数据库配置-->
+<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url" value="jdbc:mysql://10.141.121.37:3306/skitchina?useUnicode=true&amp;characterEncoding=UTF-8" />
+    <property name="username" value="root" />
+    <property name="password" value="sk0512" />
+    <property name="maxActive" value="200" />
+    <property name="initialSize" value="1" />
+    <property name="maxWait" value="60000" />
+    <property name="minIdle" value="10" />
+    <property name="removeAbandoned" value="true"/>
+    <property name="removeAbandonedTimeout" value="1800000"/>
+    <property name="timeBetweenEvictionRunsMillis" value="60000" />
+    <property name="minEvictableIdleTimeMillis" value="300000" />
+
+    <property name="validationQuery" value="SELECT 'x' FROM DUAL" />
+    <property name="testWhileIdle" value="true" />
+    <property name="testOnBorrow" value="false" />
+    <property name="testOnReturn" value="false" />
+    <!-- mysql 不支持 poolPreparedStatements-->
+    <property name="poolPreparedStatements" value="true" />
+    <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+    <!-- 开启Druid的监控统计功能 -->
+    <property name="filters" value="stat" />
+</bean>
+
+    <!-- Mybatis SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="/WEB-INF/mybatis-config.xml"></property>
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 事务管理 -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 字段扫描类注解 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.skitchina" />
+    </bean>
+
+    <!-- 使用声明式 事务管理-->
+    <tx:annotation-driven transaction-manager="txManager" />
+
+
+</beans>
