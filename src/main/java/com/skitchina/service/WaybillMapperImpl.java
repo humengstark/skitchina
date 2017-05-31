@@ -335,4 +335,12 @@ public class WaybillMapperImpl implements WaybillMapper {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    public Waybill getLastWaybillByUserId(int user_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Waybill waybill=sqlSession.selectOne("com.skitchina.mapper.WaybillMapper.getLastWaybillByUserId", user_id);
+        sqlSession.commit();
+        sqlSession.close();
+        return waybill;
+    }
 }

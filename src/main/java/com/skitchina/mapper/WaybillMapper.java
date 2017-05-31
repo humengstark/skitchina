@@ -134,7 +134,7 @@ public interface WaybillMapper {
     List<Waybill> getWaybillsByUser3Id(int user3_id);
 
     //查询已收运费单子
-    @Select("SELECT*FROM waybill WHERE payway=1 AND time>'2017-05-27 10:54:00' AND consignor_mark<>2 AND consignor_mark<>3 AND user3_id=#{user3_id} AND invalid=0 ORDER BY user3_time DESC LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE payway=1 AND consignor_mark<>2 AND consignor_mark<>3 AND user_id=#{user3_id} AND invalid=0 LIMIT #{m},#{rows}")
     List<Waybill> getFreightReceivableWaybills(Map params);
 
     //查询已收货款运单
@@ -179,7 +179,7 @@ public interface WaybillMapper {
     //网点做账，按收账时间排序
     @Select("(SELECT*,user2_time AS time_all FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid<>1) OR" +
             " (payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0)) " +
-            "UNION (SELECT*,user3_time AS time_all FROM waybill WHERE payway=1 AND consignor_mark=0 AND user3_id=#{user2_id} AND invalid=0 AND time<'2017-05-27 10:54:00')" +
+            "UNION (SELECT*,user3_time AS time_all FROM waybill WHERE payway=1 AND consignor_mark=0 AND user3_id=#{user2_id} AND invalid=0)" +
             " ORDER BY time_all LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsNotSubmit(Map params);
 
@@ -190,4 +190,8 @@ public interface WaybillMapper {
     //记录装车的用户
     @Update("UPDATE waybill SET user1_id=#{user1_id} WHERE id=#{id}")
     void updateUser1Id(Map params);
+
+    //根据user_id查询此用户最近一次下的单
+    @Select("SELECT*FROM waybill WHERE user_id=#{user_id} AND waybill_id=(SELECT MAX(waybill_id) FROM waybill WHERE user_id=#{user_id})")
+    Waybill getLastWaybillByUserId(int user_id);
 }
