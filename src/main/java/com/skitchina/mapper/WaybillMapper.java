@@ -134,7 +134,7 @@ public interface WaybillMapper {
     List<Waybill> getWaybillsByUser3Id(int user3_id);
 
     //查询已收运费单子
-    @Select("SELECT*FROM waybill WHERE payway=1 AND time>'2017-05-27 10:54:00' AND consignor_mark=0 AND user3_id=#{user3_id} AND invalid=0 ORDER BY user3_time DESC LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE payway=1 AND time>'2017-05-27 10:54:00' AND consignor_mark<>2 AND consignor_mark<>3 AND user3_id=#{user3_id} AND invalid=0 ORDER BY user3_time DESC LIMIT #{m},#{rows}")
     List<Waybill> getFreightReceivableWaybills(Map params);
 
     //查询已收货款运单

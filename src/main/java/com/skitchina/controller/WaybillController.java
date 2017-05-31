@@ -108,7 +108,6 @@ public class WaybillController {
         int consignee_mark = 0;
         if (payway == 1) {
             consignee_mark = 1;
-            consignor_mark = 1;
         }
 
         Map params = new HashMap();
