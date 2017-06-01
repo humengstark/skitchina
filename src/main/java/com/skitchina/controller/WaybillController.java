@@ -69,12 +69,13 @@ public class WaybillController {
         Waybill waybill0 = waybillMapper.getLastWaybillByUserId(user_id);
 
         ReturnResult returnResult = new ReturnResult();
-        if (waybill0 != null) {
-            if (!waybill0.getOrigin().equals(origin) || !waybill0.getDestination().equals(destination) || !waybill0.getConsignor_tel().equals(consignor_tel) ||
-                    !waybill0.getConsignee_tel().equals(consignee_tel) || !waybill0.getConsignor_company().equals(consignor_company) ||
-                    !waybill0.getConsignee_company().equals(consignee_company) || !waybill0.getConsignor_address().equals(consignor_address) ||
-                    !waybill0.getConsignee_address().equals(consignee_address) || waybill0.getPrice() != price || waybill0.getFreight() != freight ||
-                    waybill0.getPayway() != payway || waybill0.getNumber() != number) {
+        if (1==1) {
+//            if (!waybill0.getOrigin().equals(origin) || !waybill0.getDestination().equals(destination) || !waybill0.getConsignor_tel().equals(consignor_tel) ||
+//                    !waybill0.getConsignee_tel().equals(consignee_tel) || !waybill0.getConsignor_company().equals(consignor_company) ||
+//                    !waybill0.getConsignee_company().equals(consignee_company) || !waybill0.getConsignor_address().equals(consignor_address) ||
+//                    !waybill0.getConsignee_address().equals(consignee_address) || waybill0.getPrice() != price || waybill0.getFreight() != freight ||
+//                    waybill0.getPayway() != payway || waybill0.getNumber() != number) {
+            if (1==1) {
 
                 //获取当前时间
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -379,7 +380,7 @@ public class WaybillController {
     @ResponseBody
     @RequestMapping(value = "/updateCondition", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public String updateCondition(HttpServletRequest request) {
-        int user_id = Integer.parseInt(request.getParameter("user_id"));
+//        int user_id = Integer.parseInt(request.getParameter("user_id"));
         int id = Integer.parseInt(request.getParameter("id"));
         int condition = Integer.parseInt(request.getParameter("condition"));
 
@@ -393,10 +394,10 @@ public class WaybillController {
         if (condition == 1) {
             params.put("time1", time);
             waybillMapper.updateCondition1(params);
-            Map params1 = new HashMap();
-            params1.put("id", id);
-            params1.put("user1_id", user_id);
-            waybillMapper.updateUser1Id(params1);
+//            Map params1 = new HashMap();
+//            params1.put("id", id);
+//            params1.put("user1_id", user_id);
+//            waybillMapper.updateUser1Id(params1);
         } else if (condition == 2) {
             params.put("time2", time);
             waybillMapper.updateCondition2(params);

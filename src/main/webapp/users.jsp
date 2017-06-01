@@ -236,7 +236,7 @@
             <h4 class="modal-title" id="myModalLabel">修改订单</h4>
         </div>
         <div class="modal-body">
-            <form class="form-horizontal" id="update_form" action="${ctx}/management/updateUserById" method="post">
+            <form class="form-horizontal" id="update_form" action="${ctx}/management/updateUserById" method="get">
                 <input type="hidden" id="user_id" name="user_id" class="user_id">
                 <input type="hidden" name="pagesNow" value="<%=pagesNow%>">
                 <!--这里加输入框-->

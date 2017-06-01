@@ -389,7 +389,7 @@ public class ManagementUserController {
         String company_name = request.getParameter("company_name");
         String company_tel = request.getParameter("company_tel");
         String company_address = request.getParameter("company_address");
-        double achivement = Double.parseDouble(request.getParameter("achivement"));
+        double achievement = Double.parseDouble(request.getParameter("achievement"));
 
         Map params = new HashMap();
         params.put("id", id);
@@ -399,7 +399,7 @@ public class ManagementUserController {
         params.put("company_name", company_name);
         params.put("company_tel", company_tel);
         params.put("company_address", company_address);
-        params.put("achivement", achivement);
+        params.put("achievement", achievement);
 
         managementMapper.updateUserById(params);
 

@@ -11,164 +11,164 @@ import java.util.Map;
 
 /**
  * Created by hu meng on 2017/5/2.
- * ºóÌ¨¹ÜÀí½çÃæ£¬mapper
+ * ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ£¬mapper
  */
 public interface ManagementMapper {
 
-    //²éÑ¯ËùÓÐÔËµ¥£¬°´ÕÕ×´Ì¬£¬Ê±¼äÅÅÐò
+    //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT*FROM waybill WHERE waybill_id<>320720000 ORDER BY invalid,`condition`,time DESC,time1 DESC,time2 DESC,time3 DESC,time4 DESC,time5 DESC LIMIT #{m},#{rows}")
     List<Waybill> getAllWaybills(Map params);
 
-    //²éÑ¯ËùÓÐÒµÎñÔ±
+    //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Ô±
     @Select("SELECT*FROM user")
     List<User> getAllUsers();
 
-    //²éÑ¯Ò»¹²ÓÐ¶àÉÙÔËµ¥
+    //ï¿½ï¿½Ñ¯Ò»ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ëµï¿½
     @Select("SELECT COUNT(id) FROM waybill")
     int getWaybillNum();
 
-    //¸ù¾ÝidÉ¾³ýÔËµ¥
+    //ï¿½ï¿½ï¿½ï¿½idÉ¾ï¿½ï¿½ï¿½Ëµï¿½
     @Delete("DELETE FROM waybill WHERE id=#{id}")
     void deleteWaybillById(int id);
 
-    //¸ù¾ÝIDÐÞ¸ÄÔËµ¥×´Ì¬
+    //ï¿½ï¿½ï¿½ï¿½IDï¿½Þ¸ï¿½ï¿½Ëµï¿½×´Ì¬
     @Update("UPDATE waybill SET `condition`=#{condition} WHERE id=#{id}")
     void updateCondition(Map params);
 
-    //²éÑ¯ËùÓÐÓÃ»§
+    //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
     @Select("SELECT*FROM user ORDER BY power DESC,id LIMIT #{m},#{rows}")
     List<User> getUsers(Map params);
 
-    //²éÑ¯Ò»¹²ÓÐ¶àÉÙÓÃ»§
+    //ï¿½ï¿½Ñ¯Ò»ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
     @Select("SELECT COUNT(id) FROM user")
     int getUserNum();
 
-    //ÐÞ¸ÄÓÃ»§È¨ÏÞ
+    //ï¿½Þ¸ï¿½ï¿½Ã»ï¿½È¨ï¿½ï¿½
     @Update("UPDATE user SET power=#{power} WHERE id=#{id}")
     void updatePower(Map params);
 
-    //¸ù¾ÝIDÉ¾³ýÓÃ»§
+    //ï¿½ï¿½ï¿½ï¿½IDÉ¾ï¿½ï¿½ï¿½Ã»ï¿½
     @Delete("DELETE FROM user WHERE id=#{id}")
     void deleteUserById(int id);
 
-    //¸ù¾Ýwaybill_id²éÑ¯ÔËµ¥
+    //ï¿½ï¿½ï¿½ï¿½waybill_idï¿½ï¿½Ñ¯ï¿½Ëµï¿½
     @Select("SELECT*FROM waybill WHERE waybill_id=#{waybill_id}")
     Waybill getWaybillByWaybillId(int waybill_id);
 
-    //¸ù¾ÝID²éÑ¯ÓÃ»§
+    //ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½Ñ¯ï¿½Ã»ï¿½
     @Select("SELECT*FROM user WHERE id=#{id}")
     User getUserById(int id);
 
-    //¸ù¾ÝIDÐÞ¸ÄÍøµã
+    //ï¿½ï¿½ï¿½ï¿½IDï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½
     @Update("UPDATE user SET station=#{station} WHERE id=#{id}")
     void updateStation(Map params);
 
-    //²éÑ¯ËùÓÐÍøµã
+    //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT*FROM station")
     List<Station> getAllStations();
 
-    //¸ù¾Ýcellphone²éÑ¯ÓÃ»§
+    //ï¿½ï¿½ï¿½ï¿½cellphoneï¿½ï¿½Ñ¯ï¿½Ã»ï¿½
     @Select("SELECT*FROM user WHERE cellphone=#{cellphone}")
     User getUserByCellphone(String cellphone);
 
-    //¸ù¾ÝIDÉ¾³ýÍøµã
+    //ï¿½ï¿½ï¿½ï¿½IDÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Delete("DELETE FROM station WHERE id=#{id}")
     void deleteStationById(int id);
 
-    //Ìí¼ÓÍøµã
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Insert("INSERT INTO station (name,arrive) VALUES (#{name},#{arrive})")
     int addStation(Map params);
 
-    //ÕÒ³ö×îºóÔö¼ÓµÄID
+    //ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ID
     @Select("SELECT MAX(id) FROM station")
     int getMaxStationId();
 
-    //ÐÞ¸Äarrive
+    //ï¿½Þ¸ï¿½arrive
     @Update("UPDATE station SET arrive=#{arrive} WHERE id=#{id}")
     void updateArriveById(Map params);
 
-    //ÐÞ¸Ä¶©µ¥
+    //ï¿½Þ¸Ä¶ï¿½ï¿½ï¿½
     @Update("UPDATE waybill SET consignor_company=#{consignor_company},consignor_tel=#{consignor_tel}," +
             "origin=#{origin},consignor_address=#{consignor_address},consignee_company=#{consignee_company}," +
             "consignee_tel=#{consignee_tel},destination=#{destination},consignee_address=#{consignee_address}," +
             "price=#{price},freight=#{freight},number=#{number},remark=#{remark} WHERE waybill_id=#{waybill_id}")
     void updateWaybillByWaybillId(Map params);
 
-    //×÷·Ï¶©µ¥
+    //ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½
     @Update("UPDATE waybill SET invalid=1 WHERE id=#{id}")
     void invalidWaybillById(int id);
 
-    //ÐÞ¸Äuser
+    //ï¿½Þ¸ï¿½user
     @Update("UPDATE user SET name=#{name},cellphone=#{cellphone},password=#{password}," +
-            "company_name=#{compang_name},company_address=#{company_address}," +
+            "company_name=#{company_name},company_address=#{company_address}," +
             "company_tel=#{company_tel},achievement=#{achievement} WHERE id=#{id}")
     void updateUserById(Map params);
 
-    //¸ù¾Ý·¢»õÈËÄ£ºýËÑË÷ÔËµ¥
+    //ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½
     @Select("SELECT*FROM waybill WHERE consignor_company LIKE CONCAT('%','${consignor_company}','%') ORDER BY `condition`,time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByConsignorCompany(Map params);
 
-    //µÃµ½getWaybillsByConsignorCompanyµÄÊýÁ¿
+    //ï¿½Ãµï¿½getWaybillsByConsignorCompanyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT COUNT(*) FROM waybill WHERE consignor_company LIKE CONCAT('%','${consignor_company}','%')")
     int getWaybillsByConsignorCompanyNum(Map params);
 
-    //¸ù¾ÝÊÕ»õÈËÃþË÷ËÑË÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT*FROM waybill WHERE consignee_company LIKE CONCAT('%','${consignee_company}','%') ORDER BY `condition`,time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByConsigneeCompany(Map params);
 
-    //µÃµ½getWaybillsByConsigneeCompanyµÄÊýÁ¿
+    //ï¿½Ãµï¿½getWaybillsByConsigneeCompanyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT COUNT(*) FROM waybill WHERE consignee_company LIKE CONCAT('%','${consignee_company}','%')")
     int getWaybillsByConsigneeCompanyNum(Map params);
 
-    //¸ù¾Ý·¢»õÈËºÍÊÕ»õÈËÒ»ÆðËÑË÷
+    //ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Õ»ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT*FROM waybill WHERE consignor_company LIKE CONCAT('%','${consignor_company}','%') AND consignee_company LIKE CONCAT('%','${consignee_company}','%') ORDER BY `condition`,time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByConsignorAndConsignee(Map params);
 
-    //µÃµ½getWaybillsByConsignorAndConsigneeµÃÊýÁ¿
+    //ï¿½Ãµï¿½getWaybillsByConsignorAndConsigneeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT COUNT(*) FROM waybill WHERE consignor_company LIKE CONCAT('%','${consignor_company}','%') AND consignee_company LIKE CONCAT('%','${consignee_company}','%')")
     int getWaybillsByConsignorAndConsigneeNum(Map params);
 
-    //ÐÞ¸ÄÖ§¸¶·½Ê½
+    //ï¿½Þ¸ï¿½Ö§ï¿½ï¿½ï¿½ï¿½Ê½
     @Select("UPDATE waybill SET payway=#{payway},consignor_mark=1,consignee_mark=1 WHERE waybill_id=#{waybill_id}")
     void updatePayway(Map params);
 
-    //ÐÞ¸Ä×´Ì¬Îª½áÊø
+    //ï¿½Þ¸ï¿½×´Ì¬Îªï¿½ï¿½ï¿½ï¿½
     @Update("UPDATE waybill SET `condition`=6 WHERE id=#{id}")
     void endWaybill(int id);
 
-    //¸ù¾ÝID»ñÈ¡waybill
+    //ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½È¡waybill
     @Select("SELECT*FROM waybill WHERE id=#{id}")
     Waybill getWaybillById(int id);
 
-    //¸ù¾ÝidÐÞ¸ÄÔË·ÑºÍ»õ¿î
+    //ï¿½ï¿½ï¿½ï¿½idï¿½Þ¸ï¿½ï¿½Ë·ÑºÍ»ï¿½ï¿½ï¿½
     @Update("UPDATE waybill SET freight=#{freight},price=#{price} WHERE id=#{id}")
     void updateFreightOrPrice(Map params);
 
-    //²éÑ¯Î´½»ÕËµÄ¶©µ¥
+    //ï¿½ï¿½Ñ¯Î´ï¿½ï¿½ï¿½ËµÄ¶ï¿½ï¿½ï¿½
     @Select("SELECT*FROM waybill WHERE `condition`<>4 AND `condition`<>5 AND `condition`<>6 AND invalid=0 ORDER BY `condition` DESC,time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsNotSubmit(Map params);
 
-    //²éÑ¯Î´½»ÕËµÄ¶©µ¥¶àÉÙÌõ
+    //ï¿½ï¿½Ñ¯Î´ï¿½ï¿½ï¿½ËµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT COUNT(*) FROM waybill WHERE `condition`<>4 AND `condition`<>5 AND `condition`<>6 AND invalid=0")
     int getWaybillNotSubmitNum();
 
-    //²éÑ¯½»ÕË¼ÇÂ¼
+    //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ë¼ï¿½Â¼
     @Select("SELECT*FROM submit ORDER BY time4 DESC LIMIT #{m},#{rows}")
     List<Submit> getAllSubmits(Map params);
 
-    //²éÑ¯½»ÕËµÄÊýÁ¿
+    //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT COUNT(*) FROM submit")
     int getSubmitsNum();
 
-    //²éÑ¯ÒÑÊÕÕËÎ´½»ÕËµÄ¶©µ¥
+    //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ËµÄ¶ï¿½ï¿½ï¿½
     @Select("SELECT*FROM waybill WHERE (`condition`=3 AND payway=0 AND invalid<>1) OR (payway=1 AND consignor_mark=0 AND invalid=0) OR (payway=1 AND consignee_mark=0 AND invalid=0) ORDER BY time LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsReceiveAndNotSubmit(Map params);
 
-    //²éÑ¯getWaybillsReceiveAndNotSubmitµÄÊýÁ¿
+    //ï¿½ï¿½Ñ¯getWaybillsReceiveAndNotSubmitï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     @Select("SELECT COUNT(*) FROM waybill WHERE (`condition`=3 AND payway=0 AND invalid<>1) OR (payway=1 AND consignor_mark=0 AND invalid=0) OR (payway=1 AND consignee_mark=0 AND invalid=0)")
     int getWaybillsReceiveAndNotSubmitNum();
 
-    //¸ù¾Ýid²éÑ¯Submit
+    //ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½Ñ¯Submit
     @Select("SELECT*FROM submit WHERE id=#{id}")
     Submit getSubmitById(int id);
 }
