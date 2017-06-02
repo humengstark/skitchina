@@ -133,9 +133,9 @@ public interface WaybillMapper {
     @Select("SELECT*FROM waybill WHERE user3_id=#{user3_id} AND `condition`=3 AND consignor_mark<>2 AND consignee_mark<>2 AND invalid<>1")
     List<Waybill> getWaybillsByUser3Id(int user3_id);
 
-    //查询已收运费单子
-    @Select("SELECT*FROM waybill WHERE payway=1 AND consignor_mark<>2 AND consignor_mark<>3 AND user_id=#{user3_id} AND invalid=0 LIMIT #{m},#{rows}")
-    List<Waybill> getFreightReceivableWaybills(Map params);
+    //我的现付 查询已收运费单子
+    @Select("SELECT*FROM waybill WHERE payway=1 AND `condition`<>3 AND `condition`<>4 AND consignor_mark<>2 AND consignor_mark<>3 AND origin=#{origin} AND invalid=0 LIMIT #{m},#{rows}")
+    List<Waybill> getFreightReceivableWaybillsByStation(Map params);
 
     //查询已收货款运单
     @Select("SELECT*FROM waybill WHERE payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0")

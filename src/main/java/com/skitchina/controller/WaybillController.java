@@ -2,11 +2,9 @@ package com.skitchina.controller;
 
 import com.skitchina.mapper.ContactMapper;
 import com.skitchina.mapper.SubmitMapper;
+import com.skitchina.mapper.UserMapper;
 import com.skitchina.mapper.WaybillMapper;
-import com.skitchina.model.Contact;
-import com.skitchina.model.ReturnResult;
-import com.skitchina.model.Submit;
-import com.skitchina.model.Waybill;
+import com.skitchina.model.*;
 import com.skitchina.utils.ReturnResultUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +39,10 @@ public class WaybillController {
     @Autowired
     @Qualifier("submitMapperImpl")
     private SubmitMapper submitMapper;
+
+    @Autowired
+    @Qualifier("userMapperImpl")
+    private UserMapper userMapper;
 
     /**
      * œ¬µ•
@@ -878,17 +880,19 @@ public class WaybillController {
     @ResponseBody
     @RequestMapping(value = "/getFreightReceivableWaybills",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
     public String getFreightReceivableWaybills(HttpServletRequest request) {
-        int user3_id = Integer.parseInt(request.getParameter("user_id"));
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
         int pages = Integer.parseInt(request.getParameter("pages"));
         int rows = Integer.parseInt(request.getParameter("rows"));
         int m = (pages - 1) * rows;
 
+        User user = userMapper.getUserById(user_id);
         Map params = new HashMap();
-        params.put("user3_id", user3_id);
+        String origin = user.getStation().trim();
+        params.put("origin", origin);
         params.put("m", m);
         params.put("rows", rows);
 
-        List<Waybill> waybills = waybillMapper.getFreightReceivableWaybills(params);
+        List<Waybill> waybills = waybillMapper.getFreightReceivableWaybillsByStation(params);
 
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);
@@ -899,23 +903,4 @@ public class WaybillController {
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
-    /**
-     * ≤‚ ‘
-     * @param
-     * @return
-     */
-//    @ResponseBody
-//    @RequestMapping(value = "/test", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
-//    public String getLastWaybillByUserId() {
-//        int user_id = 3;
-//        Waybill waybill = waybillMapper.getLastWaybillByUserId(user_id);
-//        System.out.println(waybill==null);
-//        ReturnResult returnResult = new ReturnResult();
-//        returnResult.setData(waybill);
-//        returnResult.setCode(0);
-//        returnResult.setMessage("");
-//        returnResult.setDisplay(0);
-//
-//        return ReturnResultUtil.ReturnResultToJSON(returnResult);
-//    }
 }

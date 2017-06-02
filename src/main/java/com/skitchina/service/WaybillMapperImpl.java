@@ -238,9 +238,9 @@ public class WaybillMapperImpl implements WaybillMapper {
         return waybills;
     }
 
-    public List<Waybill> getFreightReceivableWaybills(Map params) {
+    public List<Waybill> getFreightReceivableWaybillsByStation(Map params) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<Waybill> waybills = sqlSession.selectList("com.skitchina.mapper.WaybillMapper.getFreightReceivableWaybills", params);
+        List<Waybill> waybills = sqlSession.selectList("com.skitchina.mapper.WaybillMapper.getFreightReceivableWaybillsByStation", params);
         sqlSession.commit();
         sqlSession.close();
         return waybills;
