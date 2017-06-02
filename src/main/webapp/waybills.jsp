@@ -730,19 +730,19 @@
             });
 
 
-            $('.waybill_id').attr('value', $(this).parent().parent().children('.waybill_id').text());
-            $('.consignor_company').attr('value', $(this).parent().parent().children('.consignor_company').text());
-            $('.consignor_tel').attr('value', $(this).parent().parent().children('.consignor_tel').text());
-            $('.origin').attr('value', $(this).parent().parent().children('.origin').text());
-            $('.consignor_address').attr('value', $(this).parent().parent().children('.consignor_address').text());
-            $('.consignee_tel').attr('value', $(this).parent().parent().children('.consignee_tel').text());
-            $('.consignee_company').attr('value', $(this).parent().parent().children('.consignee_company').text());
-            $('.destination').attr('value', $(this).parent().parent().children('.destination').text());
-            $('.consignee_address').attr('value', $(this).parent().parent().children('.consignee_address').text());
-            $('.price').attr('value', $(this).parent().parent().children('.price').text());
-            $('.freight').attr('value', $(this).parent().parent().children('.freight').text());
-            $('.number').attr('value', $(this).parent().parent().children('.number').text());
-            $('.remark').attr('value', $(this).parent().parent().children('.remark').text());
+            $('.waybill_id').attr('value', $(this).parent().parent().children('.waybill_id').text().trim());
+            $('.consignor_company').attr('value', $(this).parent().parent().children('.consignor_company').text().trim());
+            $('.consignor_tel').attr('value', $(this).parent().parent().children('.consignor_tel').text().trim());
+            $('.origin').attr('value', $(this).parent().parent().children('.origin').text().trim());
+            $('.consignor_address').attr('value', $(this).parent().parent().children('.consignor_address').text().trim());
+            $('.consignee_tel').attr('value', $(this).parent().parent().children('.consignee_tel').text().trim());
+            $('.consignee_company').attr('value', $(this).parent().parent().children('.consignee_company').text().trim());
+            $('.destination').attr('value', $(this).parent().parent().children('.destination').text().trim());
+            $('.consignee_address').attr('value', $(this).parent().parent().children('.consignee_address').text().trim());
+            $('.price').attr('value', $(this).parent().parent().children('.price').text().trim());
+            $('.freight').attr('value', $(this).parent().parent().children('.freight').text().trim());
+            $('.number').attr('value', $(this).parent().parent().children('.number').text().trim());
+            $('.remark').attr('value', $(this).parent().parent().children('.remark').text().trim());
 
         })
     })

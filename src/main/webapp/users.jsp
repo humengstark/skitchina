@@ -359,14 +359,14 @@ $(function () {
             backdrop:true
         });
 
-        $('.user_id').attr('value', $(this).parent().parent().children('.user_id').text());
-        $('.name').attr('value', $(this).parent().parent().children('.name').text());
-        $('.cellphone').attr('value', $(this).parent().parent().children('.cellphone').text());
-        $('.password').attr('value', $(this).parent().parent().children('.password').text());
-        $('.company_name').attr('value', $(this).parent().parent().children('.company_name').text());
-        $('.company_tel').attr('value', $(this).parent().parent().children('.company_tel').text());
-        $('.company_address').attr('value', $(this).parent().parent().children('.company_address').text());
-        $('.achievement').attr('value', $(this).parent().parent().children('.achievement').text());
+        $('.user_id').attr('value', $(this).parent().parent().children('.user_id').text().trim());
+        $('.name').attr('value', $(this).parent().parent().children('.name').text().trim());
+        $('.cellphone').attr('value', $(this).parent().parent().children('.cellphone').text().trim());
+        $('.password').attr('value', $(this).parent().parent().children('.password').text().trim());
+        $('.company_name').attr('value', $(this).parent().parent().children('.company_name').text().trim());
+        $('.company_tel').attr('value', $(this).parent().parent().children('.company_tel').text().trim());
+        $('.company_address').attr('value', $(this).parent().parent().children('.company_address').text().trim());
+        $('.achievement').attr('value', $(this).parent().parent().children('.achievement').text().trim());
 
     })
 
