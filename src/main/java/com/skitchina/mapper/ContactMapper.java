@@ -23,7 +23,7 @@ public interface ContactMapper {
     @Insert("INSERT INTO contact (user_id,cellphone,company,address) VALUES (#{user_id},#{cellphone},#{company},#{address})")
     void addContact(Map params);
 
-    //根据cellphone查询contact（模糊查询）
+    //根据cellphone查询contact
     @Select("SELECT*FROM contact WHERE cellphone LIKE CONCAT('%','${value}','%') LIMIT #{m},#{rows}")
     List<Contact> getContactsByCellphone(Map params);
 

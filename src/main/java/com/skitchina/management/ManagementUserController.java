@@ -1,15 +1,13 @@
 package com.skitchina.management;
 
 import com.skitchina.mapper.ManagementMapper;
-import com.skitchina.model.Station;
-import com.skitchina.model.Submit;
-import com.skitchina.model.User;
-import com.skitchina.model.Waybill;
+import com.skitchina.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,7 +56,7 @@ public class ManagementUserController {
     }
 
     /**
-     * 根据ID删除运单
+     * 根据ID删除订单
      * @param request
      * @param response
      * @throws IOException
@@ -103,13 +101,34 @@ public class ManagementUserController {
         int pages = Integer.parseInt(request.getParameter("pages"));
         int id = Integer.parseInt(request.getParameter("id"));
         int condition = Integer.parseInt(request.getParameter("condition"));
+        int type = Integer.parseInt(request.getParameter("type"));
+        int waybill_id = Integer.parseInt(request.getParameter("waybill_id"));
+        String consignor_company = request.getParameter("consignor_company");
+        String consignee_company = request.getParameter("consignee_company");
 
         Map params = new HashMap();
         params.put("id", id);
         params.put("condition", condition);
 
         managementMapper.updateCondition(params);
-        response.sendRedirect(request.getContextPath()+"/management/getWaybills?pages="+pages+"&rows=10");
+
+        String url = null;
+        String consignor_company2 = java.net.URLEncoder.encode(consignor_company, "UTF-8");
+        String consignee_company2 = java.net.URLEncoder.encode(consignee_company, "UTF-8");
+        if (type == 0) {
+            url = request.getContextPath() + "/management/getWaybills?pages=" + pages + "&rows=10";
+        } else if (type == 4) {
+            url = request.getContextPath() + "/management/getWaybillByWaybillId?waybill_id2="+waybill_id;
+        } else if (type == 1) {
+            url = request.getContextPath() + "/management/getWaybillsByConsignorCompany?pages=" + pages + "&rows=10&consignorCompany=" + consignor_company2;
+        } else if (type == 2) {
+            url = request.getContextPath() + "/management/getWaybillsByConsigneeCompany?pages=" + pages + "&rows=10&consigneeCompany=" + consignee_company2;
+        } else if (type == 3) {
+            url = request.getContextPath() + "/management/getWaybillsByConsignorAndConsignee?pages=" + pages + "&rows=10&consignorCompany=" + consignor_company2 + "&consigneeCompany=" + consignee_company2;
+        } else if (type == 5) {
+            url = request.getContextPath() + "/management/getWaybillsNotSubmit?pages=" + pages + "&rows=10";
+        }
+        response.sendRedirect(url);
     }
 
     /**
@@ -142,7 +161,7 @@ public class ManagementUserController {
     }
 
     /**
-     * 修改用户权限
+     * 修改权限
      * @param request
      * @param response
      * @throws IOException
@@ -407,7 +426,7 @@ public class ManagementUserController {
     }
 
     /**
-     * 根据consignor_company搜索运单
+     * 根据consignor_company搜索订单
      * @param request
      * @param response
      */
@@ -451,7 +470,7 @@ public class ManagementUserController {
     }
 
     /**
-     * 根据consignee_company查询订单
+     * 根据consignee_company搜索
      * @param request
      * @param response
      */
@@ -492,7 +511,7 @@ public class ManagementUserController {
     }
 
     /**
-     * 根据consignor_company和consignee_company查询订单
+     * 根据consignor_company和consignee_company搜索
      * @param request
      * @param response
      */
@@ -577,7 +596,7 @@ public class ManagementUserController {
     }
 
     /**
-     * 根据waybill_id搜索运单
+     * 根据waybill_id搜索
      * @param request
      * @param response
      */
@@ -770,7 +789,7 @@ public class ManagementUserController {
     }
 
     /**
-     * 查询已收账未交账的订单
+     * 查询已收账未交账的运单
      * @param request
      * @param response
      */
@@ -912,6 +931,7 @@ public class ManagementUserController {
         response.sendRedirect(request.getContextPath()+"/waybillsbysubmit.jsp");
 
     }
+
 }
 
 

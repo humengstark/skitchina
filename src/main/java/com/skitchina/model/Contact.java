@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 /**
- * ³£ÓÃÁªÏµÈË
+ * å¸¸ç”¨è”ç³»äºº
  */
 public class Contact implements Serializable {
     private int id;

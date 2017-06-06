@@ -118,6 +118,7 @@
                     <li><a href="${ctx}/management/getAllUsers?pages=1&rows=10" title="用户管理">用户管理</a></li>
                     <li><a href="${ctx}/management/getAllStations" title="网点管理">网点管理</a></li>
                     <li><a href="${ctx}/management/getAllSubmits?pages=1" title="财务管理">财务管理</a></li>
+                    <li><a href="${ctx}/version/upload" title="文件上传">文件上传</a></li>
                 </ul>
             </dd>
         </dl>

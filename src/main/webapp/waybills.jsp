@@ -149,6 +149,7 @@
                     <li><a href="${ctx}/management/getAllUsers?pages=1&rows=10" title="用户管理">用户管理</a></li>
                     <li><a href="${ctx}/management/getAllStations" title="网点管理">网点管理</a></li>
                     <li><a href="${ctx}/management/getAllSubmits?pages=1" title="财务管理">财务管理</a></li>
+                    <li><a href="${ctx}/version/upload" title="文件上传">文件上传</a></li>
                 </ul>
             </dd>
         </dl>
@@ -287,32 +288,86 @@
                         <td style="color: red">作废</td>
                         <%} else {%>
                         <form id="update_condition" action="${ctx}/management/updateCondition" method="post">
+                            <input type="hidden" name="type" value="<%=type%>">
                             <input type="hidden" name="pages" value="<%=pagesNow%>">
                             <input type="hidden" name="id" value="<%=waybill.getId()%>">
+                            <input type="hidden" name="consignor_company" value="<%=consignor_company3%>">
+                            <input type="hidden" name="consignee_company" value="<%=consignee_company3%>">
+                            <input type="hidden" name="waybill_id" value="<%=waybill.getWaybill_id()%>">
                             <%if (waybill.getCondition() == 0) {%>
                             <td>下单
-                                <%--<select name="condition" id=<%=waybill.getId()%>>--%>
-                                <%--<option value="0">下单</option>--%>
-                                <%--<option value="1">运输</option>--%>
-                                <%--<option value="2">到达</option>--%>
-                                <%--<option value="3">收款</option>--%>
-                                <%--<option value="4">交账</option>--%>
-                                <%--<option value="5">完成</option>--%>
-                                <%--</select>--%>
-                                <%--<button type="submit">修改</button>--%>
+                                <select name="condition">
+                                <option value="0">下单</option>
+                                <option value="1">运输</option>
+                                <option value="2">到达</option>
+                                <option value="3">收款</option>
+                                <option value="4">交账</option>
+                                <option value="5">完成</option>
+                                </select>
+                                <button type="submit">修改</button>
                             </td>
                             <%} else if (waybill.getCondition() == 6) {%>
                             <td style="color: green">结束</td>
                             <%} else if (waybill.getCondition() == 1) {%>
-                            <td>运输</td>
+                            <td>运输
+                                <select name="condition">
+                                    <option value="0">下单</option>
+                                    <option value="1">运输</option>
+                                    <option value="2">到达</option>
+                                    <option value="3">收款</option>
+                                    <option value="4">交账</option>
+                                    <option value="5">完成</option>
+                                </select>
+                                <button type="submit">修改</button>
+                            </td>
                             <%} else if (waybill.getCondition() == 2) {%>
-                            <td>到达</td>
+                            <td>到达
+                                <select name="condition">
+                                    <option value="0">下单</option>
+                                    <option value="1">运输</option>
+                                    <option value="2">到达</option>
+                                    <option value="3">收款</option>
+                                    <option value="4">交账</option>
+                                    <option value="5">完成</option>
+                                </select>
+                                <button type="submit">修改</button>
+                            </td>
                             <%} else if (waybill.getCondition() == 3) {%>
-                            <td>已收款</td>
+                            <td>已收款
+                                <select name="condition">
+                                    <option value="0">下单</option>
+                                    <option value="1">运输</option>
+                                    <option value="2">到达</option>
+                                    <option value="3">收款</option>
+                                    <option value="4">交账</option>
+                                    <option value="5">完成</option>
+                                </select>
+                                <button type="submit">修改</button>
+                            </td>
                             <%} else if (waybill.getCondition() == 4) {%>
-                            <td>已交账</td>
+                            <td>已交账
+                                <select name="condition">
+                                    <option value="0">下单</option>
+                                    <option value="1">运输</option>
+                                    <option value="2">到达</option>
+                                    <option value="3">收款</option>
+                                    <option value="4">交账</option>
+                                    <option value="5">完成</option>
+                                </select>
+                                <button type="submit">修改</button>
+                            </td>
                             <%} else if (waybill.getCondition() == 5) {%>
-                            <td>已完成</td>
+                            <td>已完成
+                                <select name="condition">
+                                    <option value="0">下单</option>
+                                    <option value="1">运输</option>
+                                    <option value="2">到达</option>
+                                    <option value="3">收款</option>
+                                    <option value="4">交账</option>
+                                    <option value="5">完成</option>
+                                </select>
+                                <button type="submit">修改</button>
+                            </td>
                             <%}%>
                         </form>
                         <%}%>

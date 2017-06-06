@@ -65,9 +65,9 @@ public class StationController {
     }
 
     /**
-     * 删除数据库所有
+     * 删除数据库所有数据，以便重新导入
      *
-     * 禁止在远程端调用此方法，会带来巨大损失
+     * 禁止在远程服务器使用此方法，会造成巨大损失
      * @return
      */
     @ResponseBody

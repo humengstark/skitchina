@@ -43,25 +43,6 @@ public class UserController {
     private WaybillMapper waybillMapper;
 
     /**
-     * 测试
-     * @param request
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = "/getAllUsers", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
-    public String getAllUsers(HttpServletRequest request) {
-
-        logger.info("进入Controller...");
-        List<User> users = userMapper.getAllUsers();
-        ReturnResult returnResult = new ReturnResult();
-        returnResult.setCode(0);
-        returnResult.setDisplay(0);
-        returnResult.setMessage("");
-        returnResult.setData(users);
-        return ReturnResultUtil.ReturnResultToJSON(returnResult);
-    }
-
-    /**
      * 用户注册
      * @param request
      * @return
@@ -75,6 +56,14 @@ public class UserController {
         String company_address = request.getParameter("company_address");
         String company_tel = request.getParameter("company_tel");
         String name = request.getParameter("name");
+
+        logger.info("cellphone=" + cellphone);
+        logger.info("password=" + password);
+        logger.info("company_name=" + company_name);
+        logger.info("company_address=" + company_address);
+        logger.info("company_tel=" + company_tel);
+        logger.info("name=" + name);
+
         Map params = new HashMap();
         params.put("cellphone", cellphone);
         params.put("password", password);
@@ -99,7 +88,7 @@ public class UserController {
 
     /**
      * 用户登陆
-     * message 0为登陆成功，1为帐户不存在，2为密码错误
+     * message 0为登陆成功，1帐户不存在，2密码错误
      * @param request
      * @return
      */
@@ -143,7 +132,7 @@ public class UserController {
         String ids = request.getParameter("ids");
         //运费的id号
         String ids3 = request.getParameter("ids3");
-        //运费+货款（到付单子）
+        //到付的id号
         String ids2 = request.getParameter("ids2");
 
         int user_id = Integer.parseInt(request.getParameter("user_id"));

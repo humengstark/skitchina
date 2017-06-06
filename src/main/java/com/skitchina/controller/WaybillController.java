@@ -280,7 +280,7 @@ public class WaybillController {
 
 }
     /**
-     * 根据origin分页查询运单，需要定义m
+     * 根据origin查询订单
      * @param request
      * @return
      */
@@ -311,7 +311,7 @@ public class WaybillController {
     }
 
     /**
-     * 根据destination分页查询运单，需要定义m
+     * 根据destination查询订单
      * @param request
      * @return
      */
@@ -421,7 +421,7 @@ public class WaybillController {
     }
 
     /**
-     * 根据waybill_id查询运单
+     * 根据waybill_id查询订单
      * @param request
      * @return
      */
@@ -496,7 +496,7 @@ public class WaybillController {
             } else if (type == 1) {
                 /**
                  * 1为只收货款，修改consignee_mark为0，修改user2_id为此用户id
-                 * 判断consignor_mark是否为0，如果试0，修改condition为3
+                 * 判断consignor_mark是否为0，试过是0，修改condition为3
                  */
                 Map params = new HashMap();
                 params.put("user2_id", user2_id);
@@ -517,7 +517,7 @@ public class WaybillController {
                 returnResult.setMessage("代收款已收");
             } else if (type == 2) {
                 /**
-                 * 2为到付运单，不用修改consignor_mark和consignee_mark
+                 * 2为到付运单
                  * 将user2_id修改为此用户id，修改condition为3
                  */
                 Map params = new HashMap();
@@ -584,7 +584,7 @@ public class WaybillController {
 //    }
 
     /**
-     * 根据user2_id查询已交账但未完成的运单
+     * 根据user2_id查询已交账但是未完成的订单
      * @param request
      * @return
      */
@@ -628,7 +628,7 @@ public class WaybillController {
     }
 
     /**
-     * 一键完成所有运单
+     * 一键完成所有订单
      * @param request
      * @return
      */
@@ -693,7 +693,7 @@ public class WaybillController {
     }
 
     /**
-     * 完成单个运单
+     * 完成单个订单
      * @param request
      * @return
      */
@@ -714,7 +714,7 @@ public class WaybillController {
         params.put("time5", time5);
         if (waybill.getConsignor_mark() == 0) {
             waybillMapper.updateCondition5(params);
-            returnResult.setMessage("完成运单");
+            returnResult.setMessage("完成订单");
         } else {
             returnResult.setMessage("运费还没有提交");
         }
@@ -722,10 +722,8 @@ public class WaybillController {
     }
 
     /**
-     * 作废运单
-     * 返回code 为0 成功
-     * @param request
-     * @return
+     * 作废订单
+     * 返回code 为0成功
      */
     @ResponseBody
     @RequestMapping(value = "/invalidWaybill", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
@@ -740,7 +738,7 @@ public class WaybillController {
     }
 
     /**
-     * 根据user_id和time4查询运单
+     * 根据user_id和time4查询订单
      * @param request
      * @return
      */
@@ -758,7 +756,7 @@ public class WaybillController {
         List<Waybill> waybills3 = new ArrayList<Waybill>();
 
         Submit submit = submitMapper.getSubmitById(id);
-        //运费已交账
+        //运费的订单
         String ids = submit.getFreight();
         if (!ids.equals("no")) {
             String[] ids_id = ids.split(",");
@@ -767,7 +765,7 @@ public class WaybillController {
                 waybills1.add(waybill);
             }
         }
-        //货款已交账
+        //货款
         String ids2 = submit.getPrice();
         if (!ids2.equals("no")) {
             String[] ids2_id = ids2.split(",");
@@ -776,7 +774,7 @@ public class WaybillController {
                 waybills2.add(waybill);
             }
         }
-        //到付已交账
+        //到付
         String ids3 = submit.getFreightandprice();
         if (!ids3.equals("no")) {
             String[] ids3_id = ids3.split(",");
@@ -800,7 +798,7 @@ public class WaybillController {
     }
 
     /**
-     * 根据订单号或者发货公司或者收货公司查询订单
+     * 软件里的搜索功能
      * @param request
      * @return
      */
@@ -844,7 +842,7 @@ public class WaybillController {
     }
 
     /**
-     * 网点做账 按照时间排序
+     * 网点做账
      * @param request
      * @return
      */
