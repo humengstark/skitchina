@@ -19,7 +19,8 @@ import java.util.regex.Pattern;
  */
 public class Test {
     public static void main(String[] args) throws IOException, WriterException, InterruptedException {
-
+        String a = "http://lcoalhost:8080";
+        System.out.println(a);
     }
 
     //�ж��Ƿ�������

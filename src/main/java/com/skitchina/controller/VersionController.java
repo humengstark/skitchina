@@ -87,8 +87,9 @@ public class VersionController {
      */
     @RequestMapping(value = "/uploadApp", method = RequestMethod.POST)
     public void uploadApp(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
         String url = "http://www.jb51.net/article/70412.htm";
+        String uploadStr = "http://lcoalhost:8080/dws/";
+        System.out.println(uploadStr);
         //判断是否是文件上传请求
         if (ServletFileUpload.isMultipartContent(request)) {
             // 创建文件上传处理器
@@ -104,7 +105,7 @@ public class VersionController {
                 if (!item.isFormField()) {
                     //是文件上传对象，获取上传文件的输入流
                     InputStream srcinInputStream = item.openStream();
-                    File dest = new File(request.getContextPath() + "/resources/static");
+                    File dest = new File(uploadStr+"test.txt");
                     FileOutputStream fileOutputStream = new FileOutputStream(dest);
                         /*对上传文件的输入流进行处理，跟本地的文件流处理方式相同*/
                     byte[] buf = new byte[1024];
@@ -114,8 +115,8 @@ public class VersionController {
                             fileOutputStream.write(buf, 0, bytesRead);
                         }
                     }finally {
-                        srcinInputStream.close();
                         fileOutputStream.close();
+                        srcinInputStream.close();
                 }
                 }
             }

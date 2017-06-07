@@ -739,11 +739,9 @@
             var type = $('#type').val();
             var pagesAll = $('#pagesAll').val();
             var pagesNow = $('#pagesNum').val();
-            if (pagesNow < 1) {
-                alert("页数不能小于1");
-            } else if (pagesNow > pagesAll) {
-                alert("页数不能大于总页数");
-            } else {
+            alert("pagesAll=" + pagesAll + "，pagesNow=" + pagesNow);
+            alert(pagesNow > pagesAll);
+            if (pagesNow>0) {
                 if (type == 0) {
                     choosePage.attr("action", "${ctx}/management/getWaybills");
                     choosePage.attr("method", "get");
@@ -769,6 +767,8 @@
                     choosePage.attr("method", "get");
                     choosePage.submit();
                 }
+            }else {
+                alert("输入页数错误")
             }
         });
 

@@ -590,7 +590,9 @@ public class ManagementUserController {
         request.getSession().setAttribute("users", users1);
         request.getSession().setAttribute("pagesAll",pagesAll);
         request.getSession().setAttribute("pagesNow",pages);
+        System.out.println("=============================pagesNow="+pages);
         request.getSession().setAttribute("waybillNum",waybillNum);
+        System.out.println("=============================waybillNum="+waybillNum);
         request.getSession().setAttribute("rows",rows);
         response.sendRedirect(request.getContextPath() + "/waybills.jsp");
     }
