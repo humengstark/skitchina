@@ -92,7 +92,7 @@ public class VersionController {
          * 设置TOMCAT虚拟路径
          */
         String url2 = "https://my.oschina.net/wtzheng/blog/487633";
-        String uploadStr = "http://lcoalhost:8080/dws/";
+        String uploadStr = "http://lcoalhost:8080/upload";
         System.out.println(uploadStr);
         //判断是否是文件上传请求
         if (ServletFileUpload.isMultipartContent(request)) {
@@ -109,7 +109,7 @@ public class VersionController {
                 if (!item.isFormField()) {
                     //是文件上传对象，获取上传文件的输入流
                     InputStream srcinInputStream = item.openStream();
-                    File dest = new File(uploadStr+"test.txt");
+                    File dest = new File("E:/Download/快捷键.txt");
                     FileOutputStream fileOutputStream = new FileOutputStream(dest);
                         /*对上传文件的输入流进行处理，跟本地的文件流处理方式相同*/
                     byte[] buf = new byte[1024];
