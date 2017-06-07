@@ -88,6 +88,7 @@ public class VersionController {
     @RequestMapping(value = "/uploadApp", method = RequestMethod.POST)
     public void uploadApp(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String url = "http://www.jb51.net/article/70412.htm";
+        String url2 = "https://my.oschina.net/wtzheng/blog/487633";
         String uploadStr = "http://lcoalhost:8080/dws/";
         System.out.println(uploadStr);
         //判断是否是文件上传请求
