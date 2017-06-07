@@ -88,6 +88,9 @@ public class VersionController {
     @RequestMapping(value = "/uploadApp", method = RequestMethod.POST)
     public void uploadApp(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String url = "http://www.jb51.net/article/70412.htm";
+        /**
+         * 设置TOMCAT虚拟路径
+         */
         String url2 = "https://my.oschina.net/wtzheng/blog/487633";
         String uploadStr = "http://lcoalhost:8080/dws/";
         System.out.println(uploadStr);
