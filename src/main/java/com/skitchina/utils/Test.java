@@ -19,8 +19,14 @@ import java.util.regex.Pattern;
  */
 public class Test {
     public static void main(String[] args) throws IOException, WriterException, InterruptedException {
-        String a = "http://lcoalhost:8080";
-        System.out.println(a);
+        String version = "1.0.0";
+        String version2 = Utils.createAppVersion(version);
+        System.out.println(version2);
+//        String a = "abc";
+//        StringBuffer stringBuffer = new StringBuffer(a);
+//        stringBuffer.insert(1, ".");
+//        stringBuffer.insert(3, ".");
+//        System.out.println(stringBuffer);
     }
 
     //�ж��Ƿ�������

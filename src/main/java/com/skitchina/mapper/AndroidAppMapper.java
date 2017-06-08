@@ -3,6 +3,7 @@ package com.skitchina.mapper;
 import com.skitchina.model.AndroidApp;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Map;
 
@@ -11,9 +12,12 @@ import java.util.Map;
  */
 public interface AndroidAppMapper {
 
-    @Insert("INSERT INTO androidapp (version,address,time,text) VALUES (#{version},#{address},#{time},#{text})")
+    @Insert("INSERT INTO androidapp (id,version,time,name) VALUES (#{id},#{version},#{time},#{name})")
     void addAndroidApp(Map params);
 
-    @Select("SELECT*FROM androidapp WHERE id=MAX(id)")
+    @Update("UPDATE androidapp SET url=#{url} WHERE id=#{id}")
+    void updateAppUrl(int id);
+
+    @Select("SELECT*FROM androidapp WHERE id=(SELECT MAX(id) FROM androidapp)")
     AndroidApp getLastAndroidApp();
 }

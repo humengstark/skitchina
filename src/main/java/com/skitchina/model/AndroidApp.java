@@ -10,17 +10,34 @@ import java.io.Serializable;
  * 安卓APP 实体类
  */
 public class AndroidApp implements Serializable {
+    private int id;
+    private String name;
     private String version;
-    private String address;
+    private String url;
     private String time;
-    private String text;
 
-    public String getText() {
-        return text;
+    public int getId() {
+        return id;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTime() {
@@ -39,11 +56,4 @@ public class AndroidApp implements Serializable {
         this.version = version;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 }

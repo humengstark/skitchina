@@ -5,6 +5,7 @@ import com.skitchina.mapper.AndroidAppMapper;
 import com.skitchina.model.AndroidApp;
 import com.skitchina.model.ReturnResult;
 import com.skitchina.utils.ReturnResultUtil;
+import com.skitchina.utils.Utils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -29,8 +30,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by hu meng on 2017/6/6.
@@ -51,21 +52,20 @@ public class VersionController {
     @ResponseBody
     @RequestMapping(value = "/checkAppVersion", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public String checkAppVersion(HttpServletRequest request) {
-        String version = request.getParameter("version");
+        String a = request.getParameter("a");
         AndroidApp androidApp = androidAppMapper.getLastAndroidApp();
+        //服务器配置
+//        String url = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() +"-"+ androidApp.getVersion();
+        //笔记本配置
+        String url = "http://192.168.0.124:8080/dws/" + androidApp.getName() + "-"+androidApp.getVersion();
+        Map map = new HashMap();
+        map.put("version", androidApp.getVersion());
+        map.put("url", url);
         ReturnResult returnResult = new ReturnResult();
-        if (!androidApp.getVersion().equals(version)) {
-            returnResult.setCode(1);
-            returnResult.setDisplay(0);
-            returnResult.setMessage("");
-            returnResult.setData("");
-        } else {
-            returnResult.setCode(0);
-            returnResult.setDisplay(1);
-            returnResult.setMessage(androidApp.getAddress());
-            returnResult.setData("");
-        }
-
+        returnResult.setCode(0);
+        returnResult.setDisplay(0);
+        returnResult.setMessage("");
+        returnResult.setData(map);
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
@@ -76,9 +76,24 @@ public class VersionController {
      */
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public void upload(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + "/upload.jsp");
+        response.sendRedirect(request.getContextPath() + "/upload1.jsp");
     }
 
+    /**
+     * 获取上传的文件版本，名字，序号
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/commitVersion", method = RequestMethod.GET)
+    public void commitVersion(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String version = request.getParameter("version");
+        String name = request.getParameter("name");
+
+        //获取当前时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = simpleDateFormat.format(new Date());
+    }
     /**
      * 文件上传
      *
@@ -87,13 +102,12 @@ public class VersionController {
      */
     @RequestMapping(value = "/uploadApp", method = RequestMethod.POST)
     public void uploadApp(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String url = "http://www.jb51.net/article/70412.htm";
-        /**
-         * 设置TOMCAT虚拟路径
-         */
-        String url2 = "https://my.oschina.net/wtzheng/blog/487633";
-        String uploadStr = "http://lcoalhost:8080/upload";
-        System.out.println(uploadStr);
+        AndroidApp androidApp = androidAppMapper.getLastAndroidApp();
+        String version = Utils.createAppVersion(androidApp.getVersion());
+        //服务器配置
+//        String url = "http://123.206.24.66:8686/androidApp/shengkaikuaixian-" + version + ".apk";
+        //笔记本配置
+        String url = "http://192.168.0.124:8080/dws/shengkaikuaixian-" + version + ".apk";
         //判断是否是文件上传请求
         if (ServletFileUpload.isMultipartContent(request)) {
             // 创建文件上传处理器
@@ -109,7 +123,8 @@ public class VersionController {
                 if (!item.isFormField()) {
                     //是文件上传对象，获取上传文件的输入流
                     InputStream srcinInputStream = item.openStream();
-                    File dest = new File("E:/Download/快捷键.txt");
+                    //笔记本配置
+                    File dest = new File(url);
                     FileOutputStream fileOutputStream = new FileOutputStream(dest);
                         /*对上传文件的输入流进行处理，跟本地的文件流处理方式相同*/
                     byte[] buf = new byte[1024];
@@ -125,5 +140,39 @@ public class VersionController {
                 }
             }
         }
+        //获取当前时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = simpleDateFormat.format(new Date());
+        Map params = new HashMap();
+        params.put("version", version);
+        params.put("url", url);
+        params.put("time", time);
+        params.put("name", "shengkaikuaixian");
+        androidAppMapper.addAndroidApp(params);
+        response.sendRedirect(request.getContextPath()+"/uploadsuccess.jsp");
+    }
+
+    /**
+     * 下载App
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/downloadAndroidApp", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String downloadAndroidApp() {
+        AndroidApp androidApp = androidAppMapper.getLastAndroidApp();
+        //服务器配置
+//        String url = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + androidApp.getVersion();
+        //
+        String url = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + androidApp.getVersion();
+
+        Map map = new HashMap();
+        map.put("version", androidApp.getVersion());
+        map.put("url", url);
+        ReturnResult returnResult = new ReturnResult();
+        returnResult.setCode(0);
+        returnResult.setData(map);
+        returnResult.setDisplay(0);
+        returnResult.setMessage("");
+        return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 }

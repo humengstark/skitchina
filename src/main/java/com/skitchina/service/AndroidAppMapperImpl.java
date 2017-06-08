@@ -25,6 +25,13 @@ public class AndroidAppMapperImpl implements AndroidAppMapper {
         sqlSession.close();
     }
 
+    public void updateAppUrl(int id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.AndroidAppMapper.updateAppUrl", id);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
     public AndroidApp getLastAndroidApp() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         AndroidApp androidApp = sqlSession.selectOne("com.skitchina.mapper.AndroidAppMapper.getLastAndroidApp");
