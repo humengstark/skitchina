@@ -136,7 +136,12 @@
                     <thead>
                     </thead>
                     <tbody>
-                    <form action=""></form>
+                    <form action="${ctx}/version/commitVersion" method="get">
+                        <input type="text" name="id" placeholder="请输入版本序号">
+                        <input type="text" name="version" placeholder="请输入版本号">
+                        <input type="text" name="name" placeholder="请输入App名字">
+                        <button type="submit">提交</button>
+                    </form>
                     </tbody>
                 </table>
             </div>

@@ -76,7 +76,7 @@ public class VersionController {
      */
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public void upload(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + "/upload1.jsp");
+        response.sendRedirect(request.getContextPath() + "/commitVersion.jsp");
     }
 
     /**
@@ -85,14 +85,28 @@ public class VersionController {
      * @param response
      */
     @RequestMapping(value = "/commitVersion", method = RequestMethod.GET)
-    public void commitVersion(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String version = request.getParameter("version");
-        String name = request.getParameter("name");
+    public void commitVersion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id").trim());
+        String version = request.getParameter("version").trim();
+        String name = request.getParameter("name").trim();
+
+        if (androidAppMapper.getAndroidAppById(id) != null) {
+            androidAppMapper.deleteAndroidApp(id);
+        }
 
         //获取当前时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = simpleDateFormat.format(new Date());
+
+        Map params = new HashMap();
+        params.put("id", id);
+        params.put("version", version);
+        params.put("name", name);
+        params.put("time", time);
+
+        androidAppMapper.addAndroidApp(params);
+
+        response.sendRedirect(request.getContextPath()+"/upload.jsp");
     }
     /**
      * 文件上传
@@ -103,11 +117,13 @@ public class VersionController {
     @RequestMapping(value = "/uploadApp", method = RequestMethod.POST)
     public void uploadApp(HttpServletRequest request, HttpServletResponse response) throws Exception {
         AndroidApp androidApp = androidAppMapper.getLastAndroidApp();
-        String version = Utils.createAppVersion(androidApp.getVersion());
+        String version = androidApp.getVersion();
         //服务器配置
-//        String url = "http://123.206.24.66:8686/androidApp/shengkaikuaixian-" + version + ".apk";
+//        String url = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + "-" + version + ".apk";
         //笔记本配置
-        String url = "http://192.168.0.124:8080/dws/shengkaikuaixian-" + version + ".apk";
+//        String url = "D:" +androidApp.getName()+"-"+ version + ".apk";
+        //台式机配置
+        String url = "E:/Download/" +androidApp.getName()+"-"+ version + ".apk";
         //判断是否是文件上传请求
         if (ServletFileUpload.isMultipartContent(request)) {
             // 创建文件上传处理器
@@ -140,15 +156,12 @@ public class VersionController {
                 }
             }
         }
-        //获取当前时间
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String time = simpleDateFormat.format(new Date());
+        //台式机配置
+        String url2 = "http://192.168.0.103:8080/upload/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
         Map params = new HashMap();
-        params.put("version", version);
-        params.put("url", url);
-        params.put("time", time);
-        params.put("name", "shengkaikuaixian");
-        androidAppMapper.addAndroidApp(params);
+        params.put("id", androidApp.getId());
+        params.put("url", url2);
+        androidAppMapper.updateAppUrl(params);
         response.sendRedirect(request.getContextPath()+"/uploadsuccess.jsp");
     }
 
@@ -160,19 +173,11 @@ public class VersionController {
     @RequestMapping(value = "/downloadAndroidApp", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public String downloadAndroidApp() {
         AndroidApp androidApp = androidAppMapper.getLastAndroidApp();
-        //服务器配置
-//        String url = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + androidApp.getVersion();
-        //
-        String url = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + androidApp.getVersion();
-
-        Map map = new HashMap();
-        map.put("version", androidApp.getVersion());
-        map.put("url", url);
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);
-        returnResult.setData(map);
         returnResult.setDisplay(0);
         returnResult.setMessage("");
+        returnResult.setData(androidApp);
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 }

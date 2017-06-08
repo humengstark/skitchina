@@ -1,6 +1,7 @@
 package com.skitchina.mapper;
 
 import com.skitchina.model.AndroidApp;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -16,8 +17,14 @@ public interface AndroidAppMapper {
     void addAndroidApp(Map params);
 
     @Update("UPDATE androidapp SET url=#{url} WHERE id=#{id}")
-    void updateAppUrl(int id);
+    void updateAppUrl(Map params);
 
     @Select("SELECT*FROM androidapp WHERE id=(SELECT MAX(id) FROM androidapp)")
     AndroidApp getLastAndroidApp();
+
+    @Delete("DELETE FROM androidapp WHERE id=#{id}")
+    void deleteAndroidApp(int id);
+
+    @Select("SELECT*FROM androidapp WHERE id=#{id}")
+    AndroidApp getAndroidAppById(int id);
 }
