@@ -1,28 +1,18 @@
 package com.skitchina.controller;
 
-import com.alibaba.druid.support.logging.Log;
 import com.skitchina.mapper.AndroidAppMapper;
 import com.skitchina.model.AndroidApp;
 import com.skitchina.model.ReturnResult;
 import com.skitchina.utils.ReturnResultUtil;
-import com.skitchina.utils.Utils;
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.FileCleanerCleanup;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.commons.CommonsFileUploadSupport;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,18 +44,11 @@ public class VersionController {
     public String checkAppVersion(HttpServletRequest request) {
         String a = request.getParameter("a");
         AndroidApp androidApp = androidAppMapper.getLastAndroidApp();
-        //服务器配置
-//        String url = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() +"-"+ androidApp.getVersion();
-        //笔记本配置
-        String url = "http://192.168.0.124:8080/dws/" + androidApp.getName() + "-"+androidApp.getVersion();
-        Map map = new HashMap();
-        map.put("version", androidApp.getVersion());
-        map.put("url", url);
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);
         returnResult.setDisplay(0);
         returnResult.setMessage("");
-        returnResult.setData(map);
+        returnResult.setData(androidApp);
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
@@ -121,9 +104,9 @@ public class VersionController {
         //服务器配置
 //        String url = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + "-" + version + ".apk";
         //笔记本配置
-//        String url = "D:" +androidApp.getName()+"-"+ version + ".apk";
+        String url = "D:/Downloads/" +androidApp.getName()+"-"+ version + ".apk";
         //台式机配置
-        String url = "E:/Download/" +androidApp.getName()+"-"+ version + ".apk";
+//        String url = "E:/Download/" +androidApp.getName()+"-"+ version + ".apk";
         //判断是否是文件上传请求
         if (ServletFileUpload.isMultipartContent(request)) {
             // 创建文件上传处理器
@@ -157,7 +140,9 @@ public class VersionController {
             }
         }
         //台式机配置
-        String url2 = "http://192.168.0.103:8080/upload/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
+//        String url2 = "http://192.168.0.103:8080/upload/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
+        //笔记本配置
+        String url2 = "http://192.168.0.124:8080/dws/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
         Map params = new HashMap();
         params.put("id", androidApp.getId());
         params.put("url", url2);
