@@ -47,7 +47,7 @@ public class ClientController {
         String password = jsonObject.getString("password");
         String company_name = jsonObject.getString("company_name");
         String company_address = jsonObject.getString("company_address");
-        String company_tel = jsonObject.getString("compamy_tel");
+        String company_tel = jsonObject.getString("company_tel");
         String name = jsonObject.getString("name");
 
         Map params = new HashMap();
