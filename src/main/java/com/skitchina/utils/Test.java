@@ -18,15 +18,15 @@ import java.util.regex.Pattern;
  * Created by hu meng on 2017/4/19.
  */
 public class Test {
-    public static void main(String[] args) throws IOException, WriterException, InterruptedException {
-        String version = "1.0.0";
-        String version2 = Utils.createAppVersion(version);
-        System.out.println(version2);
-//        String a = "abc";
-//        StringBuffer stringBuffer = new StringBuffer(a);
-//        stringBuffer.insert(1, ".");
-//        stringBuffer.insert(3, ".");
-//        System.out.println(stringBuffer);
+    public static void main(String[] args) throws Exception {
+        System.out.println("加密前：");
+        String a = "abc";
+        String key = "0000000000000000";
+        String b = EncipherData.Encrypt(a, key);
+        String c = EncipherData.Decrypt(b, key);
+        System.out.println("加密前：" + a);
+        System.out.println("加密后：" + b);
+        System.out.println("解密后：" + c);
     }
 
     //�ж��Ƿ�������
