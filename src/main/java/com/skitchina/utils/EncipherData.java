@@ -30,7 +30,7 @@ public class EncipherData {
     }
 
     // 解密
-    public static String Decrypt(String sSrc, String sKey) throws Exception {
+    public static String Decrypt(String sSrc,String sKey) throws Exception {
         try {
             // 判断Key是否正确
             if (sKey == null) {

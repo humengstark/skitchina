@@ -7,6 +7,7 @@ import com.skitchina.model.Client;
 import com.skitchina.model.ReturnResult;
 import com.skitchina.utils.EncipherData;
 import com.skitchina.utils.ReturnResultUtil;
+import com.skitchina.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -39,16 +40,15 @@ public class ClientController {
     @ResponseBody
     @RequestMapping(value = "/addClient", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public String addClient(HttpServletRequest request) throws Exception {
-        String str = request.getParameter("str");
-        String json = EncipherData.Decrypt(str, key);
+        String json = Utils.getJsonString(request);
         JSONObject jsonObject = JSON.parseObject(json);
 
-        String cellphone = jsonObject.getString("cellphone");
-        String password = jsonObject.getString("password");
-        String company_name = jsonObject.getString("company_name");
-        String company_address = jsonObject.getString("company_address");
-        String company_tel = jsonObject.getString("company_tel");
-        String name = jsonObject.getString("name");
+        String cellphone = jsonObject.getString("cellphone").trim();
+        String password = jsonObject.getString("password").trim();
+        String company_name = jsonObject.getString("company_name").trim();
+        String company_address = jsonObject.getString("company_address").trim();
+        String company_tel = jsonObject.getString("company_tel").trim();
+        String name = jsonObject.getString("name").trim();
 
         Map params = new HashMap();
 
@@ -80,8 +80,7 @@ public class ClientController {
     @ResponseBody
     @RequestMapping(value = "/clientLogin", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public String clientLogin(HttpServletRequest request) throws Exception {
-        String str = request.getParameter("str");
-        String json = EncipherData.Decrypt(str, key);
+        String json = Utils.getJsonString(request);
         JSONObject jsonObject = JSON.parseObject(json);
 
         String cellphone = jsonObject.getString("cellphone");
@@ -96,6 +95,7 @@ public class ClientController {
         if (client != null) {
             if (client.getPassword().equals(password)) {
                 returnResult.setCode(0);
+                returnResult.setData(client);
             } else {
                 returnResult.setCode(1);
             }

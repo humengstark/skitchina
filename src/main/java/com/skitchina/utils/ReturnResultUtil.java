@@ -8,7 +8,7 @@ import com.skitchina.model.ReturnResult;
  */
 
 /**
- * ·µ»Ø¿Í»§¶ËÊý¾Ý¹¤¾ß
+ * è¿”å›žå·¥å…·ç±»
  */
 public class ReturnResultUtil {
     public static String ReturnResultToJSON(ReturnResult returnResult) {

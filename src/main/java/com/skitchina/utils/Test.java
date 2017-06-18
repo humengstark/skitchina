@@ -19,14 +19,9 @@ import java.util.regex.Pattern;
  */
 public class Test {
     public static void main(String[] args) throws Exception {
-        System.out.println("加密前：");
         String a = "abc";
-        String key = "0000000000000000";
-        String b = EncipherData.Encrypt(a, key);
-        String c = EncipherData.Decrypt(b, key);
-        System.out.println("加密前：" + a);
-        System.out.println("加密后：" + b);
-        System.out.println("解密后：" + c);
+        String b=a.replace("a", "+");
+        System.out.println(b);
     }
 
     //�ж��Ƿ�������

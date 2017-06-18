@@ -1,5 +1,8 @@
 package com.skitchina.utils;
 
+import com.alibaba.fastjson.JSONObject;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.IdentityHashMap;
 import java.util.regex.Pattern;
 
@@ -27,6 +30,14 @@ public class Utils {
         version4.insert(3, ".");
         String version5 = new String(version4);
         return version5;
+    }
+
+    public static String getJsonString(HttpServletRequest request) throws Exception {
+        String str = request.getParameter("str");
+        String key = "0000000000000000";
+        String str1 = str.replace(" ", "+");
+        String str2 = EncipherData.Decrypt(str1, key);
+        return str2;
     }
 
 }
