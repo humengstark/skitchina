@@ -3,7 +3,9 @@ package com.skitchina.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.skitchina.mapper.ClientMapper;
+import com.skitchina.mapper.ClientWaybillMapper;
 import com.skitchina.model.Client;
+import com.skitchina.model.ClientWaybill;
 import com.skitchina.model.ReturnResult;
 import com.skitchina.utils.EncipherData;
 import com.skitchina.utils.ReturnResultUtil;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +34,10 @@ public class ClientController {
     @Autowired
     @Qualifier("clientMapperImpl")
     private ClientMapper clientMapper;
+
+    @Autowired
+    @Qualifier("clientWaybillMapperImpl")
+    private ClientWaybillMapper clientWaybillMapper;
 
     /**
      * 用户注册
@@ -104,5 +111,17 @@ public class ClientController {
         }
 
         return EncipherData.Encrypt(ReturnResultUtil.ReturnResultToJSON(returnResult), key);
+    }
+
+    /**
+     * 用户下单
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/addClientWaybill", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String clientAddWaybill(HttpServletRequest request) throws Exception {
+        List<ClientWaybill> clientWaybills = clientWaybillMapper.getClientWaybill();
+        return JSON.toJSONString(clientWaybills);
     }
 }

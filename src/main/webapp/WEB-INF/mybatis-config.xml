@@ -11,6 +11,6 @@
         <setting name="callSettersOnNulls" value="true"/>
     </settings>
     <mappers>
-         <!--<mapper resource="com/skitchina/mapper/UserMapper.xml" />-->
+         <mapper resource="com/skitchina/mapper/ClientWaybillMapper.xml" />
     </mappers>
 </configuration>
