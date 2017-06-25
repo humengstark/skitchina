@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.skitchina.mapper.ClientWaybillMapper">
-    <select id="getClientWaybill" resultType="com.skitchina.model.ClientWaybill" parameterType="java.util.Map">
+    <select id="getClientWaybill" resultType="com.skitchina.model.ClientWaybill" parameterType="java.util.HashMap">
         SELECT * FROM clientwaybill
     </select>
+
+    <insert id="addClientWaybill" parameterType="java.util.HashMap">
+        INSERT INTO clientwaybill
+        (client_id,time1,origin,destination,consignor_tel,consignee_tel,consignor_company,
+        consignee_company,consignor_address,consignee_address,price,num,payway,remark)
+        VALUES
+        (#{client_id},#{time1},#{origin},#{destination},#{consignor_tel},#{consignee_tel},#{consignor_company},
+        #{consignee_company},#{consignor_address},#{consignee_address},#{price},#{num},#{payway},#{remark})
+    </insert>
 </mapper>

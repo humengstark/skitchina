@@ -6,62 +6,62 @@ import java.io.Serializable;
  * Created by hu meng on 2017/4/18.
  */
 public class Waybill implements Serializable {
-    //Ö÷¼üID
+    //ï¿½ï¿½ï¿½ï¿½ID
     private int id;
 
-    //ÒµÎñÔ±ID
+    //Òµï¿½ï¿½Ô±ID
     private int user_id;
 
-    //¶©µ¥ºÅ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private int waybill_id;
 
-    //Ê¼·¢Íøµã
+    //Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private String origin;
 
-    //Ä¿µÄÍøµã
+    //Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private String destination;
 
-    //·¢»õ¹«Ë¾µç»°
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½ç»°
     private String consignor_tel;
 
-    //ÊÕ»õ¹«Ë¾µç»°
+    //ï¿½Õ»ï¿½ï¿½ï¿½Ë¾ï¿½ç»°
     private String consignee_tel;
 
-    //·¢»õ¹«Ë¾
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾
     private String consignor_company;
 
-    //ÊÕ»õ¹«Ë¾
+    //ï¿½Õ»ï¿½ï¿½ï¿½Ë¾
     private String consignee_company;
 
-    //·¢»õ¹«Ë¾µØÖ·
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½ï¿½Ö·
     private String consignor_address;
 
-    //ÊÕ»õ¹«Ë¾µØÖ·
+    //ï¿½Õ»ï¿½ï¿½ï¿½Ë¾ï¿½ï¿½Ö·
     private String consignee_address;
 
-    //»õ¿î
+    //ï¿½ï¿½ï¿½ï¿½
     private double price;
 
-    //ÔË·Ñ
+    //ï¿½Ë·ï¿½
     private double freight;
 
-    //¼þÊý
+    //ï¿½ï¿½ï¿½ï¿½
     private int number;
 
     /**
-     * ÔË·ÑµÄ¸¶¿î·½Ê½
-     * 0ÎªÏÖ¸¶£¬1Îªµ½¸¶
+     * ï¿½Ë·ÑµÄ¸ï¿½ï¿½î·½Ê½
+     * 0Îªï¿½Ö¸ï¿½ï¿½ï¿½1Îªï¿½ï¿½ï¿½ï¿½
      */
     private int payway;
 
     /**
-     *ÔËµ¥×´Ì¬
-     *0ÎªÏÂµ¥£¬1ÎªÔËÊäÖÐ£¬2Îªµ½´ïÍøµã£¬3ÎªÒÑÊÕ¿î£¬4ÎªÒÑ½»ÕË£¬5ÎªÍê³É
+     *ï¿½Ëµï¿½×´Ì¬
+     *0Îªï¿½Âµï¿½ï¿½ï¿½1Îªï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½2Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬3Îªï¿½ï¿½ï¿½Õ¿î£¬4Îªï¿½Ñ½ï¿½ï¿½Ë£ï¿½5Îªï¿½ï¿½ï¿½
      */
     private int condition;
 
     /**
-     * markÄ¬ÈÏÎª0£¬Èç¹û¶©µ¥Îªµ½¸¶£¬Ë«·½mark¶¼Îª1£¬ÐèÒªË«·½¶¼½»ÕËÒÔºóºó¸ÄÎª0£¬
+     * markÄ¬ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½markï¿½ï¿½Îª1ï¿½ï¿½ï¿½ï¿½ÒªË«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½Îª0ï¿½ï¿½
      *
      */
     private int consignor_mark;
@@ -76,29 +76,21 @@ public class Waybill implements Serializable {
         this.consignee_mark = consignee_mark;
     }
 
-    //±¸×¢
+    //ï¿½ï¿½×¢
     private String remark;
 
-    //ÏÂµ¥Ê±¼ä
+    //ï¿½Âµï¿½Ê±ï¿½ï¿½
     private String time;
 
-    //ÊÕ¿îÈËid,Èç¹ûÎª0£¬ÔòÎªÎ´ÊÕÕË
+    //ï¿½Õ¿ï¿½ï¿½ï¿½id,ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ÎªÎ´ï¿½ï¿½ï¿½ï¿½
     private int user2_id;
 
-    //0ÎªÕý³££¬1Îª×÷·Ï
+    //0Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1Îªï¿½ï¿½ï¿½ï¿½
     private int invalid;
 
-    //¸÷¸ö×´Ì¬µÄÊ±¼ä
+    //ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½Ê±ï¿½ï¿½
     private String time1;
     private int user1_id;
-
-    public int getUser1_id() {
-        return user1_id;
-    }
-
-    public void setUser1_id(int user1_id) {
-        this.user1_id = user1_id;
-    }
 
     private String time2;
 
@@ -108,10 +100,31 @@ public class Waybill implements Serializable {
 
     private String time5;
 
-    //ÊÕÔË·ÑÈËµÄID
+    //ï¿½ï¿½ï¿½Ë·ï¿½ï¿½Ëµï¿½ID
     private int user3_id;
 
-    //¼ÇÂ¼ÊÕ¿îµÄÊ±¼ä,user2_timeÊÇµ½¸¶»òÕß¼Ä¸¶´úÊÕ¿î£¬user3_timeÊÇ¼Ä¸¶ÔË·Ñ
+
+    private String user2_time;
+    private String user3_time;
+
+    private int client_id;
+
+    public int getUser1_id() {
+        return user1_id;
+    }
+
+    public void setUser1_id(int user1_id) {
+        this.user1_id = user1_id;
+    }
+
+    public int getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(int client_id) {
+        this.client_id = client_id;
+    }
+    //ï¿½ï¿½Â¼ï¿½Õ¿ï¿½ï¿½Ê±ï¿½ï¿½,user2_timeï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼Ä¸ï¿½ï¿½ï¿½ï¿½Õ¿î£¬user3_timeï¿½Ç¼Ä¸ï¿½ï¿½Ë·ï¿½
 
     public String getUser2_time() {
         return user2_time;
@@ -128,9 +141,6 @@ public class Waybill implements Serializable {
     public void setUser3_time(String user3_time) {
         this.user3_time = user3_time;
     }
-
-    private String user2_time;
-    private String user3_time;
 
     public int getUser3_id() {
         return user3_id;

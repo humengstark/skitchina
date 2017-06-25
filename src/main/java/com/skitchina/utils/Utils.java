@@ -1,6 +1,7 @@
 package com.skitchina.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.skitchina.model.ReturnResult;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.IdentityHashMap;
@@ -38,6 +39,11 @@ public class Utils {
         String str1 = str.replace(" ", "+");
         String str2 = EncipherData.Decrypt(str1, key);
         return str2;
+    }
+
+    public static String returnEncrypt(ReturnResult returnResult) throws Exception {
+        String key = "0000000000000000";
+        return EncipherData.Encrypt(ReturnResultUtil.ReturnResultToJSON(returnResult), key);
     }
 
 }

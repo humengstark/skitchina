@@ -3,6 +3,7 @@ package com.skitchina.mapper;
 import com.skitchina.model.Client;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Map;
 
@@ -18,4 +19,8 @@ public interface ClientMapper {
     //根据cellphone查找客户
     @Select("SELECT * FROM client WHERE cellphone=#{cellphone}")
     Client getClientByCellphone(String cellphone);
+
+    //选择对账时间
+    @Update("UPDATE client SET checktime=#{checkTime} WHERE id=#{id}")
+    void updateCheckTime(Map params);
 }

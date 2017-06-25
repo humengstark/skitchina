@@ -32,4 +32,11 @@ public class ClientMapperImpl implements ClientMapper {
         sqlSession.close();
         return client;
     }
+
+    public void updateCheckTime(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.ClientMapper.updateCheckTime", params);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

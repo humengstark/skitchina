@@ -16,8 +16,19 @@ public class Client implements Serializable {
     private String company_name;
     private String company_address;
     private String company_tel;
-    private double achievement;
+    private double balance;
     private String name;
+
+    //选择对账时间，0为没有选择，1为星期一和星期四，2为星期二和星期五，3为星期三和星期六
+    private int checkTime;
+
+    public int getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(int checkTime) {
+        this.checkTime = checkTime;
+    }
 
     public int getId() {
         return id;
@@ -67,12 +78,12 @@ public class Client implements Serializable {
         this.company_tel = company_tel;
     }
 
-    public double getAchievement() {
-        return achievement;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setAchievement(double achievement) {
-        this.achievement = achievement;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public String getName() {

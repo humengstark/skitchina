@@ -5,15 +5,32 @@ package com.skitchina.model;
  */
 
 /**
- * 返回客户端数据模型
- * code为0，代表请求成功，code为1，代表请求不成功
- * display为0，message为空，display为1，需要填写message
+ * 锟斤拷锟截客伙拷锟斤拷锟斤拷锟斤拷模锟斤拷
+ * code为0锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷晒锟斤拷锟絚ode为1锟斤拷锟斤拷锟斤拷锟斤拷锟襟不成癸拷
+ * display为0锟斤拷message为锟秸ｏ拷display为1锟斤拷锟斤拷要锟斤拷写message
  */
 public class ReturnResult {
     private int code;
     private int display;
     private String message;
     private Object data;
+
+    public ReturnResult() {
+    }
+
+    public ReturnResult(int code) {
+        this.code = code;
+        this.display = 0;
+        this.message = "";
+        this.data = "";
+    }
+
+    public ReturnResult(int code, int display, String message, Object data) {
+        this.code = code;
+        this.display = display;
+        this.message = message;
+        this.data = data;
+    }
 
     public int getCode() {
         return code;

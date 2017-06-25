@@ -19,9 +19,6 @@ import java.util.regex.Pattern;
  */
 public class Test {
     public static void main(String[] args) throws Exception {
-        String a = "abc";
-        String b=a.replace("a", "+");
-        System.out.println(b);
     }
 
     //�ж��Ƿ�������

@@ -1,6 +1,7 @@
 package com.skitchina.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.skitchina.model.ReturnResult;
 
 /**
@@ -12,6 +13,7 @@ import com.skitchina.model.ReturnResult;
  */
 public class ReturnResultUtil {
     public static String ReturnResultToJSON(ReturnResult returnResult) {
-        return JSON.toJSONString(returnResult);
+        //加上SerializerFeature.WriteMapNullValue 可以防止null值没有字段
+        return JSON.toJSONString(returnResult, SerializerFeature.WriteMapNullValue);
     }
 }
