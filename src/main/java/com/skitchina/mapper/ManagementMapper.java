@@ -1,9 +1,6 @@
 package com.skitchina.mapper;
 
-import com.skitchina.model.Station;
-import com.skitchina.model.Submit;
-import com.skitchina.model.User;
-import com.skitchina.model.Waybill;
+import com.skitchina.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -165,4 +162,12 @@ public interface ManagementMapper {
     //根据id查询submit
     @Select("SELECT*FROM submit WHERE id=#{id}")
     Submit getSubmitById(int id);
+
+    //获取提交对账记录
+    @Select("SELECT*FROM checksubmit ORDER BY submit_time DESC LIMIT #{m},#{rows}")
+    List<CheckSubmit> getCheckSubmits(Map params);
+
+    //获取对账记录数量
+    @Select("SELECT COUNT(*) FROM checksubmit")
+    int getCheckSubmitsNum();
 }

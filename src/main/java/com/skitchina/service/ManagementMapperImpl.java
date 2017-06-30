@@ -1,10 +1,7 @@
 package com.skitchina.service;
 
 import com.skitchina.mapper.ManagementMapper;
-import com.skitchina.model.Station;
-import com.skitchina.model.Submit;
-import com.skitchina.model.User;
-import com.skitchina.model.Waybill;
+import com.skitchina.model.*;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -312,5 +309,21 @@ public class ManagementMapperImpl implements ManagementMapper {
         sqlSession.commit();
         sqlSession.close();
         return submit;
+    }
+
+    public List<CheckSubmit> getCheckSubmits(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<CheckSubmit> checkSubmits = sqlSession.selectList("com.skitchina.mapper.ManagementMapper.getCheckSubmits",params);
+        sqlSession.commit();
+        sqlSession.close();
+        return checkSubmits;
+    }
+
+    public int getCheckSubmitsNum() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        int num = sqlSession.selectOne("com.skitchina.mapper.ManagementMapper.getCheckSubmitsNum");
+        sqlSession.commit();
+        sqlSession.close();
+        return num;
     }
 }

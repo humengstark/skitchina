@@ -7,10 +7,14 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.skitchina.model.Advertisement;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -19,6 +23,7 @@ import java.util.regex.Pattern;
  */
 public class Test {
     public static void main(String[] args) throws Exception {
+            ImageZipUtil.scaleImage("D:/clientImgs/1/0.jpg","D:/clientImgs/1/3.jpg",0.5,"jpg");
     }
 
     //�ж��Ƿ�������

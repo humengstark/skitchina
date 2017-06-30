@@ -17,7 +17,7 @@
     int waybillNum = (Integer) session.getAttribute("waybillNum");
     int pagesOnSubmit = (Integer) session.getAttribute("pagesOnSubmit");
     int pagesNow = (Integer) session.getAttribute("pagesNow");
-    int user_id = (Integer) session.getAttribute("user_id");
+    int id = (Integer) session.getAttribute("id");
     double pagesAll1 = (double) waybillNum / 10;
     int pagesAll;
     if (pagesAll1 > waybillNum / 10) {
@@ -126,6 +126,9 @@
                     <li><a href="${ctx}/management/getAllStations" title="网点管理">网点管理</a></li>
                     <li><a href="${ctx}/management/getAllSubmits?pages=1" title="财务管理">财务管理</a></li>
                     <li><a href="${ctx}/version/upload" title="文件上传">文件上传</a></li>
+                    <li><a href="${ctx}/management/getCheckSubmits?pages=1" title="对账管理">对账管理</a></li>
+                    <li><a href="${ctx}/drawMoney/getDrawMoneys?pages=1" title="提现管理">提现管理</a></li>
+                    <li><a href="${ctx}/management/getAllNotices?pages=1" title="公告管理">公告管理</a></li>
                 </ul>
             </dd>
         </dl>
@@ -272,7 +275,7 @@
                 <form id="last_form">
                     <input type="hidden" name="pages" value="<%=pagesNow-1%>">
                     <input type="hidden" name="pagesOnSubmit" value="<%=pagesOnSubmit%>">
-                    <input type="hidden" name="id" value="<%=user_id%>">
+                    <input type="hidden" name="id" value="<%=id%>">
                 </form>
             </div>
             <div class="humeng">
@@ -287,7 +290,7 @@
                 <form id="next_form">
                     <input type="hidden" name="pages" value="<%=pagesNow+1%>">
                     <input type="hidden" name="pagesOnSubmit" value="<%=pagesOnSubmit%>">
-                    <input type="hidden" name="id" value="<%=user_id%>">
+                    <input type="hidden" name="id" value="<%=id%>">
                 </form>
             </div>
             <div class="humeng">
@@ -299,7 +302,7 @@
                     <div class="humeng">
                         <input type="number" style="width: 50px;" name="pages" id="pagesNum">
                         <input type="hidden" name="pagesOnSubmit" value="<%=pagesOnSubmit%>">
-                        <input type="hidden" name="id" value="<%=user_id%>">
+                        <input type="hidden" name="id" value="<%=id%>">
                     </div>
                     <div class="humeng">
                         <button id="choosePageButton">跳转</button>

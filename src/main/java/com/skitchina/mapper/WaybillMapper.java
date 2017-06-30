@@ -15,10 +15,10 @@ public interface WaybillMapper {
     //下单
     @Insert("INSERT INTO waybill (user_id,waybill_id,origin,destination,consignor_tel,consignee_tel," +
             "consignor_company,consignee_company,consignor_address,consignee_address,price,freight," +
-            "number,payway,`condition`,consignor_mark,consignee_mark,remark,time) VALUES (#{user_id},#{waybill_id}," +
+            "number,payway,`condition`,consignor_mark,consignee_mark,remark,time,random) VALUES (#{user_id},#{waybill_id}," +
             "#{origin},#{destination},#{consignor_tel},#{consignee_tel},#{consignor_company},#{consignee_company}," +
             "#{consignor_address},#{consignee_address},#{price},#{freight},#{number},#{payway},#{condition},#{consignor_mark}," +
-            "#{consignee_mark},#{remark},#{time})")
+            "#{consignee_mark},#{remark},#{time},#{random})")
     void addWaybill(Map params);
 
     //找出waybill_id最大的运单

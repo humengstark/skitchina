@@ -6,6 +6,7 @@ import com.skitchina.mapper.UserMapper;
 import com.skitchina.mapper.WaybillMapper;
 import com.skitchina.model.*;
 import com.skitchina.utils.ReturnResultUtil;
+import com.skitchina.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,9 @@ public class WaybillController {
 
         //先找出这个用户开的最后一单的信息是否和此单一样，如果一样，不开单，防止订单重复
         Waybill waybill0 = waybillMapper.getLastWaybillByUserId(user_id);
+
+        //产生一个4位随机数
+        int random = Utils.getRandomNum();
 
         ReturnResult returnResult = new ReturnResult();
         if (1==1) {
@@ -146,6 +150,7 @@ public class WaybillController {
                 params.put("consignee_mark", consignee_mark);
                 params.put("remark", remark);
                 params.put("time", time);
+                params.put("random", random);
 
                 waybillMapper.addWaybill(params);
                 Waybill waybill1 = waybillMapper.getWaybillByWaybillId(waybill_id);
@@ -247,6 +252,7 @@ public class WaybillController {
             params.put("consignee_mark", consignee_mark);
             params.put("remark", remark);
             params.put("time", time);
+            params.put("random", random);
 
             waybillMapper.addWaybill(params);
             Waybill waybill1 = waybillMapper.getWaybillByWaybillId(waybill_id);

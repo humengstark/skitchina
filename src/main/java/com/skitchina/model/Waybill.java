@@ -109,6 +109,31 @@ public class Waybill implements Serializable {
 
     private int client_id;
 
+    //产生随机数作为第二标识
+    private int random;
+
+    //对账状态，0为未对账，1为 已扫描，2为审核中，3为对账成功，4为对账失败
+    private int check_condition;
+
+    //记录对账人
+    private int check_id;
+
+    public int getCheck_condition() {
+        return check_condition;
+    }
+
+    public void setCheck_condition(int check_condition) {
+        this.check_condition = check_condition;
+    }
+
+    public int getRandom() {
+        return random;
+    }
+
+    public void setRandom(int random) {
+        this.random = random;
+    }
+
     public int getUser1_id() {
         return user1_id;
     }

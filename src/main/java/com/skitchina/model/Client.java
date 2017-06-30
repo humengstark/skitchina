@@ -22,6 +22,16 @@ public class Client implements Serializable {
     //选择对账时间，0为没有选择，1为星期一和星期四，2为星期二和星期五，3为星期三和星期六
     private int checkTime;
 
+    private String draw_password;
+
+    public String getDraw_password() {
+        return draw_password;
+    }
+
+    public void setDraw_password(String draw_password) {
+        this.draw_password = draw_password;
+    }
+
     public int getCheckTime() {
         return checkTime;
     }

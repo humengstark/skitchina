@@ -119,6 +119,9 @@
                     <li><a href="${ctx}/management/getAllStations" title="网点管理">网点管理</a></li>
                     <li><a href="${ctx}/management/getAllSubmits?pages=1" title="财务管理">财务管理</a></li>
                     <li><a href="${ctx}/version/upload" title="文件上传">文件上传</a></li>
+                    <li><a href="${ctx}/management/getCheckSubmits?pages=1" title="对账管理">对账管理</a></li>
+                    <li><a href="${ctx}/drawMoney/getDrawMoneys?pages=1" title="提现管理">提现管理</a></li>
+                    <li><a href="${ctx}/management/getAllNotices?pages=1" title="公告管理">公告管理</a></li>
                 </ul>
             </dd>
         </dl>

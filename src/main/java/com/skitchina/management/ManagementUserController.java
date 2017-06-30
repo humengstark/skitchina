@@ -1,6 +1,8 @@
 package com.skitchina.management;
 
+import com.skitchina.mapper.ClientMapper;
 import com.skitchina.mapper.ManagementMapper;
+import com.skitchina.mapper.NoticeMapper;
 import com.skitchina.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by hu meng on 2017/4/26.
@@ -27,6 +28,14 @@ public class ManagementUserController {
     @Autowired
     @Qualifier("managementMapperImpl")
     private ManagementMapper managementMapper;
+
+    @Autowired
+    @Qualifier("clientMapperImpl")
+    private ClientMapper clientMapper;
+
+    @Autowired
+    @Qualifier("noticeMapperImpl")
+    private NoticeMapper noticeMapper;
 
     /**
      * 用户登陆
@@ -915,15 +924,12 @@ public class ManagementUserController {
             }
         }
         Map users = new HashMap();
-        int i = 1;
         for (Waybill waybill : waybills) {
             User user = managementMapper.getUserById(waybill.getUser_id());
             users.put(waybill.getUser_id(), user.getName());
-            System.out.println("=============第"+i+"个waybill");
-            i++;
         }
 
-        request.getSession().setAttribute("user_id", id);
+        request.getSession().setAttribute("id", id);
         request.getSession().setAttribute("pagesNow",pages2);
         request.getSession().setAttribute("users", users);
         request.getSession().setAttribute("waybillNum",waybillNum);
@@ -934,6 +940,189 @@ public class ManagementUserController {
 
     }
 
+    /**
+     * 获取提交对账记录
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/getCheckSubmits", method = RequestMethod.GET)
+    public void getCheckSubmits(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        int rows = 10;
+        int m = (pages - 1) * rows;
+
+        Map params = new HashMap();
+        params.put("m", m);
+        params.put("rows", rows);
+
+        int checkSubmitsNum = managementMapper.getCheckSubmitsNum();
+        List<CheckSubmit> checkSubmits = managementMapper.getCheckSubmits(params);
+
+        Map clients = new HashMap();
+        for (CheckSubmit checkSubmit : checkSubmits) {
+            clients.put(checkSubmit.getClient_id(), clientMapper.getClientById(checkSubmit.getClient_id()).getName());
+        }
+
+        request.getSession().setAttribute("clients", clients);
+        request.getSession().setAttribute("checkSubmits", checkSubmits);
+        request.getSession().setAttribute("pagesNow", pages);
+        request.getSession().setAttribute("checkSubmitsNum",checkSubmitsNum);
+
+        response.sendRedirect(request.getContextPath()+"/checksubmits.jsp");
+    }
+
+    /**
+     * 根据checksubmit获取waybill
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/getWaybillsByCheckSubmit", method = RequestMethod.GET)
+    public void getWaybillsByCheckSubmit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int pagesOnCheckSubmits = Integer.parseInt(request.getParameter("pagesOnCheckSubmits"));
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        int checksubmit_id = Integer.parseInt(request.getParameter("id"));
+
+        CheckSubmit checkSubmit = clientMapper.getCheckSubmitById(checksubmit_id);
+
+        String waybill_ids = checkSubmit.getWaybill_ids();
+        String[] waybill_ids2 = waybill_ids.split(",");
+        List<Waybill> waybills = new ArrayList<Waybill>();
+        boolean a = true;
+        for (int i=0;i<waybill_ids2.length;i++) {
+            Waybill waybill = managementMapper.getWaybillByWaybillId(Integer.parseInt(waybill_ids2[i]));
+            if (waybill.getCheck_condition() == 2) {
+                a = false;
+            }
+            waybills.add(waybill);
+        }
+        if (a) {
+            clientMapper.updateCheckSubmitCondition(checksubmit_id);
+        }
+        int waybillNum = waybills.size();
+        if (waybills.size() > 10) {
+            if (pages == 1) {
+                for (int i=10;i<waybillNum;i++) {
+                    waybills.remove(10);
+                }
+            } else if (pages > 1) {
+                int head = (pages - 1)*10;
+                for (int i=0;i<head;i++) {
+                    waybills.remove(0);
+                    if (waybills.size() == 10) {
+                        break;
+                    }
+                }
+                if (waybills.size()!=10) {
+                    for (int i = 10; i < waybillNum; i++) {
+                        waybills.remove(10);
+                        if (waybills.size() == 10) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        Map users = new HashMap();
+        for (Waybill waybill : waybills) {
+            User user = managementMapper.getUserById(waybill.getUser_id());
+            users.put(waybill.getUser_id(), user.getName());
+        }
+
+        request.getSession().setAttribute("id", checksubmit_id);
+        request.getSession().setAttribute("pagesNow",pages);
+        request.getSession().setAttribute("users", users);
+        request.getSession().setAttribute("waybillNum",waybillNum);
+        request.getSession().setAttribute("waybills", waybills);
+        request.getSession().setAttribute("pagesOnCheckSubmits",pagesOnCheckSubmits);
+
+        response.sendRedirect(request.getContextPath()+"/waybillsbychecksubmits.jsp");
+    }
+
+    /**
+     * 对账通过审核
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/checkPass", method = RequestMethod.GET)
+    public void checkPass(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //此id为waybill表里面的主键id
+        int id = Integer.parseInt(request.getParameter("waybillId"));
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        int checkSubmitId = Integer.parseInt(request.getParameter("id"));
+        int pagesOnCheckSubmits = Integer.parseInt(request.getParameter("pagesOnCheckSubmits"));
+
+        clientMapper.updateCheckCondition3(id);
+
+        Waybill waybill = managementMapper.getWaybillById(id);
+        CheckSubmit checkSubmit = clientMapper.getCheckSubmitById(checkSubmitId);
+
+        Map params = new HashMap();
+        params.put("money", waybill.getPrice());
+        params.put("id", checkSubmit.getClient_id());
+
+        clientMapper.updateBalance(params);
+
+        response.sendRedirect(request.getContextPath()+"/management/getWaybillsByCheckSubmit?pagesOnCheckSubmits="+pagesOnCheckSubmits+"&pages="+pages+"&id="+checkSubmitId);
+    }
+
+    /**
+     * 获取所有公告
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/getAllNotices", method = RequestMethod.GET)
+    public void getAllNotices(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        int rows = 10;
+        int m = (pages - 1) * rows;
+
+        Map params = new HashMap();
+        params.put("m", m);
+        params.put("rows", rows);
+
+        List<Notice> notices = noticeMapper.getAllNotices(params);
+        int noticesNum = noticeMapper.getNoticesNum();
+
+        request.getSession().setAttribute("notices", notices);
+        request.getSession().setAttribute("noticesNum", noticesNum);
+        request.getSession().setAttribute("pagesNow", pages);
+
+        response.sendRedirect(request.getContextPath()+"/notice.jsp");
+    }
+
+    /**
+     * 删除notice
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/deleteNoticeById")
+    public void deleteNoticeById(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int pages = Integer.parseInt(request.getParameter("pagesNow"));
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        noticeMapper.deleteNotice(id);
+
+        response.sendRedirect(request.getContextPath()+"/management/getAllNotices?pages="+pages);
+    }
+
+    @RequestMapping(value = "addNotice")
+    public void addNotice(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String content = request.getParameter("content");
+        int pages = Integer.parseInt(request.getParameter("pagesNow"));
+
+        //获取当前时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = simpleDateFormat.format(new Date());
+
+        Map params = new HashMap();
+        params.put("content", content);
+        params.put("time", time);
+
+        noticeMapper.addNotice(params);
+
+        response.sendRedirect(request.getContextPath() + "/management/getAllNotices?pages=" + pages);
+    }
 }
 
 
