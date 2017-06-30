@@ -1,0 +1,226 @@
+地址开头 http://http://123.206.24.66:8686/skitchina3-1.0-SNAPSHOT/
+
+加密规则：
+    发送数据：先把参数放入字典A,再把A转为json数据B，再对B进行AES加密，key为16个0，加密后的数据为C。
+                     发送数据的参数只有一个NSString* str="加密后的数据C";
+    接收数据：先用AES解密，解密出来是json数据，然后和以前一样解析
+
+下面的参数，前面的不用管，后面双引号里面的字段就是你要放入字典的字段。也就是字典的key。
+
+地址开头 http://http://123.206.24.66:8686/skitchina3-1.0-SNAPSHOT/
+接口：
+
+//用户注册
+/client/addClient
+
+    params:
+                //账号
+                String cellphone = jsonObject.getString("cellphone").trim();
+                //密码
+                String password = jsonObject.getString("password").trim();
+                //公司名字
+                String company_name = jsonObject.getString("company_name").trim();
+                //公司地址
+                String company_address = jsonObject.getString("company_address").trim();
+                //公司电话
+                String company_tel = jsonObject.getString("company_tel").trim();
+                //姓名
+                String name = jsonObject.getString("name").trim();
+
+    return:
+                //成功
+                code=0;
+
+//登陆
+/client/clientLogin
+
+    params:
+                //账号
+                String cellphone = jsonObject.getString("cellphone").trim();
+                //密码
+                String password = jsonObject.getString("password").trim();
+
+     return:
+                //成功
+                code=0;
+                data里有用户数据
+                //密码错误
+                code=1;
+                //账号不存在
+                code=2;
+
+//选择对账时间
+/*
+    说明：
+        只有在该时间才能对账，只能选择一次，不能修改
+        用户点击对账，先检测checkTime是否为0，如果为0，则还没有选择对账时间，写一个界面让他选择，
+        参数为checkTime，值可以是1，2，3
+        1是星期一和星期四，2是星期二和星期五，3是星期三和星期六
+*/
+/client/updateCheckTime
+
+    params:
+                //用户的id
+                int id = Integer.parseInt(jsonObject.getString("id").trim());
+                //用户选择的对账时间
+                int checkTime = Integer.parseInt(jsonObject.getString("checkTime").trim());
+
+    return:
+                //成功
+                code=0;
+
+//扫描二维码
+/*
+    说明：
+        首先是，以前下单的功能，打印的时候，有4联，最后一联是给用户保存的，在最后一联的二维码里面，
+        以前是单号，现在还要加一个4位数的验证码，字段是random，在下单成功的时候会在返回的waybill里面有，
+        意思就是前面3联还是不变，最后一联的二维码里面有两个数据，一个是waybill_id，一个是random 都是int类型，
+
+        且只有完成了的单子才能对账，判断condition是否等于5.
+        对账里面，扫描对账，只能扫描搜出单子，不能输入单号，将扫描出来的waybill_id和random，还有用户id传给服务器
+*/
+/client/checkWaybill
+
+    params:
+                //单号
+                int waybill_id = Integer.parseInt(jsonObject.getString("waybill_id").trim());
+                //4位验证码
+                int random = Integer.parseInt(jsonObject.getString("random").trim());
+                //用户id
+                int check_id = Integer.parseInt(jsonObject.getString("client_id").trim());
+
+    return:
+                //成功
+                code=0;
+                //验证码不正确
+                code=1;
+                //此订单还未完成
+                code=2;
+                //此订单已经扫描过
+                code=3;
+
+
+//根据client_id查询已经扫描但还没有提交的订单
+
+/*
+    说明：
+        将上一个接口，扫描的单子显示出来
+*/
+
+/client/getScannedWaybillsByClientId
+
+    params:
+                int client_id = Integer.parseInt(jsonObject.getString("client_id").trim());
+
+    return:
+                //成功
+                code=0;
+                data里有waybill的集合
+
+//提交已经扫描的订单
+/*
+    说明：
+        将上个接口查询出来的单子提交
+*/
+/client/checkWaybill2
+
+    params:
+                //提交单子的订单号，像以前那样用字符串拼接起来，3开头的waybill_id
+                String waybill_ids = jsonObject.getString("waybill_ids").trim();
+
+                int client_id = Integer.parseInt(jsonObject.getString("client_id").trim());
+                //计算对账的钱，将每张单子的代收款加起来，double类型
+                double money = Double.parseDouble(jsonObject.getString("money").trim());
+
+    return:
+                //成功
+                code=0;
+
+//帐户功能
+
+//获取帐户余额
+/client/getClientBalance
+
+    params:
+                int id = Integer.parseInt(jsonObject.getString("client_id").trim());
+
+    return:
+                //成功
+                code=0;
+                data里面有数据
+
+
+//提现
+/client/drawMoney
+    params:
+                //提现的金额
+                double money = Double.parseDouble(jsonObject.getString("money").trim());
+
+                int client_id = Integer.parseInt(jsonObject.getString("client_id").trim());
+                //提现银行
+                String bank = jsonObject.getString("bank").trim();
+                //银行卡号
+                String bankcard = jsonObject.getString("bankcard").trim();
+                //开户姓名
+                String realname = jsonObject.getString("realname").trim();
+                //提现密码
+                String draw_password = jsonObject.getString("draw_password").trim();
+
+    return:
+                //成功
+                code=0;
+                //提现密码错误
+                code=1;
+                //余额不足
+                code=2;
+
+//设置提现密码
+/*
+    在 "我的" 里面设置提现密码
+*/
+/client/setDrawPassword
+
+    params:
+                int id = Integer.parseInt(jsonObject.getString("client_id"));
+                //提现密码
+                String draw_password = jsonObject.getString("draw_password");
+
+    return:
+                //成功
+                code=0;
+
+
+
+//修改提现密码
+/*
+    在 "我的" 里面修改密码，让用户输新密码的时候输入两次，两次一样才发送过来
+*/
+/client/updateDrawPassword
+
+    params:
+                int id = Integer.parseInt(jsonObject.getString("client_id"));
+                //旧提现密码
+                String oldPassword = jsonObject.getString("oldPassword");
+                //新提现密码
+                String newPassword = jsonObject.getString("newPassword");
+
+    return:
+                //成功
+                code=0;
+                //旧密码错误
+                code=1;
+
+//获取最新公告
+/*
+    说明：
+        这个具体显示在哪儿你问问邓哥
+*/
+/client/getNewNotice
+
+    params:
+                无
+
+    return:
+                //成功
+                code=0;
+                data里面有数据
