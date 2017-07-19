@@ -60,7 +60,7 @@
 
     <!--&lt;!&ndash; 开启Druid的监控统计功能 &ndash;&gt;-->
     <!--<property name="filters" value="stat" />-->
-<!--</bean>-->
+    <!--</bean>-->
 
     <!--远程服务器数据库配置-->
 <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">

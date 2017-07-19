@@ -155,25 +155,6 @@ public class WaybillController {
                 waybillMapper.addWaybill(params);
                 Waybill waybill1 = waybillMapper.getWaybillByWaybillId(waybill_id);
 
-                /**
-                 * 如果是现付单子，自动收运费
-                 */
-//                if (payway == 1) {
-//                    Map params3 = new HashMap();
-//                    params3.put("user3_id", user_id);
-//                    params3.put("id", waybill1.getId());
-//
-//                    waybillMapper.updateUser3Id(params3);
-//                    waybillMapper.updateConsignorMark(waybill1.getId());
-//
-//                    Map params4 = new HashMap();
-//                    params4.put("user3_time", time);
-//                    params4.put("id", waybill1.getId());
-//                }
-//
-//                Waybill waybill2 = waybillMapper.getWaybillByWaybill_id(waybill_id);
-
-
                 returnResult.setCode(0);
                 returnResult.setDisplay(0);
                 returnResult.setMessage("");

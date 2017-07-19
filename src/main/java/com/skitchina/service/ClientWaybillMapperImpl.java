@@ -25,4 +25,13 @@ public class ClientWaybillMapperImpl implements ClientWaybillMapper {
         sqlSession.commit();
         sqlSession.close();
     }
+
+
+    public List<ClientWaybill> getClientWaybills(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<ClientWaybill> clientWaybills = sqlSession.selectList("com.skitchina.mapper.ClientMapper.getClientWaybills", params);
+        sqlSession.commit();
+        sqlSession.close();
+        return clientWaybills;
+    }
 }

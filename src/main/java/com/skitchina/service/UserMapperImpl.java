@@ -60,4 +60,11 @@ public class UserMapperImpl implements UserMapper {
         return user;
     }
 
+    public void updateRegistrationId(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.UserMapper.updateRegistrationId", params);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
 }

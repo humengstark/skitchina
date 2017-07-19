@@ -3,10 +3,8 @@ package com.skitchina.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.skitchina.mapper.*;
-import com.skitchina.model.Client;
-import com.skitchina.model.Notice;
-import com.skitchina.model.ReturnResult;
-import com.skitchina.model.Waybill;
+import com.skitchina.model.*;
+import com.skitchina.utils.JpushClientUtil;
 import com.skitchina.utils.ReturnResultUtil;
 import com.skitchina.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by hu meng on 2017/6/13.
@@ -49,6 +44,10 @@ public class ClientController {
     @Autowired
     @Qualifier("noticeMapperImpl")
     private NoticeMapper noticeMapper;
+
+    @Autowired
+    @Qualifier("stationMapperImpl")
+    private StationMapper stationMapper;
 
     /**
      * 获取key
@@ -79,7 +78,8 @@ public class ClientController {
         String company_address = jsonObject.getString("company_address").trim();
         String company_tel = jsonObject.getString("company_tel").trim();
         String name = jsonObject.getString("name").trim();
-
+        String station = jsonObject.getString("station").trim();
+        int long_id = clientMapper.getMaxLongId() + 1;
         Map params = new HashMap();
 
         params.put("cellphone", cellphone);
@@ -88,6 +88,8 @@ public class ClientController {
         params.put("company_address", company_address);
         params.put("company_tel", company_tel);
         params.put("name", name);
+        params.put("long_id", long_id);
+        params.put("station", station);
 
         clientMapper.addClient(params);
 
@@ -121,7 +123,7 @@ public class ClientController {
         returnResult.setMessage("");
         returnResult.setData("");
 
-        Client client = clientMapper.getClientByCellphone(cellphone);
+        ReturnClient client = clientMapper.getClientByCellphone(cellphone);
         if (client != null) {
             if (client.getPassword().equals(password)) {
                 returnResult.setCode(0);
@@ -145,8 +147,8 @@ public class ClientController {
     public synchronized String clientAddWaybill(HttpServletRequest request) throws Exception {
 
         String json = Utils.getJsonString(request);
+        System.out.println(json);
         JSONObject jsonObject = JSON.parseObject(json);
-
         //获取当前时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = simpleDateFormat.format(new Date());
@@ -154,8 +156,8 @@ public class ClientController {
         Map params = new HashMap();
         params.put("client_id", Integer.parseInt(jsonObject.getString("client_id").trim()));
         params.put("time1", time);
-        params.put("origin", jsonObject.getString("origin").trim());
-        params.put("destination", jsonObject.getString("destination").trim());
+        params.put("origin", jsonObject.getString("origin"));
+        params.put("destination", jsonObject.getString("destination"));
         params.put("consignor_tel", jsonObject.getString("consignor_tel").trim());
         params.put("consignee_tel", jsonObject.getString("consignee_tel").trim());
         params.put("consignor_company", jsonObject.getString("consignor_company").trim());
@@ -170,6 +172,14 @@ public class ClientController {
         clientWaybillMapper.addClientWaybill(params);
 
         ReturnResult returnResult = new ReturnResult(0);
+
+        int result = JpushClientUtil.sendToTag(jsonObject.getString("origin"));
+
+        if (result == 1) {
+            System.out.println("推送成功");
+        } else {
+            System.out.println("推送失败");
+        }
 
         return Utils.returnEncrypt(returnResult);
     }
@@ -319,25 +329,44 @@ public class ClientController {
         //获取当前时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = simpleDateFormat.format(new Date());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        int week = cal.get(Calendar.DAY_OF_WEEK);
 
         String waybill_ids = jsonObject.getString("waybill_ids").trim();
         int client_id = Integer.parseInt(jsonObject.getString("client_id").trim());
         double money = Double.parseDouble(jsonObject.getString("money").trim());
 
-        String[] waybill_ids2 = waybill_ids.split(",");
-        for (int i=0;i<waybill_ids2.length;i++) {
-            clientMapper.updateCheckCondition2(Integer.parseInt(waybill_ids2[i]));
+        Client client = clientMapper.getClientById(client_id);
+        int client_week = client.getCheckTime();
+
+        ReturnResult returnResult = new ReturnResult();
+
+        if (client_week == week - 1 || client_week == week - 4) {
+            String[] waybill_ids2 = waybill_ids.split(",");
+            for (int i = 0; i < waybill_ids2.length; i++) {
+                clientMapper.updateCheckCondition2(Integer.parseInt(waybill_ids2[i]));
+            }
+
+            Map params = new HashMap();
+            params.put("submit_time", time);
+            params.put("waybill_ids", waybill_ids);
+            params.put("client_id", client_id);
+            params.put("money", money);
+
+            //0为对账成功
+            clientMapper.addCheckSubmit(params);
+            returnResult.setCode(0);
+            returnResult.setDisplay(0);
+            returnResult.setMessage("");
+            returnResult.setData("");
+        } else {
+            //1为对账日期不对
+            returnResult.setCode(1);
+            returnResult.setDisplay(0);
+            returnResult.setMessage("");
+            returnResult.setData("");
         }
-
-        Map params = new HashMap();
-        params.put("submit_time", time);
-        params.put("waybill_ids", waybill_ids);
-        params.put("client_id", client_id);
-        params.put("money", money);
-
-        clientMapper.addCheckSubmit(params);
-
-        ReturnResult returnResult = new ReturnResult(0);
 
         return Utils.returnEncrypt(returnResult);
     }
@@ -394,6 +423,7 @@ public class ClientController {
                 params.put("bankcard", bankcard);
                 params.put("realname", realname);
                 params.put("draw_time", time);
+                params.put("money", money);
 
                 drawMoneyMapper.addDrawMoney(params);
 
@@ -492,6 +522,95 @@ public class ClientController {
 
         Notice notice = noticeMapper.getNewNotice();
         ReturnResult returnResult = new ReturnResult(0, 0, "", notice);
+        return Utils.returnEncrypt(returnResult);
+    }
+
+    /**
+     * 获取所有网点
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getAllStations", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String getAllStations() throws Exception {
+        List<Station> stations = stationMapper.getAllStations();
+        ReturnResult returnResult = new ReturnResult(0, 0, "", stations);
+        return Utils.returnEncrypt(returnResult);
+    }
+
+    /**
+     * 获取对账记录
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getCheckSubmits", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String getCheckSubmits(HttpServletRequest request) throws Exception {
+        String json = Utils.getJsonString(request);
+        JSONObject jsonObject = JSON.parseObject(json);
+        int client_id = jsonObject.getIntValue("client_id");
+        int pages = jsonObject.getIntValue("pages");
+        int rows = jsonObject.getIntValue("rows");
+        int m = (pages - 1) * rows;
+        Map params = new HashMap();
+        params.put("client_id", client_id);
+        params.put("m", m);
+        params.put("rows", rows);
+
+        List<CheckSubmit> checkSubmits = clientMapper.getCheckSubmits(params);
+
+        ReturnResult returnResult = new ReturnResult(0, 0, "", checkSubmits);
+        return Utils.returnEncrypt(returnResult);
+    }
+
+    /**
+     * 获取提现记录
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getDrawMoneys", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String getDrawMoneys(HttpServletRequest request) throws Exception {
+        String json = Utils.getJsonString(request);
+        JSONObject jsonObject = JSON.parseObject(json);
+        int client_id = jsonObject.getIntValue("client_id");
+        int pages = jsonObject.getIntValue("pages");
+        int rows = jsonObject.getIntValue("rows");
+        int m = (pages - 1) * rows;
+        Map params = new HashMap();
+        params.put("client_id", client_id);
+        params.put("m", m);
+        params.put("rows", rows);
+
+        List<DrawMoney> drawMoneys = clientMapper.getDrawMoneys(params);
+        ReturnResult returnResult = new ReturnResult(0, 0, "", drawMoneys);
+        return Utils.returnEncrypt(returnResult);
+    }
+
+    /**
+     * 获取对账成功的记录
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getCheckSubmitsSuccess", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String getCheckSubmitsSuccess(HttpServletRequest request) throws Exception {
+        String json = Utils.getJsonString(request);
+        JSONObject jsonObject = JSON.parseObject(json);
+        int client_id = jsonObject.getIntValue("client_id");
+        int pages = jsonObject.getIntValue("pages");
+        int rows = jsonObject.getIntValue("rows");
+        int m = (pages - 1) * rows;
+        Map params = new HashMap();
+        params.put("client_id", client_id);
+        params.put("m", m);
+        params.put("rows", rows);
+
+        List<CheckSubmit> checkSubmits = clientMapper.getCheckSubmitsSuccess(params);
+
+        ReturnResult returnResult = new ReturnResult(0, 0, "", checkSubmits);
         return Utils.returnEncrypt(returnResult);
     }
 }

@@ -13,23 +13,28 @@ import java.util.Map;
  */
 public interface UserMapper {
 
-    //²éÕÒËùÓÐÓÃ»§
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
     @Select("SELECT*FROM user")
     List<User> getAllUsers();
 
-    //¸ù¾ÝÊÖ»úºÅ²éÕÒÓÃ»§
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Å²ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
     @Select("SELECT*FROM user WHERE cellphone=#{cellphone}")
     User getUserByCellphone(String cellphone);
 
-    //Ìí¼ÓÓÃ»§
+    //ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
     @Insert("INSERT INTO user (cellphone,password,company_name,company_address,company_tel,name) VALUES (#{cellphone},#{password},#{company_name},#{company_address},#{company_tel},#{name})")
     void addUser(Map params);
 
-    //½»ÕË
+    //ï¿½ï¿½ï¿½ï¿½
     @Update("UPDATE `user` SET achievement=achievement+#{money} WHERE id=#{user_id}")
     void submit(Map params);
 
-    //¸ù¾ÝID²éÕÒUSER
+    //ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½USER
     @Select("SELECT*FROM user WHERE id=#{id}")
     User getUserById(int id);
+
+    //ä¿®æ”¹registration_id
+    @Update("UPDATE `user` SET registration_id=#{registration_id} WHERE id=#{id})")
+    void updateRegistrationId(Map params);
+
 }

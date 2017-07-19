@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -23,7 +24,10 @@ import java.util.regex.Pattern;
  */
 public class Test {
     public static void main(String[] args) throws Exception {
-            ImageZipUtil.scaleImage("D:/clientImgs/1/0.jpg","D:/clientImgs/1/3.jpg",0.5,"jpg");
+        String str = "CGmR28blCuJnyLch5JhNt4l3iI7J9jYl5EueGszCPRWbYwNcqMH2b6XxLG8c9mspmyuTVWDwUROloZke5h4iaLfUURT1qumBtqaNle9MbCzf4Q8cDgMs3tWr8+fXG07ZMsRDe1glAkdgYrC87t1pq6NlV5YqpGgTEkQRE3RgLng2Yn6lhR8gl1j4KXprjxgYcwCuubJSjoo80/P5sQep+iCVA4JEIjdh3434F2zVzV34o9hjEdXGRCOymkgCd4cCqq7lzhz8qeEX6/xbH9WDfxW4MaP3G4RIQOHbtLT57Fg0a84Lju002hD2qPq7hESU";
+        String key = "0000000000000000";
+        String str1 = EncipherData.Decrypt(str, key);
+        System.out.println(str1);
     }
 
     //�ж��Ƿ�������

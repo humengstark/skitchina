@@ -14,8 +14,8 @@ public class ClientWaybill implements Serializable {
     private int client_id;
     private int user_id;
     private String time1;
-    private String origin;
-    private String destination;
+    private int origin;
+    private int destination;
     private String consignor_tel;
     private String consignee_tel;
     private String consignor_company;
@@ -27,6 +27,17 @@ public class ClientWaybill implements Serializable {
     private int payway;
     private String remark;
     private int invalid;
+
+    //0为下单，1为已单
+    private int condition;
+
+    public int getCondition() {
+        return condition;
+    }
+
+    public void setCondition(int condition) {
+        this.condition = condition;
+    }
 
     public int getId() {
         return id;
@@ -52,19 +63,19 @@ public class ClientWaybill implements Serializable {
         this.user_id = user_id;
     }
 
-    public String getOrigin() {
+    public int getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    public void setOrigin(int origin) {
         this.origin = origin;
     }
 
-    public String getDestination() {
+    public int getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(int destination) {
         this.destination = destination;
     }
 

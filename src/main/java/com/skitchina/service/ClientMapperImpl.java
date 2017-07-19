@@ -1,9 +1,7 @@
 package com.skitchina.service;
 
 import com.skitchina.mapper.ClientMapper;
-import com.skitchina.model.CheckSubmit;
-import com.skitchina.model.Client;
-import com.skitchina.model.Waybill;
+import com.skitchina.model.*;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,9 @@ public class ClientMapperImpl implements ClientMapper {
         sqlSession.close();
     }
 
-    public Client getClientByCellphone(String cellphone) {
+    public ReturnClient getClientByCellphone(String cellphone) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        Client client = sqlSession.selectOne("com.skitchina.mapper.ClientMapper.getClientByCellphone", cellphone);
+        ReturnClient client = sqlSession.selectOne("com.skitchina.mapper.ClientMapper.getClientByCellphone", cellphone);
         sqlSession.commit();
         sqlSession.close();
         return client;
@@ -122,5 +120,37 @@ public class ClientMapperImpl implements ClientMapper {
         sqlSession.update("com.skitchina.mapper.ClientMapper.updateDrawPassword", params);
         sqlSession.commit();
         sqlSession.close();
+    }
+
+    public int getMaxLongId() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        int num = sqlSession.selectOne("com.skitchina.mapper.ClientMapper.getMaxLongId");
+        sqlSession.commit();
+        sqlSession.close();
+        return num;
+    }
+
+    public List<CheckSubmit> getCheckSubmits(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<CheckSubmit> checkSubmits = sqlSession.selectList("com.skitchina.mapper.ClientMapper.getCheckSubmits", params);
+        sqlSession.commit();
+        sqlSession.close();
+        return checkSubmits;
+    }
+
+    public List<DrawMoney> getDrawMoneys(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<DrawMoney> drawMoneys = sqlSession.selectList("com.skitchina.mapper.ClientMapper.getDrawMoneys", params);
+        sqlSession.commit();
+        sqlSession.close();
+        return drawMoneys;
+    }
+
+    public List<CheckSubmit> getCheckSubmitsSuccess(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<CheckSubmit> checkSubmits = sqlSession.selectList("com.skitchina.mapper.ClientMapper.getCheckSubmitsSuccess", params);
+        sqlSession.commit();
+        sqlSession.close();
+        return checkSubmits;
     }
 }

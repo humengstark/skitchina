@@ -27,12 +27,12 @@ public class StationController {
 
     /**
      * 获取所有网点
-     * @param request
+     * @param
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/getAllStations", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
-    public String getAllStations(HttpServletRequest request) {
+    public String getAllStations() {
         List<Station> stations = stationMapper.getAllStations();
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);

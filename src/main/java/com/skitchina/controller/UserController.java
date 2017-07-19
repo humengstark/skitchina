@@ -1,14 +1,16 @@
 package com.skitchina.controller;
-import com.skitchina.mapper.SubmitMapper;
-import com.skitchina.mapper.UserMapper;
-import com.skitchina.mapper.WaybillMapper;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.skitchina.mapper.*;
 import com.skitchina.model.*;
 import com.skitchina.utils.ReturnResultUtil;
+import com.skitchina.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,6 +43,10 @@ public class UserController {
     @Autowired
     @Qualifier("waybillMapperImpl")
     private WaybillMapper waybillMapper;
+
+    @Autowired
+    @Qualifier("clientWaybillMapperImpl")
+    private ClientWaybillMapper clientWaybillMapper;
 
     /**
      * 用户注册
@@ -97,6 +103,7 @@ public class UserController {
     public String userLogin(HttpServletRequest request) {
         String cellphone1 = request.getParameter("cellphone");
         String password1 = request.getParameter("password");
+//        String registration_id = request.getParameter("registration_id");
         logger.info("参数为：cellphone:"+cellphone1+"，password:"+password1);
         User user = userMapper.getUserByCellphone(cellphone1);
         ReturnResult returnResult = new ReturnResult();
@@ -106,6 +113,10 @@ public class UserController {
             if (user.getPassword().equals(password1)) {
                 returnResult.setCode(0);
                 returnResult.setData(user);
+//                Map params = new HashMap();
+//                params.put("id", user.getId());
+//                params.put("registration_id", registration_id);
+//                userMapper.updateRegistrationId(params);
             } else {
                 returnResult.setCode(1);
                 returnResult.setMessage("密码错误");
@@ -252,6 +263,32 @@ public class UserController {
 
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
+
+    /**
+     * 获取可以接的单子
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getClientWaybills", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String getClientWaybills(HttpServletRequest request) {
+        String station = request.getParameter("station");
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        int rows = Integer.parseInt(request.getParameter("rows"));
+        int m = (pages - 1) * rows;
+
+        Map params = new HashMap();
+        params.put("station", station);
+        params.put("m", m);
+        params.put("rows", rows);
+
+        List<ClientWaybill> clientWaybills = clientWaybillMapper.getClientWaybills(params);
+
+        ReturnResult returnResult = new ReturnResult(0, 0, "", clientWaybills);
+
+        return ReturnResultUtil.ReturnResultToJSON(returnResult);
+    }
+
 
 }
 

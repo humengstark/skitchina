@@ -3,13 +3,9 @@ package com.skitchina.model;
 import java.io.Serializable;
 
 /**
- * Created by hu meng on 2017/6/13.
+ * Created by hu meng on 2017/7/13.
  */
-
-/**
- * 客户端用户实体类
- */
-public class Client implements Serializable {
+public class ReturnClient implements Serializable {
     private int id;
     private String cellphone;
     private String password;
@@ -22,33 +18,6 @@ public class Client implements Serializable {
     private String station;
     //选择对账时间，0为没有选择，1为星期一和星期四，2为星期二和星期五，3为星期三和星期六
     private int checkTime;
-
-    private String draw_password;
-
-    public String getStation() {
-        return station;
-    }
-
-    public void setStation(String station) {
-        this.station = station;
-    }
-
-
-    public String getDraw_password() {
-        return draw_password;
-    }
-
-    public void setDraw_password(String draw_password) {
-        this.draw_password = draw_password;
-    }
-
-    public int getCheckTime() {
-        return checkTime;
-    }
-
-    public void setCheckTime(int checkTime) {
-        this.checkTime = checkTime;
-    }
 
     public int getId() {
         return id;
@@ -120,5 +89,21 @@ public class Client implements Serializable {
 
     public void setLong_id(int long_id) {
         this.long_id = long_id;
+    }
+
+    public String getStation() {
+        return station;
+    }
+
+    public void setStation(String station) {
+        this.station = station;
+    }
+
+    public int getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(int checkTime) {
+        this.checkTime = checkTime;
     }
 }
