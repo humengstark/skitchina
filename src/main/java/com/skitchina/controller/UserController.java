@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by hu meng on 2017/4/15.
@@ -289,6 +286,33 @@ public class UserController {
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
+    /**
+     * 查询从用户那边接了的单子
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getReceivebleClientWaybills", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String getReceivebleClientWaybills(HttpServletRequest request) {
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        int rows = Integer.parseInt(request.getParameter("rows"));
+        int m = (pages - 1) * rows;
+
+        Map params = new HashMap();
+        params.put("user_id", user_id);
+        params.put("pages", pages);
+        params.put("m", m);
+        List<ClientWaybill> clientWaybills = clientWaybillMapper.getReceivebleClientWaybills(params);
+
+        List<Waybill> waybills = new ArrayList<Waybill>();
+        for (ClientWaybill clientWaybill : clientWaybills) {
+            waybills.add(waybillMapper.getWaybillByWaybill_id(clientWaybill.getWaybill_id()));
+        }
+
+        ReturnResult returnResult = new ReturnResult(0, 0, "", waybills);
+        return ReturnResultUtil.ReturnResultToJSON(returnResult);
+    }
 
 }
 

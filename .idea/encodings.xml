@@ -8,7 +8,9 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/controller/WaybillController.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/management/ManagementUserController.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/ContactMapper.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/UserMapper.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/WaybillMapper.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/model/Submit.java" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

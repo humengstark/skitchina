@@ -27,9 +27,18 @@ public class ClientWaybill implements Serializable {
     private int payway;
     private String remark;
     private int invalid;
+    private int waybill_id;
 
-    //0为下单，1为已单
+    //0为下单，1为已接单，2为已完成
     private int condition;
+
+    public int getWaybill_id() {
+        return waybill_id;
+    }
+
+    public void setWaybill_id(int waybill_id) {
+        this.waybill_id = waybill_id;
+    }
 
     public int getCondition() {
         return condition;
