@@ -28,7 +28,7 @@ public class JpushClientUtil {
                 .setPlatform(Platform.all())
                 .setAudience(Audience.tag(tag))
                 .setNotification(Notification.alert("有新的订单"))
-                .setOptions(Options.newBuilder().setApnsProduction(true).build())
+                .setOptions(Options.newBuilder().setApnsProduction(false).build())
                 .build();
         PushResult pushResult = jPushClient.sendPush(pushPayload);
         if (pushResult.getResponseCode() == 200) {

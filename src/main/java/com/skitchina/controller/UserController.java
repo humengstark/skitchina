@@ -314,5 +314,34 @@ public class UserController {
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
+
+    /**
+     * 获取NewWaybillNum
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/updateNewWaybillNum",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
+    public String updateNewWaybillNum(HttpServletRequest request) {
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        int new_waybill= userMapper.getNewWaybillNum(user_id);
+        ReturnResult returnResult = new ReturnResult(0, 0, "", new_waybill);
+        return ReturnResultUtil.ReturnResultToJSON(returnResult);
+    }
+
+    /**
+     * 将NewWaybillNum清零
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/setNewWaybill0", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String setNewWaybill0(HttpServletRequest request) {
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        userMapper.setNewWaybill0(user_id);
+        ReturnResult returnResult = new ReturnResult(0);
+        return ReturnResultUtil.ReturnResultToJSON(returnResult);
+    }
+
 }
 

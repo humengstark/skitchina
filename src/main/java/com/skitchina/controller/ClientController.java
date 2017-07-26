@@ -49,6 +49,10 @@ public class ClientController {
     @Qualifier("stationMapperImpl")
     private StationMapper stationMapper;
 
+    @Autowired
+    @Qualifier("userMapperImpl")
+    private UserMapper userMapper;
+
     /**
      * 获取key
      * @return
@@ -177,6 +181,7 @@ public class ClientController {
 
         if (result == 1) {
             System.out.println("推送成功");
+            userMapper.updateNewWaybillNum(jsonObject.getString("origin"));
         } else {
             System.out.println("推送失败");
         }

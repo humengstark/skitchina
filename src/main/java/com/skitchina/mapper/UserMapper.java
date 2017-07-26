@@ -37,4 +37,13 @@ public interface UserMapper {
     @Update("UPDATE `user` SET registration_id=#{registration_id} WHERE id=#{id})")
     void updateRegistrationId(Map params);
 
+    @Update("UPDATE `user` SET new_waybill=new_waybill+1 WHERE station=#{station}")
+    void updateNewWaybillNum(String station);
+
+    @Select("SELECT new_waybill FROM `user` WHERE id=#{user_id}")
+    int getNewWaybillNum(int user_id);
+
+    @Update("UPDATE `user` SET new_waybill=0 WHERE id=#{user_id}")
+    void setNewWaybill0(int user_Id);
+
 }

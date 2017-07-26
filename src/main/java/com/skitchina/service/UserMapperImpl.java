@@ -67,4 +67,26 @@ public class UserMapperImpl implements UserMapper {
         sqlSession.close();
     }
 
+    public void updateNewWaybillNum(String station) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.UserMapper.updateNewWaybillNum", station);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    public int getNewWaybillNum(int user_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        int num = sqlSession.selectOne("com.skitchina.mapper.UserMapper.getNewWaybillNum", user_id);
+        sqlSession.commit();
+        sqlSession.close();
+        return num;
+    }
+
+    public void setNewWaybill0(int user_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.UserMapper.setNewWaybill0", user_id);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
 }
