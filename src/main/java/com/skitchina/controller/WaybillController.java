@@ -980,6 +980,7 @@ public class WaybillController {
                     consignor_mark = 1;
                 }
 
+
                 Map params = new HashMap();
 
                 params.put("user_id", user_id);
