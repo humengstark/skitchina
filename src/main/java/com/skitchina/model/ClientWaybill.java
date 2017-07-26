@@ -14,8 +14,8 @@ public class ClientWaybill implements Serializable {
     private int client_id;
     private int user_id;
     private String time1;
-    private int origin;
-    private int destination;
+    private String origin;
+    private String destination;
     private String consignor_tel;
     private String consignee_tel;
     private String consignor_company;
@@ -72,19 +72,19 @@ public class ClientWaybill implements Serializable {
         this.user_id = user_id;
     }
 
-    public int getOrigin() {
+    public String getOrigin() {
         return origin;
     }
 
-    public void setOrigin(int origin) {
+    public void setOrigin(String origin) {
         this.origin = origin;
     }
 
-    public int getDestination() {
+    public String getDestination() {
         return destination;
     }
 
-    public void setDestination(int destination) {
+    public void setDestination(String destination) {
         this.destination = destination;
     }
 

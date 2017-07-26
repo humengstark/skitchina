@@ -273,7 +273,7 @@ public class UserController {
         int pages = Integer.parseInt(request.getParameter("pages"));
         int rows = Integer.parseInt(request.getParameter("rows"));
         int m = (pages - 1) * rows;
-
+        System.out.println("station="+station+"£¬pages="+pages+"£¬m="+m+"£¬rows="+rows);
         Map params = new HashMap();
         params.put("station", station);
         params.put("m", m);
