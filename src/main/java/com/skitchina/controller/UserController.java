@@ -301,7 +301,7 @@ public class UserController {
 
         Map params = new HashMap();
         params.put("user_id", user_id);
-        params.put("pages", pages);
+        params.put("rows", rows);
         params.put("m", m);
         List<ClientWaybill> clientWaybills = clientWaybillMapper.getReceivebleClientWaybills(params);
 
