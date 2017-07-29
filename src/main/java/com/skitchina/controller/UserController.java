@@ -307,7 +307,10 @@ public class UserController {
 
         List<Waybill> waybills = new ArrayList<Waybill>();
         for (ClientWaybill clientWaybill : clientWaybills) {
-            waybills.add(waybillMapper.getWaybillByWaybill_id(clientWaybill.getWaybill_id()));
+            if (waybillMapper.getWaybillByWaybill_id(clientWaybill.getWaybill_id()) != null) {
+                waybills.add(waybillMapper.getWaybillByWaybill_id(clientWaybill.getWaybill_id()));
+                System.out.println("订单的订单号为："+waybillMapper.getWaybillByWaybill_id(clientWaybill.getWaybill_id()).getWaybill_id());
+            }
         }
 
         ReturnResult returnResult = new ReturnResult(0, 0, "", waybills);
