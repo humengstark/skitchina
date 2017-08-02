@@ -23,13 +23,13 @@ public class ClientWaybill implements Serializable {
     private String consignor_address;
     private String consignee_address;
     private double price;
-    private int number;
+    private int num;
     private int payway;
     private String remark;
     private int invalid;
     private int waybill_id;
 
-    //0为下单，1为已接单，2为已完成
+    //0为下单，1为已接单，2为已提货
     private int condition;
 
     public int getWaybill_id() {
@@ -144,12 +144,12 @@ public class ClientWaybill implements Serializable {
         this.price = price;
     }
 
-    public int getNumber() {
-        return number;
+    public int getNum() {
+        return num;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public int getPayway() {

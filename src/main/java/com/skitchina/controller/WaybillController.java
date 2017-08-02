@@ -919,6 +919,8 @@ public class WaybillController {
         int number = Integer.parseInt(request.getParameter("number"));
         String remark = request.getParameter("remark").trim();
 
+        ClientWaybill clientWaybill = clientWaybillMapper.getClientWaybillById(clientWaybill_id);
+
         //先找出这个用户开的最后一单的信息是否和此单一样，如果一样，不开单，防止订单重复
         Waybill waybill0 = waybillMapper.getLastWaybillByUserId(user_id);
 
@@ -1130,6 +1132,34 @@ public class WaybillController {
 
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
 
+    }
+
+    /**
+     * 接单
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/receiveClientWaybill1", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String receiveClientWaybill1(HttpServletRequest request) {
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        int clientWaybill_id = Integer.parseInt(request.getParameter("clientWaybill_id"));
+
+        ClientWaybill clientWaybill = clientWaybillMapper.getClientWaybillById(clientWaybill_id);
+        if (clientWaybill.getCondition() >= 1) {
+            ReturnResult returnResult = new ReturnResult(1);
+            return ReturnResultUtil.ReturnResultToJSON(returnResult);
+        }
+
+        Map params = new HashMap();
+        params.put("user_id", user_id);
+        params.put("clientWaybill_id", clientWaybill_id);
+
+        clientWaybillMapper.updateClientWaybillCondition1(params);
+
+        ReturnResult returnResult = new ReturnResult(0);
+
+        return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
 }

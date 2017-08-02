@@ -305,12 +305,7 @@ public class UserController {
         params.put("m", m);
         List<ClientWaybill> clientWaybills = clientWaybillMapper.getReceivebleClientWaybills(params);
 
-        List<Waybill> waybills = new ArrayList<Waybill>();
-        for (ClientWaybill clientWaybill : clientWaybills) {
-            waybills.add(waybillMapper.getWaybillByWaybill_id(clientWaybill.getWaybill_id()));
-        }
-
-        ReturnResult returnResult = new ReturnResult(0, 0, "", waybills);
+        ReturnResult returnResult = new ReturnResult(0, 0, "", clientWaybills);
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
