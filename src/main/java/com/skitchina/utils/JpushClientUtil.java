@@ -44,7 +44,7 @@ public class JpushClientUtil {
      * @param msg_title 消息内容标题
      * @param msg_content 消息内容
      * @param extrasparam 扩展字段
-     * @return 0推送失败，1推送成功
+     * @return 0推送失败，1推送成
      */
     public static int sendToRegistrationId( String registrationId,String notification_title, String msg_title, String msg_content, String extrasparam) {
         int result = 0;
