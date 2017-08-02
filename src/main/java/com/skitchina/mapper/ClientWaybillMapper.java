@@ -19,7 +19,7 @@ public interface ClientWaybillMapper {
     List<ClientWaybill> getClientWaybills(Map params);
 
     //修改clientWaybill的状态
-    @Update("UPDATE clientwaybill SET `condition`=1,user_id=#{user_id},client_id=#{client_id},waybill_id=#{waybill_id} WHERE id=#{clientWaybill_id}")
+    @Update("UPDATE clientwaybill SET `condition`=2,user_id=#{user_id},client_id=#{client_id},waybill_id=#{waybill_id} WHERE id=#{clientWaybill_id}")
     void updateClientWaybillCondition(Map params);
 
     //修改clientWaybill的状态为完成
@@ -29,4 +29,12 @@ public interface ClientWaybillMapper {
     //根据user_id查询已经接了的单子
     @Select("SELECT*FROM clientwaybill WHERE user_id=#{user_id} AND `condition`=1 ORDER BY time1 DESC LIMIT #{m},#{rows}")
     List<ClientWaybill> getReceivebleClientWaybills(Map params);
+
+    //接单
+    @Update("UPDATE clientwaybill SET `condition`=1,user_id=#{user_id} WHERE id=#{clientWaybill_id}")
+    void updateClientWaybillCondition1(Map params);
+
+    //根据id搜索
+    @Select("SELECT*FROM clientwaybill WHERE id=#{clientWaybill_id}")
+    ClientWaybill getClientWaybillById(int id);
 }
