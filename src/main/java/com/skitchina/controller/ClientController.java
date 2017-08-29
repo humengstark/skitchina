@@ -618,4 +618,20 @@ public class ClientController {
         ReturnResult returnResult = new ReturnResult(0, 0, "", checkSubmits);
         return Utils.returnEncrypt(returnResult);
     }
+
+    /**
+     * 查询个人信息
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getClientById",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
+    public String getClientById(HttpServletRequest request)throws Exception {
+        String json = Utils.getJsonString(request);
+        JSONObject jsonObject = JSON.parseObject(json);
+        int client_id = jsonObject.getIntValue("client_id");
+        Client client = clientMapper.getClientById(client_id);
+        return Utils.returnEncrypt(new ReturnResult(0, 0, "", client));
+    }
 }

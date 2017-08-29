@@ -27,6 +27,11 @@ public class FileUploadUtil {
         File dirs = new File("D:/clientImgs/" + client_id);
         if (!dirs.exists()) {
             dirs.mkdirs();
+        } else {
+            File[] files = dirs.listFiles();
+            for (File file : files) {
+                file.delete();
+            }
         }
 
         //解析上传的文件

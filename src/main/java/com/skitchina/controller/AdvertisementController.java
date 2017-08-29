@@ -44,6 +44,12 @@ public class AdvertisementController {
         int client_id = Integer.parseInt(request.getParameter("client_id"));
         String simpleIntroduce = request.getParameter("simpleIntroduce").trim();
         String introduce = request.getParameter("introduce").trim();
+
+        Advertisement advertisement = advertisementMapper.getAdvertisementByClientId(client_id);
+        if (advertisement != null) {
+            advertisementMapper.deleteAdvertisementByClientId(client_id);
+        }
+
         int imgNum = FileUploadUtil.filesUpload(request);
 
         Map params = new HashMap();

@@ -1,6 +1,7 @@
 package com.skitchina.mapper;
 
 import com.skitchina.model.Advertisement;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,6 +16,9 @@ public interface AdvertisementMapper {
     @Insert("INSERT INTO advertisement (client_id,simpleIntroduce,introduce,imgNum) VALUES (#{client_id},#{simpleIntroduce},#{introduce},#{imgNum})")
     void addAdvertisement(Map params);
 
-    @Select("SELECT*FROM advertisement WHERE client_id=#{client_id}")
+    @Select("SELECT * FROM advertisement WHERE client_id=#{client_id}")
     Advertisement getAdvertisementByClientId(int client_id);
+
+    @Delete("DELETE FROM advertisement WHERE client_id=#{client_id}")
+    void deleteAdvertisementByClientId(int client_id);
 }

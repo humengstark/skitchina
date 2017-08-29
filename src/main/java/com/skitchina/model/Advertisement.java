@@ -57,7 +57,7 @@ public class Advertisement implements Serializable{
     }
 
     public String getFirstImgPath() {
-        String path = "http://123.206.24.66:8686/clientImgs/" + client_id + "0.jpg";
+        String path = "http://123.206.24.66:8686/clientImgs/" + client_id + "/0.jpg";
 //        String path = "http://192.168.0.124:8080/clientImgs/"+client_id+"/0.jpg";
         return path;
     }

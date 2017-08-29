@@ -32,4 +32,11 @@ public class AdvertisementMapperImpl implements AdvertisementMapper {
         sqlSession.close();
         return advertisement;
     }
+
+    public void deleteAdvertisementByClientId(int client_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.delete("com.skitchina.mapper.AdvertisementMapper.deleteAdvertisementByClientId", client_id);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

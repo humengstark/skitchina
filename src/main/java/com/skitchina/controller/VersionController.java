@@ -104,7 +104,7 @@ public class VersionController {
         //服务器配置
 //        String url = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + "-" + version + ".apk";
         //笔记本配置
-        String url = "D:/Downloads/" +androidApp.getName()+"-"+ version + ".apk";
+        String url = "D:/androidApp/" +androidApp.getName()+"-"+ version + ".apk";
         //台式机配置
 //        String url = "E:/Download/" +androidApp.getName()+"-"+ version + ".apk";
         //判断是否是文件上传请求
@@ -140,9 +140,9 @@ public class VersionController {
             }
         }
         //台式机配置
-//        String url2 = "http://192.168.0.103:8080/upload/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
+//        String url2 = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
         //笔记本配置
-        String url2 = "http://192.168.0.124:8080/dws/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
+        String url2 = "123.206.24.66:8686/androidApp/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
         Map params = new HashMap();
         params.put("id", androidApp.getId());
         params.put("url", url2);
