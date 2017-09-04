@@ -16,6 +16,30 @@ public class Advertisement implements Serializable{
     private String introduce;
     private int imgNum;
 
+    /**
+     * 默认为0
+     * 1：展示图片
+     */
+    private int condition;
+
+    private String show_time;
+
+    public String getShow_time() {
+        return show_time;
+    }
+
+    public void setShow_time(String show_time) {
+        this.show_time = show_time;
+    }
+
+    public int getCondition() {
+        return condition;
+    }
+
+    public void setCondition(int condition) {
+        this.condition = condition;
+    }
+
     public String getIntroduce() {
         return introduce;
     }

@@ -153,4 +153,20 @@ public class ClientMapperImpl implements ClientMapper {
         sqlSession.close();
         return checkSubmits;
     }
+
+    public List<Client> getAllClients(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Client> clientList = sqlSession.selectList("com.skitchina.mapper.ClientMapper.getAllClients", params);
+        sqlSession.commit();
+        sqlSession.close();
+        return clientList;
+    }
+
+    public int getClientsNum() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        int num = sqlSession.selectOne("com.skitchina.mapper.ClientMapper.getClientsNum");
+        sqlSession.commit();
+        sqlSession.close();
+        return num;
+    }
 }

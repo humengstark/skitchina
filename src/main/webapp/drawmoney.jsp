@@ -122,7 +122,7 @@
                     <li><a href="${ctx}/management/getCheckSubmits?pages=1" title="对账管理">对账管理</a></li>
                     <li><a href="${ctx}/drawMoney/getDrawMoneys?pages=1" title="提现管理">提现管理</a></li>
                     <li><a href="${ctx}/management/getAllNotices?pages=1" title="公告管理">公告管理</a></li>
-                </ul>
+                    <li><a href="${ctx}/management/getAllClients?pages=1" title="商家信息">商家信息</a></li>                </ul>
             </dd>
         </dl>
     </div>

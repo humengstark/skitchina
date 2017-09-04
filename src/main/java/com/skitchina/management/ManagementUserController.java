@@ -1,5 +1,6 @@
 package com.skitchina.management;
 
+import com.skitchina.mapper.AdvertisementMapper;
 import com.skitchina.mapper.ClientMapper;
 import com.skitchina.mapper.ManagementMapper;
 import com.skitchina.mapper.NoticeMapper;
@@ -36,6 +37,10 @@ public class ManagementUserController {
     @Autowired
     @Qualifier("noticeMapperImpl")
     private NoticeMapper noticeMapper;
+
+    @Autowired
+    @Qualifier("advertiseMapperImpl")
+    private AdvertisementMapper advertisementMapper;
 
     /**
      * 用户登陆
@@ -1122,6 +1127,85 @@ public class ManagementUserController {
         noticeMapper.addNotice(params);
 
         response.sendRedirect(request.getContextPath() + "/management/getAllNotices?pages=" + pages);
+    }
+
+    /**
+     * 获取所有商家
+     *
+     * @param response
+     */
+    @RequestMapping(value = "/getAllClients")
+    public void getAllClients(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        int rows = 10;
+        int m = (pages - 1) * rows;
+
+        Map params = new HashMap();
+        params.put("m", m);
+        params.put("rows", rows);
+
+        List<Advertisement> advertisementList = advertisementMapper.getAllAdvertisements();
+        List<Client> clientList = new ArrayList<>();
+        Map<Integer, Advertisement> map = new HashMap<>();
+        for (Advertisement advertisement : advertisementList) {
+            Client client = clientMapper.getClientById(advertisement.getClient_id());
+            clientList.add(client);
+            map.put(advertisement.getClient_id(), advertisement);
+        }
+
+        for (Client client : clientList) {
+            if (map.get(client.getId()).getCondition() == 1) {
+                clientList.remove(client);
+                clientList.add(0, client);
+            }
+        }
+        request.getSession().setAttribute("clientList", clientList);
+        request.getSession().setAttribute("advertisements", map);
+        request.getSession().setAttribute("clientsNum", clientMapper.getClientsNum());
+        request.getSession().setAttribute("pagesNow", pages);
+
+        response.sendRedirect(request.getContextPath()+"/clients.jsp");
+    }
+
+    /**
+     * 展示商家
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/showClient")
+    public void showClient(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        int client_id = Integer.parseInt(request.getParameter("client_id"));
+        int pagesNow = Integer.parseInt(request.getParameter("pagesNow"));
+
+        //获取当前时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = simpleDateFormat.format(new Date());
+
+        Map params = new HashMap();
+        params.put("client_id", client_id);
+        params.put("show_time", time);
+
+        advertisementMapper.updateCondition(params);
+
+        response.sendRedirect(request.getContextPath() + "/management/getAllClients?pages=" + pagesNow);
+    }
+
+    /**
+     * 隐藏商家
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/hideClient")
+    public void hideClient(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int client_id = Integer.parseInt(request.getParameter("client_id"));
+        int pagesNow = Integer.parseInt(request.getParameter("pagesNow"));
+
+        advertisementMapper.updateCondition0(client_id);
+
+        response.sendRedirect(request.getContextPath() + "/management/getAllClients?pages=" + pagesNow);
     }
 }
 

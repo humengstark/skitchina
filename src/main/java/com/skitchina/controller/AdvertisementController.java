@@ -8,6 +8,7 @@ import com.skitchina.model.ReturnResult;
 import com.skitchina.utils.FileUploadUtil;
 import com.skitchina.utils.ReturnResultUtil;
 import com.skitchina.utils.Utils;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by hu meng on 2017/6/27.
@@ -131,6 +130,24 @@ public class AdvertisementController {
         ReturnResult returnResult = new ReturnResult(0, 0, "", paths);
 
         return Utils.returnEncrypt(returnResult);
+    }
+
+    /**
+     * 获取首页三张图片
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getSimpleIntroduce2",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
+    public String getSimpleIntroduce2()throws Exception {
+        List<Advertisement> advertisementList = advertisementMapper.getSimpleIntroduce2();
+        Set<String> results = new HashSet<String>();
+
+        for (Advertisement advertisement : advertisementList) {
+            results.add(advertisement.getFirstImgPath());
+        }
+
+        return Utils.returnEncrypt(new ReturnResult(0, 0, "", results));
     }
 
 }

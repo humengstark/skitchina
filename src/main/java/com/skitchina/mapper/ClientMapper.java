@@ -84,4 +84,12 @@ public interface ClientMapper {
     //获取对账成功的单子
     @Select("SELECT*FROM checksubmit WHERE client_id=#{client_id} ORDER BY submit_time DESC LIMIT #{m},#{rows}")
     List<CheckSubmit> getCheckSubmitsSuccess(Map params);
+
+    //查询所有client
+    @Select("SELECT * FROM client LIMIT #{m},#{rows}")
+    List<Client> getAllClients(Map params);
+
+    //查询client数量
+    @Select("SELECT COUNT(*) FROM client")
+    int getClientsNum();
 }
