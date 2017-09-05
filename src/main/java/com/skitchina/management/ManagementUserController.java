@@ -1146,6 +1146,7 @@ public class ManagementUserController {
         params.put("rows", rows);
 
         List<Advertisement> advertisementList = advertisementMapper.getAllAdvertisements();
+        System.out.println("=====advertisementList.size=" + advertisementList.size());
         List<Client> clientList = new ArrayList<>();
         Map<Integer, Advertisement> map = new HashMap<>();
         for (Advertisement advertisement : advertisementList) {
@@ -1154,11 +1155,19 @@ public class ManagementUserController {
             map.put(advertisement.getClient_id(), advertisement);
         }
 
+        System.out.println("=====clientList.size=" + clientList.size());
+        System.out.println("=====map.size=" + map.size());
+
+        List<Client> clientList2 = new ArrayList<>();
         for (Client client : clientList) {
             if (map.get(client.getId()).getCondition() == 1) {
-                clientList.remove(client);
-                clientList.add(0, client);
+                clientList2.add(client);
             }
+        }
+
+        for (Client client : clientList2) {
+            clientList.remove(client);
+            clientList.add(client);
         }
         request.getSession().setAttribute("clientList", clientList);
         request.getSession().setAttribute("advertisements", map);

@@ -169,21 +169,22 @@
                         <th><%=client.getCompany_tel()%></th>
                         <%if (advertisements.get(client.getId()).getCondition()==0){%>
                             <th></th>
-                        <%}else {%>
-                        <th style="color: red">展示</th>
-                        <%}%>
                         <th>
                             <form action="${ctx}/management/showClient">
                                 <input type="hidden" name="client_id" value="<%=client.getId()%>">
                                 <input type="hidden" name="pagesNow" value="<%=pagesNow%>">
                                 <button type="submit">展示</button>
                             </form></th>
+                        <%}else {%>
+                        <th style="color: red">展示</th>
+                        <th>
+                            <form action="${ctx}/management/hideClient">
+                                <input type="hidden" name="client_id" value="<%=client.getId()%>">
+                                <input type="hidden" name="pagesNow" value="<%=pagesNow%>">
+                                <button type="submit">隐藏</button>
+                            </form></th>
+                        <%}%>
 
-                        <form action="${ctx}/management/hideClient">
-                            <input type="hidden" name="client_id" value="<%=client.getId()%>">
-                            <input type="hidden" name="pagesNow" value="<%=pagesNow%>">
-                            <button type="submit">隐藏</button>
-                        </form></th>
                     </tr>
                     <%}%>
                     </tbody>

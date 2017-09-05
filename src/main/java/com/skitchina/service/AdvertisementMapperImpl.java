@@ -66,7 +66,7 @@ public class AdvertisementMapperImpl implements AdvertisementMapper {
 
     public void updateCondition0(int client_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        sqlSession.update("com.skitchina.mapper.Advertisement.updateCondition0", client_id);
+        sqlSession.update("com.skitchina.mapper.AdvertisementMapper.updateCondition0", client_id);
         sqlSession.commit();
         sqlSession.close();
     }
