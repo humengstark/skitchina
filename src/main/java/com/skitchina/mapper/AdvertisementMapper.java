@@ -37,4 +37,7 @@ public interface AdvertisementMapper {
     //取消展示
     @Update("UPDATE advertisement SET `condition`=0 WHERE client_id=#{client_id}")
     void updateCondition0(int client_id);
+
+    @Select("SELECT * FROM advertisement WHERE id=#{ad_id}")
+    Advertisement getAdvertisementById(int ad_id);
 }

@@ -150,4 +150,54 @@ public class AdvertisementController {
         return Utils.returnEncrypt(new ReturnResult(0, 0, "", results));
     }
 
+    /**
+     * 获取所有商家
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = ("/getAllAdvertisements"),produces = "application/json;charset=utf-8",method = RequestMethod.POST)
+    public String getAllAdvertisements()throws Exception {
+        List<Advertisement> advertisementList = advertisementMapper.getAllAdvertisements();
+        List<Map> result = new ArrayList<>();
+
+        for (Advertisement advertisement : advertisementList) {
+            Map map = new HashMap();
+            Map map2 = new HashMap();
+
+            map2.put("top_picture", advertisement.getSecondImgPath());
+            map2.put("others_picture", advertisement.getOtherImgsPath());
+
+            map.put("advertisement",advertisement);
+            map.put("url", map2);
+            result.add(map);
+        }
+
+        return Utils.returnEncrypt(new ReturnResult(0, 0, "", result));
+    }
+
+    /**
+     * 获取单个商家详情
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getAdvertisementById", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String getAdvertisementById(HttpServletRequest request)throws Exception {
+        String json = Utils.getJsonString(request);
+        JSONObject jsonObject = JSON.parseObject(json);
+        int ad_id = jsonObject.getIntValue("ad_id");
+        Advertisement advertisement = advertisementMapper.getAdvertisementById(ad_id);
+
+        Map map = new HashMap();
+        map.put("top_picture", advertisement.getSecondImgPath());
+        map.put("other_picture", advertisement.getOtherImgsPath());
+        Map result = new HashMap();
+        result.put("advertisement", advertisement);
+        result.put("url", map);
+
+        return Utils.returnEncrypt(new ReturnResult(0, 0, "", result));
+    }
+
 }

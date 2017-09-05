@@ -2,6 +2,7 @@ package com.skitchina.service;
 
 import com.skitchina.mapper.AdvertisementMapper;
 import com.skitchina.model.Advertisement;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +70,13 @@ public class AdvertisementMapperImpl implements AdvertisementMapper {
         sqlSession.update("com.skitchina.mapper.AdvertisementMapper.updateCondition0", client_id);
         sqlSession.commit();
         sqlSession.close();
+    }
+
+    public Advertisement getAdvertisementById(int ad_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Advertisement advertisement = sqlSession.selectOne("com.skitchina.mapper.AdvertisementMapper.getAdvertisementById", ad_id);
+        sqlSession.commit();
+        sqlSession.close();
+        return advertisement;
     }
 }
