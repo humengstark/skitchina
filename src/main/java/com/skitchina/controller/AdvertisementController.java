@@ -141,13 +141,17 @@ public class AdvertisementController {
     @RequestMapping(value = "/getSimpleIntroduce2",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
     public String getSimpleIntroduce2()throws Exception {
         List<Advertisement> advertisementList = advertisementMapper.getSimpleIntroduce2();
-        Set<String> results = new HashSet<String>();
+        List<Map> result = new ArrayList<>();
 
         for (Advertisement advertisement : advertisementList) {
-            results.add(advertisement.getFirstImgPath());
+            Map map = new HashMap();
+            map.put("client_id", advertisement.getClient_id());
+            map.put("ad_id", advertisement.getId());
+            map.put("url", advertisement.getFirstImgPath());
+            result.add(map);
         }
 
-        return Utils.returnEncrypt(new ReturnResult(0, 0, "", results));
+        return Utils.returnEncrypt(new ReturnResult(0, 0, "", result));
     }
 
     /**
