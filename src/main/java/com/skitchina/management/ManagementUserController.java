@@ -1,18 +1,14 @@
 package com.skitchina.management;
 
-import com.skitchina.mapper.AdvertisementMapper;
-import com.skitchina.mapper.ClientMapper;
-import com.skitchina.mapper.ManagementMapper;
-import com.skitchina.mapper.NoticeMapper;
+import com.skitchina.mapper.*;
 import com.skitchina.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -41,6 +37,10 @@ public class ManagementUserController {
     @Autowired
     @Qualifier("advertiseMapperImpl")
     private AdvertisementMapper advertisementMapper;
+
+    @Autowired
+    @Qualifier("questionMapperImpl")
+    private QuestionMapper questionMapper;
 
     /**
      * 用户登陆
@@ -1215,6 +1215,56 @@ public class ManagementUserController {
         advertisementMapper.updateCondition0(client_id);
 
         response.sendRedirect(request.getContextPath() + "/management/getAllClients?pages=" + pagesNow);
+    }
+
+    /**
+     * 新增常见问题
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/addQuestion",method = RequestMethod.POST)
+    public void addQuestion(HttpServletRequest request,HttpServletResponse response)throws IOException {
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+
+        //获取当前时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = simpleDateFormat.format(new Date());
+
+        Map params = new HashMap();
+        params.put("title", title);
+        params.put("content", content);
+        params.put("question_time", time);
+
+        questionMapper.addQuestion(params);
+
+        response.sendRedirect(request.getContextPath() + "/management/getAllQuestions");
+    }
+
+    /**
+     * 获取常见问题
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/getAllQuestions", method = RequestMethod.GET)
+    public void getAllQuestions(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Question> questionList = questionMapper.getAllQuestions();
+        request.getSession().setAttribute("questionsList", questionList);
+        response.sendRedirect(request.getContextPath() + "/questions.jsp");
+    }
+
+    /**
+     * 删除常见问题
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/deleteQuestion",method = RequestMethod.POST)
+    public void deleteQuestion(HttpServletRequest request,HttpServletResponse response)throws IOException {
+        int id = Integer.parseInt(request.getParameter("question_id"));
+        questionMapper.deleteQuestion(id);
+        response.sendRedirect(request.getContextPath() + "/management/getAllQuestions");
     }
 }
 

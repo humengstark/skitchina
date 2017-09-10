@@ -1,6 +1,7 @@
-<<%@ page import="java.util.List" %>
+<%@ page import="java.util.List" %>
 <%@ page import="com.skitchina.model.Submit" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.skitchina.model.Question" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -12,7 +13,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <%
-
+    List<Question> questionList = (List<Question>) session.getAttribute("questionsList");
 %>
 <!--_meta 作为公共模版分离出去-->
 <HTML>
@@ -54,6 +55,7 @@
 <body>
 <!--_header 作为公共模版分离出去-->
 <header class="navbar-wrapper">
+    <%--<input type="hidden" id="pagesAll" value="<%=pagesAll%>">--%>
     <div class="navbar navbar-fixed-top">
         <div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">H-ui.admin</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> <span class="logo navbar-slogan f-l mr-10 hidden-xs">3.0</span> <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
             <nav class="nav navbar-nav">
@@ -135,20 +137,65 @@
                 </form>
             </div>
             <div class="cl pd-5 bg-1 bk-gray mt-20">
-                <span class="l"></span></div>
+                <span class="l"></span> <span class="r">共有数据：<strong><%=questionList.size()%></strong> 条</span> </div>
             <div class="mt-10">
                 <table class="table table-border table-bordered table-bg table-sort" style="table-layout: fixed">
                     <thead>
+                    <tr class="text-c">
+                        <th width="50">时间</th>
+                        <th width="65">标题</th>
+                        <th width="60">内容</th>
+                        <th width="70">操作</th>
+
+                    </tr>
                     </thead>
                     <tbody>
-                   <span>文件上传成功</span>
+
+                    <%for (Question question:questionList){%>
+                    <tr class="submits">
+                        <th><%=question.getQuestion_time().substring(0,19)%></th>
+                        <th><%=question.getTitle().trim()%></th>
+                        <th><%=question.getContent().trim()%></th>
+                       <th> <form action="${ctx}/management/deleteQuestion" method="post">
+                            <input type="hidden" name="question_id" value="<%=question.getId()%>" >
+                            <button type="submit">删除</button>
+                        </form>
+                       </th>
+                    </tr>
+                    <%}%>
                     </tbody>
+                    <form action="${ctx}/management/addQuestion" method="post">
+                        <input type="text" name="title" style="width: 100px" placeholder="请输入标题：">
+                        <input type="text" name="content" style="width: 800px" placeholder="请输入内容：">
+                        <button type="submit">添加</button>
+                    </form>
                 </table>
             </div>
         </article>
-        <div class="humeng" style="margin-left: 50px">
+        <%--<div class="humeng" style="margin-left: 50px">--%>
 
-        </div>
+            <%--<%if (pagesNow!=1){%>--%>
+            <%--<div class="humeng">--%>
+                <%--<a href="${ctx}/management/getAllSubmits?pages=<%=pagesNow-1%>&rows=10" class="pages">上一页</a>--%>
+            <%--</div>--%>
+            <%--<%}%>--%>
+            <%--<div class="humeng">--%>
+                <%--第<%=pagesNow%>页，共<%=pagesAll%>页--%>
+            <%--</div>--%>
+            <%--<%if (pagesNow!=pagesAll){%>--%>
+            <%--<div class="humeng">--%>
+                <%--<a href="${ctx}/management/getAllSubmits?pages=<%=pagesNow+1%>&rows=10" class="pages">下一页</a>--%>
+            <%--</div>--%>
+            <%--<%}%>--%>
+            <%--<div class="humeng">--%>
+                <%--<form action="${ctx}/management/getAllSubmits" id="choosePage">--%>
+                    <%--<input type="number" name="pages" style="width: 50px" id="pages">--%>
+                <%--</form>--%>
+            <%--</div>--%>
+            <%--<div class="humeng">--%>
+                <%--<button id="button2">跳转</button>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </div>
     </div>
 </section>
@@ -180,9 +227,67 @@
 
 <script type="text/javascript">
 
+    $(function () {
+
+        $("table tr").hover(function () {
+            $(this).addClass("changeColor");
+        },function () {
+            $(this).removeClass("changeColor");
+        })
+
+        $("#click_button").on("click",function () {
+            var submit_form = $("#update_form");
+            submit_form.submit();
+        });
+
+        $('#click2').on('click', function () {
+            var cellphone = $('#cellphone2').val();
+            if (cellphone=="") {
+                alert("电话号码不能为空");
+            }else {
+                var form = $('#search');
+                form.submit();
+            }
+        });
+
+        $("#button1").on("click",function () {
+            var form = $("#form1");
+            form.submit();
+        })
+
+        $('#button2').on("click",function () {
+            var pages = $("#pages").val();
+            var pagesAll = $("#pagesAll").val();
+            if (pages<1) {
+                alert("页数不能小于1");
+            }else if (pages>pagesAll) {
+                alert("页数不能大于总页数")
+            }else {
+                var form = $("#choosePage");
+                form.submit();
+            }
+        })
+
+        $('.wy-set').click(function () {
+            $('#myModal').modal({
+                keyboard: true,
+                backdrop:true
+            });
+
+//            $('.user_id').attr('value', $(this).parent().parent().children('.user_id').text());
+//            $('.name').attr('value', $(this).parent().parent().children('.name').text());
+//            $('.cellphone').attr('value', $(this).parent().parent().children('.cellphone').text());
+//            $('.password').attr('value', $(this).parent().parent().children('.password').text());
+//            $('.company_name').attr('value', $(this).parent().parent().children('.company_name').text());
+//            $('.company_tel').attr('value', $(this).parent().parent().children('.company_tel').text());
+//            $('.company_address').attr('value', $(this).parent().parent().children('.company_address').text());
+//            $('.achievement').attr('value', $(this).parent().parent().children('.achievement').text());
+
+        })
+
+    })
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>
-
 

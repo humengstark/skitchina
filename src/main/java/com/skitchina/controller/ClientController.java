@@ -53,6 +53,10 @@ public class ClientController {
     @Qualifier("userMapperImpl")
     private UserMapper userMapper;
 
+    @Autowired
+    @Qualifier("questionMapperImpl")
+    private QuestionMapper questionMapper;
+
     /**
      * 获取key
      * @return
@@ -633,5 +637,17 @@ public class ClientController {
         int client_id = jsonObject.getIntValue("client_id");
         Client client = clientMapper.getClientById(client_id);
         return Utils.returnEncrypt(new ReturnResult(0, 0, "", client));
+    }
+
+    /**
+     * 获取常见问题
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getAllQuestions",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
+    public String getAllQuestions()throws Exception {
+        List<Question> questionList = questionMapper.getAllQuestions();
+        return Utils.returnEncrypt(new ReturnResult(0, 0, "", questionList));
     }
 }

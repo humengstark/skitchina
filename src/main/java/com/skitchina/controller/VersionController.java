@@ -142,7 +142,7 @@ public class VersionController {
         //台式机配置
 //        String url2 = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
         //笔记本配置
-        String url2 = "123.206.24.66:8686/androidApp/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
+        String url2 = "http://123.206.24.66:8686/androidApp/" + androidApp.getName() + "-" + androidApp.getVersion() + ".apk";
         Map params = new HashMap();
         params.put("id", androidApp.getId());
         params.put("url", url2);

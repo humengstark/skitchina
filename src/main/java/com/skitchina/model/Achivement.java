@@ -2,7 +2,6 @@ package com.skitchina.model;
 
 /**
  * Created by hu meng on 2017/4/25.
- * 此实体类用来映射MYBATIS返回结果集
  */
 public class Achivement {
     private int id;
