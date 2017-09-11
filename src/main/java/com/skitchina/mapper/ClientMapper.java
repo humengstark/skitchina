@@ -93,7 +93,7 @@ public interface ClientMapper {
     @Select("SELECT COUNT(*) FROM client")
     int getClientsNum();
 
-    @Update("UPDATE client SET checkCode=#{checkCode} WHERE cellphone=#{cellphone}}")
+    @Update("UPDATE client SET checkCode=#{checkCode} WHERE cellphone=#{cellphone}")
     void updateCheckCodeByCellphone(Map params);
 
     @Select("SELECT * FROM client WHERE cellphone=#{cellphone}")
