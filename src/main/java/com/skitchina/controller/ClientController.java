@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.skitchina.mapper.*;
 import com.skitchina.model.*;
 import com.skitchina.utils.JpushClientUtil;
+import com.skitchina.utils.MsgUtil;
 import com.skitchina.utils.ReturnResultUtil;
 import com.skitchina.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -649,5 +650,53 @@ public class ClientController {
     public String getAllQuestions()throws Exception {
         List<Question> questionList = questionMapper.getAllQuestions();
         return Utils.returnEncrypt(new ReturnResult(0, 0, "", questionList));
+    }
+
+    /**
+     * 发送验证码
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getCheckCode", produces = "appliaction/json;charset=utf-8", method = RequestMethod.POST)
+    public String getCheckCode(HttpServletRequest request) throws Exception {
+        String cellphone = request.getParameter("cellphone");
+        int checkCode = MsgUtil.getCheckCode();
+        String content = "您正在修改密码，验证码为：[" + checkCode + "]";
+
+        Map params = new HashMap();
+        params.put("cellphone", cellphone);
+        params.put("checkCode", String.valueOf(checkCode));
+
+        clientMapper.updateCheckCodeByCellphone(params);
+
+        MsgUtil.sendSms(cellphone, content);
+
+        return Utils.returnEncrypt(new ReturnResult(0));
+    }
+
+    /**
+     * 修改密码
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/updatePassword", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String updatePassword(HttpServletRequest request)throws Exception {
+        String cellphone = request.getParameter("cellphone");
+        String password = request.getParameter("password");
+        String checkCode = request.getParameter("checkCode");
+        Client client = clientMapper.getClientByCellphone2(cellphone);
+
+        if (client.getCheckCode().equals(checkCode)) {
+            Map params = new HashMap();
+            params.put("cellphone", cellphone);
+            params.put("password", password);
+            clientMapper.updatePassword(params);
+            return Utils.returnEncrypt(new ReturnResult(0));
+        }
+
+        return Utils.returnEncrypt(new ReturnResult(1, 1, "验证码错误！", null));
     }
 }

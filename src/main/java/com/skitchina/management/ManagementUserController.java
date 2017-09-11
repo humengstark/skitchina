@@ -589,7 +589,9 @@ public class ManagementUserController {
 
         for (Waybill waybill :waybills) {
             User user = managementMapper.getUserById(waybill.getUser_id());
-            users.add(user);
+            if (user != null) {
+                users.add(user);
+            }
         }
         int waybillNum = managementMapper.getWaybillNum();
         int pagesAll = waybillNum/rows;

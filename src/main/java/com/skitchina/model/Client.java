@@ -25,6 +25,17 @@ public class Client implements Serializable {
 
     private String draw_password;
 
+    //验证码
+    private String checkCode;
+
+    public String getCheckCode() {
+        return checkCode;
+    }
+
+    public void setCheckCode(String checkCode) {
+        this.checkCode = checkCode;
+    }
+
     public String getStation() {
         return station;
     }

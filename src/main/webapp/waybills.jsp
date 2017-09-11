@@ -744,8 +744,6 @@
             var type = $('#type').val();
             var pagesAll = $('#pagesAll').val();
             var pagesNow = $('#pagesNum').val();
-            alert("pagesAll=" + pagesAll + "，pagesNow=" + pagesNow);
-            alert(pagesNow > pagesAll);
             if (pagesNow>0) {
                 if (type == 0) {
                     choosePage.attr("action", "${ctx}/management/getWaybills");

@@ -169,4 +169,26 @@ public class ClientMapperImpl implements ClientMapper {
         sqlSession.close();
         return num;
     }
+
+    public void updateCheckCodeByCellphone(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.ClientMapper.updateCheckCodeByCellphone", params);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    public Client getClientByCellphone2(String cellphone) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Client client = sqlSession.selectOne("com.skitchina.mapper.ClientMapper.getClientByCellphone2", cellphone);
+        sqlSession.commit();
+        sqlSession.close();
+        return client;
+    }
+
+    public void updatePassword(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.ClientMapper.updatePassword", params);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

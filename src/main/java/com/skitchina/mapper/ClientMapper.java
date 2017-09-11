@@ -92,4 +92,13 @@ public interface ClientMapper {
     //查询client数量
     @Select("SELECT COUNT(*) FROM client")
     int getClientsNum();
+
+    @Update("UPDATE client SET checkCode=#{checkCode} WHERE cellphone=#{cellphone}}")
+    void updateCheckCodeByCellphone(Map params);
+
+    @Select("SELECT * FROM client WHERE cellphone=#{cellphone}")
+    Client getClientByCellphone2(String cellphone);
+
+    @Update("UPDATE client SET password=#{password} WHERE cellphone=#{cellphone}")
+    void updatePassword(Map params);
 }
