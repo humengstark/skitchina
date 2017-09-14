@@ -212,7 +212,7 @@
                         <th width="65">收货人电话</th>
                         <th width="60">收货地</th>
                         <th width="60" id="consignee">收货地址</th>
-                        <th width="50">代收款</th>
+                        <th width="50">应收款</th>
                         <th width="40">运费</th>
                         <th width="30">件数</th>
                         <th width="90">状态</th>

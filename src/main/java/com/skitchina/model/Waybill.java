@@ -85,7 +85,7 @@ public class Waybill implements Serializable {
     //�տ���id,���Ϊ0����Ϊδ����
     private int user2_id;
 
-    //0Ϊ������1Ϊ����
+    //0为正常，1为作废，2为审核中
     private int invalid;
 
     //����״̬��ʱ��

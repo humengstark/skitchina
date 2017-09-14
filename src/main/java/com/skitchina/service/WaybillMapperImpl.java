@@ -343,4 +343,21 @@ public class WaybillMapperImpl implements WaybillMapper {
         sqlSession.close();
         return waybill;
     }
+
+
+    public void invalidWaybill2(int id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.WaybillMapper.invalidWaybill2", id);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Override
+    public List<Waybill> getInvalid2Waybills() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Waybill> waybills = sqlSession.selectList("com.skitchina.mapper.WaybillMapper.getInvalid2Waybills");
+        sqlSession.commit();
+        sqlSession.close();
+        return waybills;
+    }
 }

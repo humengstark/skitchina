@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -715,19 +716,43 @@ public class WaybillController {
     }
 
     /**
-     * 作废订单
+     * 提交作废订单审核
      * 返回code 为0成功
      */
     @ResponseBody
     @RequestMapping(value = "/invalidWaybill", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public String invalidWaybill(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
-        waybillMapper.invalidWaybill(id);
+        waybillMapper.invalidWaybill2(id);
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);
         returnResult.setDisplay(0);
         returnResult.setMessage("");
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
+    }
+
+    /**
+     * 获取作废审核中的订单
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getInvalid2Waybills", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String getInvalid2Waybills() {
+        List<Waybill> waybills = waybillMapper.getInvalid2Waybills();
+        return ReturnResultUtil.ReturnResultToJSON(new ReturnResult(0, 0, "", waybills));
+    }
+
+    /**
+     * 作废申请通过审核
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/invalidWaybill2", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String invalidWaybill2(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        waybillMapper.invalidWaybill2(id);
+        return ReturnResultUtil.ReturnResultToJSON(new ReturnResult(0));
     }
 
     /**

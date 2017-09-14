@@ -194,4 +194,11 @@ public interface WaybillMapper {
     //根据user_id查询此用户最近一次下的单
     @Select("SELECT*FROM waybill WHERE user_id=#{user_id} AND waybill_id=(SELECT MAX(waybill_id) FROM waybill WHERE user_id=#{user_id})")
     Waybill getLastWaybillByUserId(int user_id);
+
+    //提交订单作废申请
+    @Update("UPDATE waybill SET invalid=2 WHERE id=#{id}")
+    void invalidWaybill2(int id);
+
+    @Select("SELECT*FROM waybill WHERE invalid=2")
+    List<Waybill> getInvalid2Waybills();
 }
