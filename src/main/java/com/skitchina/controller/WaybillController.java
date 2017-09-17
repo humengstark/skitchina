@@ -751,7 +751,7 @@ public class WaybillController {
     @RequestMapping(value = "/invalidWaybill2", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public String invalidWaybill2(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
-        waybillMapper.invalidWaybill2(id);
+        waybillMapper.invalidWaybill(id);
         return ReturnResultUtil.ReturnResultToJSON(new ReturnResult(0));
     }
 

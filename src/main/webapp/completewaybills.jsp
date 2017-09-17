@@ -302,77 +302,23 @@
                             <input type="hidden" name="waybill_id" value="<%=waybill.getWaybill_id()%>">
                             <%if (waybill.getCondition() == 0) {%>
                             <td>下单
-                                <select name="condition">
-                                <option value="0">下单</option>
-                                <option value="1">运输</option>
-                                <option value="2">到达</option>
-                                <option value="3">收款</option>
-                                <option value="4">交账</option>
-                                <option value="5">完成</option>
-                                </select>
-                                <button type="submit">修改</button>
                             </td>
                             <%} else if (waybill.getCondition() == 6) {%>
                             <td style="color: green">结束</td>
                             <%} else if (waybill.getCondition() == 1) {%>
                             <td>运输
-                                <select name="condition">
-                                    <option value="0">下单</option>
-                                    <option value="1">运输</option>
-                                    <option value="2">到达</option>
-                                    <option value="3">收款</option>
-                                    <option value="4">交账</option>
-                                    <option value="5">完成</option>
-                                </select>
-                                <button type="submit">修改</button>
                             </td>
                             <%} else if (waybill.getCondition() == 2) {%>
                             <td>到达
-                                <select name="condition">
-                                    <option value="0">下单</option>
-                                    <option value="1">运输</option>
-                                    <option value="2">到达</option>
-                                    <option value="3">收款</option>
-                                    <option value="4">交账</option>
-                                    <option value="5">完成</option>
-                                </select>
-                                <button type="submit">修改</button>
                             </td>
                             <%} else if (waybill.getCondition() == 3) {%>
                             <td>已收款
-                                <select name="condition">
-                                    <option value="0">下单</option>
-                                    <option value="1">运输</option>
-                                    <option value="2">到达</option>
-                                    <option value="3">收款</option>
-                                    <option value="4">交账</option>
-                                    <option value="5">完成</option>
-                                </select>
-                                <button type="submit">修改</button>
                             </td>
                             <%} else if (waybill.getCondition() == 4) {%>
                             <td>已交账
-                                <select name="condition">
-                                    <option value="0">下单</option>
-                                    <option value="1">运输</option>
-                                    <option value="2">到达</option>
-                                    <option value="3">收款</option>
-                                    <option value="4">交账</option>
-                                    <option value="5">完成</option>
-                                </select>
-                                <button type="submit">修改</button>
                             </td>
                             <%} else if (waybill.getCondition() == 5) {%>
                             <td>已完成
-                                <select name="condition">
-                                    <option value="0">下单</option>
-                                    <option value="1">运输</option>
-                                    <option value="2">到达</option>
-                                    <option value="3">收款</option>
-                                    <option value="4">交账</option>
-                                    <option value="5">完成</option>
-                                </select>
-                                <button type="submit">修改</button>
                             </td>
                             <%}%>
                         </form>
@@ -393,8 +339,6 @@
                         </td>
                         <td class="waybill_time"><%=waybill.getTime().substring(0, 19)%>
                         </td>
-                        <td>
-                            <a href="${ctx}/management/deleteWaybillById?pages=<%=pagesNow%>&id=<%=waybill.getId()%>&type=<%=type%>&consignor_company=<%=consignor_company3%>&consignee_company=<%=consignee_company3%>">删除</a>
                             <a href="${ctx}/management/invalidWaybillById?pages=<%=pagesNow%>&id=<%=waybill.getId()%>&type=<%=type%>&consignor_company=<%=consignor_company3%>&consignee_company=<%=consignee_company3%>"
                                style="color: red">作废</a>
                         </td>
@@ -413,17 +357,9 @@
         </article>
         <div style="margin-left: 50px;">
             <%if (pagesNow != 1) {%>
-            <%--<a href="${ctx}/management/getWaybills?pages=<%=pagesNow-1%>&rows=10" class="pages">上一页</a>--%>
             <div class="humeng">
                 <form id="last_form">
                     <input type="hidden" name="pages" value="<%=pagesNow-1%>">
-                    <input type="hidden" name="rows" value="<%=rows%>">
-                    <%if (!consignor_company3.equals("no")) {%>
-                    <input type="hidden" name="consignorCompany" value="<%=consignor_company3%>">
-                    <%}%>
-                    <%if (!consignee_company3.equals("no")) {%>
-                    <input type="hidden" name="consigneeCompany" value="<%=consignee_company3%>">
-                    <%}%>
                 </form>
             </div>
             <div class="humeng">
@@ -434,17 +370,9 @@
                 第<%=pagesNow%>页，共<%=pagesAll%>页
             </div>
             <%if (pagesNow != pagesAll) {%>
-            <%--<a href="${ctx}/management/getWaybills?pages=<%=pagesNow+1%>&rows=10" class="pages">下一页</a>--%>
             <div class="humeng">
                 <form id="next_form">
                     <input type="hidden" name="pages" value="<%=pagesNow+1%>">
-                    <input type="hidden" name="rows" value="<%=rows%>">
-                    <%if (!consignor_company3.equals("no")) {%>
-                    <input type="hidden" name="consignorCompany" value="<%=consignor_company3%>">
-                    <%}%>
-                    <%if (!consignee_company3.equals("no")) {%>
-                    <input type="hidden" name="consigneeCompany" value="<%=consignee_company3%>">
-                    <%}%>
                 </form>
             </div>
             <div class="humeng">
@@ -455,13 +383,6 @@
                 <form id="choosePage">
                     <div class="humeng">
                         <input type="number" style="width: 50px;" name="pages" id="pagesNum">
-                        <input type="hidden" name="rows" value="10">
-                        <%if (!consignor_company3.equals("no")) {%>
-                        <input type="hidden" name="consignorCompany" value="<%=consignor_company3%>">
-                        <%}%>
-                        <%if (!consignee_company3.equals("no")) {%>
-                        <input type="hidden" name="consigneeCompany" value="<%=consignee_company3%>">
-                        <%}%>
                     </div>
                     <div class="humeng">
                         <button id="choosePageButton">跳转</button>
@@ -683,19 +604,19 @@
             var last_form = $('#last_form');
             var type = $('#type').val();
             if (type == 0) {
-                last_form.attr("action", "${ctx}/management/getWaybills");
+                last_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 last_form.attr("method", "get");
                 last_form.submit();
             } else if (type == 1) {
-                last_form.attr("action", "${ctx}/management/getWaybillsByConsignorCompany");
+                last_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 last_form.attr("method", "get");
                 last_form.submit();
             } else if (type == 2) {
-                last_form.attr("action", "${ctx}/management/getWaybillsByConsigneeCompany");
+                last_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 last_form.attr("method", "get");
                 last_form.submit();
             } else if (type == 3) {
-                last_form.attr("action", "${ctx}/management/getWaybillsByConsignorAndConsignee");
+                last_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 last_form.attr("method", "get");
                 last_form.submit();
             } else if (type == 5) {
@@ -714,27 +635,27 @@
             var type = $('#type').val();
             var page = $('#choosePage').val();
             if (type == 0) {
-                next_form.attr("action", "${ctx}/management/getWaybills");
+                next_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 next_form.attr("method", "get");
                 next_form.submit();
             } else if (type == 1) {
-                next_form.attr("action", "${ctx}/management/getWaybillsByConsignorCompany");
+                next_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 next_form.attr("method", "get");
                 next_form.submit();
             } else if (type == 2) {
-                next_form.attr("action", "${ctx}/management/getWaybillsByConsigneeCompany");
+                next_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 next_form.attr("method", "get");
                 next_form.submit();
             } else if (type == 3) {
-                next_form.attr("action", "${ctx}/management/getWaybillsByConsignorAndConsignee");
+                next_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 next_form.attr("method", "get");
                 next_form.submit();
             } else if (type == 5) {
-                next_form.attr("action", "${ctx}/management/getWaybillsNotSubmit");
+                next_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 next_form.attr("method", "get");
                 next_form.submit();
             } else if (type == 6) {
-                next_form.attr("action", "${ctx}/management/getWaybillsReceiveAndNotSubmit");
+                next_form.attr("action", "${ctx}/management/getAllCompleteWaybills");
                 next_form.attr("method", "get");
                 next_form.submit();
             }
@@ -747,27 +668,27 @@
             var pagesNow = $('#pagesNum').val();
             if (pagesNow>0) {
                 if (type == 0) {
-                    choosePage.attr("action", "${ctx}/management/getWaybills");
+                    choosePage.attr("action", "${ctx}/management/getAllCompleteWaybills");
                     choosePage.attr("method", "get");
                     choosePage.submit();
                 } else if (type == 1) {
-                    choosePage.attr("action", "${ctx}/management/getWaybillsByConsignorCompany");
+                    choosePage.attr("action", "${ctx}/management/getAllCompleteWaybills");
                     choosePage.attr("method", "get");
                     choosePage.submit();
                 } else if (type == 2) {
-                    choosePage.attr("action", "${ctx}/management/getWaybillsByConsigneeCompany");
+                    choosePage.attr("action", "${ctx}/management/getAllCompleteWaybills");
                     choosePage.attr("method", "get");
                     choosePage.submit();
                 } else if (type == 3) {
-                    choosePage.attr("action", "${ctx}/management/getWaybillsByConsignorAndConsignee");
+                    choosePage.attr("action", "${ctx}/management/getAllCompleteWaybills");
                     choosePage.attr("method", "get");
                     choosePage.submit();
                 } else if (type == 5) {
-                    choosePage.attr("action", "${ctx}/management/getWaybillsNotSubmit");
+                    choosePage.attr("action", "${ctx}/management/getAllCompleteWaybills");
                     choosePage.attr("method", "get");
                     choosePage.submit();
                 } else if (type == 6) {
-                    choosePage.attr("action", "${ctx}/management/getWaybillsReceiveAndNotSubmit");
+                    choosePage.attr("action", "${ctx}/management/getAllCompleteWaybills");
                     choosePage.attr("method", "get");
                     choosePage.submit();
                 }

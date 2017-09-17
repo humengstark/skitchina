@@ -42,6 +42,14 @@ public class ManagementUserController {
     @Qualifier("questionMapperImpl")
     private QuestionMapper questionMapper;
 
+    @Autowired
+    @Qualifier("completeWaybillMapperImpl")
+    private CompleteWaybillMapper completeWaybillMapper;
+
+    @Autowired
+    @Qualifier("waybillMapperImpl")
+    private WaybillMapper waybillMapper;
+
     /**
      * 用户登陆
      * @param request
@@ -125,6 +133,10 @@ public class ManagementUserController {
         params.put("condition", condition);
 
         managementMapper.updateCondition(params);
+
+        if (condition == 5) {
+            completeWaybillMapper.addCompleteWaybill(waybill_id);
+        }
 
         String url = null;
         String consignor_company2 = java.net.URLEncoder.encode(consignor_company, "UTF-8");
@@ -464,7 +476,9 @@ public class ManagementUserController {
         List<User> users = new ArrayList<User>();
         for (Waybill waybill : waybills) {
             User user2 = managementMapper.getUserById(waybill.getUser_id());
-            users.add(user2);
+            if (user2 != null) {
+                users.add(user2);
+            }
         }
         Map users1 = new HashMap();
         for (User user : users) {
@@ -505,7 +519,9 @@ public class ManagementUserController {
         List<User> users = new ArrayList<User>();
         for (Waybill waybill : waybills) {
             User user2 = managementMapper.getUserById(waybill.getUser_id());
-            users.add(user2);
+            if (user2 != null) {
+                users.add(user2);
+            }
         }
         Map users1 = new HashMap();
         for (User user : users) {
@@ -549,7 +565,9 @@ public class ManagementUserController {
         List<User> users = new ArrayList<User>();
         for (Waybill waybill : waybills) {
             User user2 = managementMapper.getUserById(waybill.getUser_id());
-            users.add(user2);
+            if (user2 != null) {
+                users.add(user2);
+            }
         }
         Map users1 = new HashMap();
         for (User user : users) {
@@ -1268,6 +1286,53 @@ public class ManagementUserController {
         questionMapper.deleteQuestion(id);
         response.sendRedirect(request.getContextPath() + "/management/getAllQuestions");
     }
+
+    /**
+     * 获取已完成的订单
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/getAllCompleteWaybills", method = RequestMethod.GET)
+    public void getAllCompleteWaybills(HttpServletRequest request, HttpServletResponse response)throws IOException {
+
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        int rows = 10;
+        int m = (pages - 1) * rows;
+
+        Map params = new HashMap();
+        params.put("m", m);
+        params.put("rows", 10);
+
+        List<CompleteWaybill> completeWaybillList = completeWaybillMapper.getAllCompleteWaybills(params);
+        List<Waybill> waybillList = new ArrayList<>();
+        Map users1 = new HashMap();
+
+        for (CompleteWaybill completeWaybill : completeWaybillList) {
+            Waybill waybill = waybillMapper.getWaybillByWaybill_id(completeWaybill.getWaybill_id());
+            User user = managementMapper.getUserById(waybill.getUser_id());
+            if (user != null) {
+                users1.put(user.getId(), user.getName());
+            }
+            waybillList.add(waybill);
+        }
+
+        int waybillNum = completeWaybillMapper.getCompleteWaybillsNum();
+
+        request.getSession().setAttribute("consignor_company","no");
+        request.getSession().setAttribute("consignee_company","no");
+        request.getSession().setAttribute("type",0);
+        request.getSession().setAttribute("waybills",waybillList);
+        request.getSession().setAttribute("users", users1);
+        request.getSession().setAttribute("pagesNow",pages);
+        System.out.println("=============================pagesNow="+pages);
+        request.getSession().setAttribute("waybillNum",waybillNum);
+        System.out.println("=============================waybillNum="+waybillNum);
+        request.getSession().setAttribute("rows",rows);
+        response.sendRedirect(request.getContextPath() + "/completewaybills.jsp");
+
+    }
+
 }
 
 
