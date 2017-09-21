@@ -659,10 +659,12 @@ public class ClientController {
      * @throws Exception
      */
     @ResponseBody
-    @RequestMapping(value = "/getCheckCode", produces = "appliaction/json;charset=utf-8", method = RequestMethod.POST)
+    @RequestMapping(value = "/getCheckCode", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public String getCheckCode(HttpServletRequest request) throws Exception {
-        String cellphone = request.getParameter("cellphone");
+        String json = Utils.getJsonString(request);
+        JSONObject jsonObject = JSON.parseObject(json);
         int checkCode = MsgUtil.getCheckCode();
+        String cellphone = jsonObject.getString("cellphone");
         String content = "您正在修改密码，验证码为：[" + checkCode + "]";
 
         Map params = new HashMap();
@@ -684,9 +686,11 @@ public class ClientController {
     @ResponseBody
     @RequestMapping(value = "/updatePassword", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public String updatePassword(HttpServletRequest request)throws Exception {
-        String cellphone = request.getParameter("cellphone");
-        String password = request.getParameter("password");
-        String checkCode = request.getParameter("checkCode");
+        String json = Utils.getJsonString(request);
+        JSONObject jsonObject = JSON.parseObject(json);
+        String cellphone = jsonObject.getString("cellphone").trim();
+        String password = jsonObject.getString("password");
+        String checkCode = jsonObject.getString("checkCode").trim();
         Client client = clientMapper.getClientByCellphone2(cellphone);
 
         if (client.getCheckCode().equals(checkCode)) {

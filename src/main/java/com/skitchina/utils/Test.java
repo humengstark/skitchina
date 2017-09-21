@@ -1,12 +1,14 @@
 package com.skitchina.utils;
 
 
+import com.alibaba.fastjson.JSON;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.skitchina.model.ReturnResult;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -20,7 +22,9 @@ import java.util.regex.Pattern;
  */
 public class Test {
     public static void main(String[] args) throws Exception {
-        MsgUtil.sendSms("18602834569","test");
+        String data = "DIhDwsH4+yurP5NT2QGKTgfGzzv5ryvSQ2QMYo8WV7lbvcHVElkNBOrtzpNcImKe";
+        String data2 = Utils.getJsonString2(data);
+        System.out.println(data2);
     }
 
     //�ж��Ƿ�������
