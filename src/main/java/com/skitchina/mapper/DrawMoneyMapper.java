@@ -25,7 +25,7 @@ public interface DrawMoneyMapper {
     @Update("UPDATE drawmoney SET draw_condition=1 WHERE id=#{id}")
     void updateDrawCondition(int id);
 
-    @Update("UPDATE drawmoeny SET draw_condition=2 WHERE id=#{id}")
+    @Update("UPDATE drawmoney SET draw_condition=2 WHERE id=#{id}")
     void errorDrawMoney(int id);
 
     @Select("SELECT*FROM drawmoney WHERE id=#{id}")
