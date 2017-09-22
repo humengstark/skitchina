@@ -1,6 +1,7 @@
 package com.skitchina.mapper;
 
 import com.skitchina.model.CompleteWaybill;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -21,5 +22,8 @@ public interface CompleteWaybillMapper {
 
     @Select("SELECT COUNT(*) FROM completewaybill")
     int getCompleteWaybillsNum();
+
+    @Delete("DELETE FROM completewaybill WHERE waybill_id=#{waybill_id}")
+    void deleteCompleteWaybillByWaybillId(int waybill_id);
 
 }

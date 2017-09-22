@@ -64,7 +64,7 @@ public class Utils {
         String result = EncipherData.Encrypt(ReturnResultUtil.ReturnResultToJSON(returnResult), key);
         Map map = new HashMap();
         map.put("str", result);
-        return JSON.toJSONString(map);
+        return JSON.toJSONString(map,SerializerFeature.WriteNullStringAsEmpty);
     }
 
     //随机生成4位数字

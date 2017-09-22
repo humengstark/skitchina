@@ -45,4 +45,12 @@ public class CompleteWaybillMapperImpl implements CompleteWaybillMapper {
         sqlSession.close();
         return num;
     }
+
+    @Override
+    public void deleteCompleteWaybillByWaybillId(int waybill_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.delete("com.skitchina.mapper.CompleteWaybillMapper.deleteCompleteWaybillByWaybillId", waybill_id);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

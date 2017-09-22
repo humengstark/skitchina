@@ -92,6 +92,7 @@ public class ManagementUserController {
         String consignee_company = request.getParameter("consignee_company");
         Waybill waybill = managementMapper.getWaybillById(id);
         managementMapper.deleteWaybillById(id);
+        completeWaybillMapper.deleteCompleteWaybillByWaybillId(waybill.getWaybill_id());
 
         String url = null;
         String consignor_company2 = java.net.URLEncoder.encode(consignor_company, "UTF-8");
@@ -1310,11 +1311,13 @@ public class ManagementUserController {
 
         for (CompleteWaybill completeWaybill : completeWaybillList) {
             Waybill waybill = waybillMapper.getWaybillByWaybill_id(completeWaybill.getWaybill_id());
-            User user = managementMapper.getUserById(waybill.getUser_id());
-            if (user != null) {
-                users1.put(user.getId(), user.getName());
+            if (waybill!=null) {
+                User user = managementMapper.getUserById(waybill.getUser_id());
+                if (user != null) {
+                    users1.put(user.getId(), user.getName());
+                }
+                waybillList.add(waybill);
             }
-            waybillList.add(waybill);
         }
 
         int waybillNum = completeWaybillMapper.getCompleteWaybillsNum();

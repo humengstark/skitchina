@@ -199,7 +199,7 @@
                 <form id="getWaybillsNotSubmit2" action="${ctx}/management/getWaybillsNotSubmit" method="get">
                     <input type="hidden" name="pages" value="1"><input type="hidden" name="rows" value="10">
                 </form>
-            </span> <span class="r">共有数据：<strong><%=waybillNum%></strong> 条</span></div>
+            </span> <span class="r"><strong></strong></span></div>
             <div class="mt-10">
                 <table class="table table-border table-bordered table-bg table-sort" style="table-layout: fixed">
                     <thead>
