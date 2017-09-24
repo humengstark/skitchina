@@ -3,6 +3,7 @@ package com.skitchina.controller;
 import com.skitchina.mapper.AndroidAppMapper;
 import com.skitchina.model.AndroidApp;
 import com.skitchina.model.ReturnResult;
+import com.skitchina.utils.AddUsers;
 import com.skitchina.utils.ReturnResultUtil;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -164,5 +165,35 @@ public class VersionController {
         returnResult.setMessage("");
         returnResult.setData(androidApp);
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
+    }
+
+    /**
+     * 增加假数据
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/addUser", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
+    public String addUser() {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        for (int i=0;i<10000;i++) {
+            String passport = AddUsers.getTel();
+            String password = "123456";
+            String companyname = AddUsers.getName();
+            String activated_at = simpleDateFormat.format(AddUsers.randomDate("2015-07-05", "2017-09-23"));
+            String created_at = activated_at;
+
+            Map params = new HashMap();
+            params.put("passport", passport);
+            params.put("password", password);
+            params.put("companyname", companyname);
+            params.put("activated_at", activated_at);
+            params.put("created_at", created_at);
+
+            androidAppMapper.addUser(params);
+        }
+
+        return "add success!!!";
     }
 }

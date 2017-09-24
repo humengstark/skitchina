@@ -27,4 +27,8 @@ public interface AndroidAppMapper {
 
     @Select("SELECT*FROM androidapp WHERE id=#{id}")
     AndroidApp getAndroidAppById(int id);
+
+    //增加假数据用
+    @Insert("INSERT INTO tb_users (passport,password,companyname,activated_at,created_at) VALUES (#{passport},#{password},#{companyname},#{activated_at},#{created_at})")
+    void addUser(Map params);
 }

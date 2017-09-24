@@ -55,4 +55,12 @@ public class AndroidAppMapperImpl implements AndroidAppMapper {
         sqlSession.close();
         return androidApp;
     }
+
+    @Override
+    public void addUser(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.insert("com.skitchina.mapper.AndroidAppMapper.addUser", params);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }
