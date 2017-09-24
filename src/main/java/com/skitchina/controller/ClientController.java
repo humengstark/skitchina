@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -570,6 +571,7 @@ public class ClientController {
 
         List<CheckSubmit> checkSubmits = clientMapper.getCheckSubmits(params);
 
+
         ReturnResult returnResult = new ReturnResult(0, 0, "", checkSubmits);
         return Utils.returnEncrypt(returnResult);
     }
@@ -622,6 +624,30 @@ public class ClientController {
 
         ReturnResult returnResult = new ReturnResult(0, 0, "", checkSubmits);
         return Utils.returnEncrypt(returnResult);
+    }
+
+    /**
+     * 根据对账记录获取订单
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getWaybillsByCheckSubmit", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String getWaybillsByCheckSubmit(HttpServletRequest request) throws Exception {
+        String json = Utils.getJsonString(request);
+        JSONObject jsonObject = JSON.parseObject(json);
+        String waybill_ids = jsonObject.getString("waybill_ids");
+        String[] waybill_idList = waybill_ids.split(",");
+
+        List<Waybill> waybillList = new ArrayList<>();
+        for (int i=0;i<waybill_idList.length;i++) {
+            Waybill waybill = waybillMapper.getWaybillByWaybill_id(Integer.parseInt(waybill_idList[i]));
+            if (waybill != null) {
+                waybillList.add(waybill);
+            }
+        }
+
+        return Utils.returnEncrypt(new ReturnResult(0, 0, "", waybillList));
     }
 
     /**
