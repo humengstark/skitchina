@@ -101,4 +101,7 @@ public interface ClientMapper {
 
     @Update("UPDATE client SET password=#{password} WHERE cellphone=#{cellphone}")
     void updatePassword(Map params);
+
+    @Update("UPDATE checksubmit SET money=#{money} WHERE id=#{id}")
+    void updateMoneyOfCheckSubmit(Map params);
 }

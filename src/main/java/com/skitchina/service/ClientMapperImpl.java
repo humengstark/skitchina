@@ -191,4 +191,12 @@ public class ClientMapperImpl implements ClientMapper {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Override
+    public void updateMoneyOfCheckSubmit(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.ClientMapper.updateMoneyOfCheckSubmit", params);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

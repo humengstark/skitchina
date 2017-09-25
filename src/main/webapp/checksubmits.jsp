@@ -170,7 +170,15 @@
                         <th><%=checkSubmit.getId()%></th>
                         <th><%=clients.get(checkSubmit.getClient_id())%></th>
                         <th><%=checkSubmit.getSubmit_time().substring(0,19)%></th>
-                        <th><%=checkSubmit.getMoney()%></th>
+                        <th>
+                            <%=checkSubmit.getMoney()%>
+                            <form action="${ctx}/management/updateMoneyOfCheckSubmit" method="post">
+                                <input type="hidden" name="pagesNow" value="<%=pagesNow%>">
+                                <input type="hidden" name="checkSubmitId" value="<%=checkSubmit.getId()%>">
+                                <input type="text" name="money">
+                                <button type="submit">修改</button>
+                            </form>
+                        </th>
                             <%if (checkSubmit.getCondition()==0){%>
                                 <th style="color: red">未审核</th>
                             <%}else if (checkSubmit.getCondition()==1){%>

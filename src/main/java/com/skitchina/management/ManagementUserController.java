@@ -1336,6 +1336,36 @@ public class ManagementUserController {
 
     }
 
+    /**
+     * ÐÞ¸Ä¶ÔÕË½ð¶î
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/updateMoneyOfCheckSubmit", method = RequestMethod.POST)
+    public void updateMoneyOfCheckSubmit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int pages = Integer.parseInt(request.getParameter("pagesNow"));
+        int id = Integer.parseInt(request.getParameter("checkSubmitId"));
+        double money = Double.parseDouble(request.getParameter("money"));
+
+        Map params = new HashMap();
+        params.put("id", id);
+        params.put("money", money);
+
+        CheckSubmit checkSubmit = clientMapper.getCheckSubmitById(id);
+
+        double balance = money - checkSubmit.getMoney();
+
+        clientMapper.updateMoneyOfCheckSubmit(params);
+
+        Map params2 = new HashMap();
+        params2.put("money", balance);
+        params2.put("id", checkSubmit.getClient_id());
+
+        clientMapper.updateBalance(params2);
+        response.sendRedirect(request.getContextPath() + "/management/getCheckSubmits?pages=" + pages);
+    }
+
 }
 
 
