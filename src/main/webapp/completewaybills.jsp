@@ -339,6 +339,7 @@
                         </td>
                         <td class="waybill_time"><%=waybill.getTime().substring(0, 19)%>
                         </td>
+                        <td>
                             <a href="${ctx}/management/invalidWaybillById?pages=<%=pagesNow%>&id=<%=waybill.getId()%>&type=<%=type%>&consignor_company=<%=consignor_company3%>&consignee_company=<%=consignee_company3%>"
                                style="color: red">作废</a>
                         </td>
@@ -346,7 +347,6 @@
                             <button type="button" class="wy-set">
                                 修改
                             </button>
-
                         </td>
                     </tr>
                     <%}%>
@@ -355,41 +355,41 @@
                 </table>
             </div>
         </article>
-        <div style="margin-left: 50px;">
-            <%if (pagesNow != 1) {%>
-            <div class="humeng">
-                <form id="last_form">
-                    <input type="hidden" name="pages" value="<%=pagesNow-1%>">
-                </form>
-            </div>
-            <div class="humeng">
-                <button id="last_page">上一页</button>
-            </div>
-            <%}%>
-            <div class="humeng">
-                第<%=pagesNow%>页，共<%=pagesAll%>页
-            </div>
-            <%if (pagesNow != pagesAll) {%>
-            <div class="humeng">
-                <form id="next_form">
-                    <input type="hidden" name="pages" value="<%=pagesNow+1%>">
-                </form>
-            </div>
-            <div class="humeng">
-                <button id="next_page">下一页</button>
-            </div>
-            <%}%>
-            <div class="humeng">
-                <form id="choosePage">
-                    <div class="humeng">
-                        <input type="number" style="width: 50px;" name="pages" id="pagesNum">
-                    </div>
-                    <div class="humeng">
-                        <button id="choosePageButton">跳转</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <%--<div style="margin-left: 50px;">--%>
+            <%--<%if (pagesNow != 1) {%>--%>
+            <%--<div class="humeng">--%>
+                <%--<form id="last_form">--%>
+                    <%--<input type="hidden" name="pages" value="<%=pagesNow-1%>">--%>
+                <%--</form>--%>
+            <%--</div>--%>
+            <%--<div class="humeng">--%>
+                <%--<button id="last_page">上一页</button>--%>
+            <%--</div>--%>
+            <%--<%}%>--%>
+            <%--<div class="humeng">--%>
+                <%--第<%=pagesNow%>页，共<%=pagesAll%>页--%>
+            <%--</div>--%>
+            <%--<%if (pagesNow != pagesAll) {%>--%>
+            <%--<div class="humeng">--%>
+                <%--<form id="next_form">--%>
+                    <%--<input type="hidden" name="pages" value="<%=pagesNow+1%>">--%>
+                <%--</form>--%>
+            <%--</div>--%>
+            <%--<div class="humeng">--%>
+                <%--<button id="next_page">下一页</button>--%>
+            <%--</div>--%>
+            <%--<%}%>--%>
+            <%--<div class="humeng">--%>
+                <%--<form id="choosePage">--%>
+                    <%--<div class="humeng">--%>
+                        <%--<input type="number" style="width: 50px;" name="pages" id="pagesNum">--%>
+                    <%--</div>--%>
+                    <%--<div class="humeng">--%>
+                        <%--<button id="choosePageButton">跳转</button>--%>
+                    <%--</div>--%>
+                <%--</form>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </div>
 
 

@@ -17,8 +17,8 @@ public interface CompleteWaybillMapper {
     @Insert("INSERT INTO completewaybill (waybill_id) VALUES (#{waybill_id})")
     void addCompleteWaybill(int waybill_id);
 
-    @Select("SELECT * FROM completewaybill ORDER BY id DESC LIMIT #{m},#{rows}")
-    List<CompleteWaybill> getAllCompleteWaybills(Map params);
+    @Select("SELECT * FROM completewaybill ORDER BY id DESC")
+    List<CompleteWaybill> getAllCompleteWaybills();
 
     @Select("SELECT COUNT(*) FROM completewaybill")
     int getCompleteWaybillsNum();

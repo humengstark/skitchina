@@ -210,48 +210,48 @@
                 </table>
             </div>
         </article>
-        <div style="margin-left: 50px;">
-            <%if (pagesNow!=1){%>
-            <%--<a href="${ctx}/management/getWaybills?pages=<%=pagesNow-1%>&rows=10" class="pages">上一页</a>--%>
-            <div class="humeng">
-                <form id="last_form">
-                    <input type="hidden" name="pages" value="<%=pagesNow-1%>">
-                    <input type="hidden" name="pagesOnCheckSubmits" value="<%=pagesOnCheckSubmits%>">
-                    <input type="hidden" name="id" value="<%=id%>">
-                </form>
-            </div>
-            <div class="humeng">
-                <button id="last_page">上一页</button>
-            </div>
-            <%}%>
-            <div class="humeng">
-                第<%=pagesNow%>页，共<%=pagesAll%>页
-            </div>
-            <%if (pagesNow!=pagesAll){%>
-            <div class="humeng">
-                <form id="next_form">
-                    <input type="hidden" name="pages" value="<%=pagesNow+1%>">
-                    <input type="hidden" name="pagesOnCheckSubmits" value="<%=pagesOnCheckSubmits%>">
-                    <input type="hidden" name="id" value="<%=id%>">
-                </form>
-            </div>
-            <div class="humeng">
-                <button id="next_page">下一页</button>
-            </div>
-            <%}%>
-            <div class="humeng">
-                <form id="choosePage">
-                    <div class="humeng">
-                        <input type="number" style="width: 50px;" name="pages" id="pagesNum">
-                        <input type="hidden" name="pagesOnCheckSubmits" value="<%=pagesOnCheckSubmits%>">
-                        <input type="hidden" name="id" value="<%=id%>">
-                    </div>
-                    <div class="humeng">
-                        <button id="choosePageButton">跳转</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <%--<div style="margin-left: 50px;">--%>
+            <%--<%if (pagesNow!=1){%>--%>
+            <%--&lt;%&ndash;<a href="${ctx}/management/getWaybills?pages=<%=pagesNow-1%>&rows=10" class="pages">上一页</a>&ndash;%&gt;--%>
+            <%--<div class="humeng">--%>
+                <%--<form id="last_form">--%>
+                    <%--<input type="hidden" name="pages" value="<%=pagesNow-1%>">--%>
+                    <%--<input type="hidden" name="pagesOnCheckSubmits" value="<%=pagesOnCheckSubmits%>">--%>
+                    <%--<input type="hidden" name="id" value="<%=id%>">--%>
+                <%--</form>--%>
+            <%--</div>--%>
+            <%--<div class="humeng">--%>
+                <%--<button id="last_page">上一页</button>--%>
+            <%--</div>--%>
+            <%--<%}%>--%>
+            <%--<div class="humeng">--%>
+                <%--第<%=pagesNow%>页，共<%=pagesAll%>页--%>
+            <%--</div>--%>
+            <%--<%if (pagesNow!=pagesAll){%>--%>
+            <%--<div class="humeng">--%>
+                <%--<form id="next_form">--%>
+                    <%--<input type="hidden" name="pages" value="<%=pagesNow+1%>">--%>
+                    <%--<input type="hidden" name="pagesOnCheckSubmits" value="<%=pagesOnCheckSubmits%>">--%>
+                    <%--<input type="hidden" name="id" value="<%=id%>">--%>
+                <%--</form>--%>
+            <%--</div>--%>
+            <%--<div class="humeng">--%>
+                <%--<button id="next_page">下一页</button>--%>
+            <%--</div>--%>
+            <%--<%}%>--%>
+            <%--<div class="humeng">--%>
+                <%--<form id="choosePage">--%>
+                    <%--<div class="humeng">--%>
+                        <%--<input type="number" style="width: 50px;" name="pages" id="pagesNum">--%>
+                        <%--<input type="hidden" name="pagesOnCheckSubmits" value="<%=pagesOnCheckSubmits%>">--%>
+                        <%--<input type="hidden" name="id" value="<%=id%>">--%>
+                    <%--</div>--%>
+                    <%--<div class="humeng">--%>
+                        <%--<button id="choosePageButton">跳转</button>--%>
+                    <%--</div>--%>
+                <%--</form>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </div>
 
 

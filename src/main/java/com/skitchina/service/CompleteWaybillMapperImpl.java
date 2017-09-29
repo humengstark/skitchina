@@ -29,9 +29,9 @@ public class CompleteWaybillMapperImpl implements CompleteWaybillMapper {
     }
 
     @Override
-    public List<CompleteWaybill> getAllCompleteWaybills(Map params) {
+    public List<CompleteWaybill> getAllCompleteWaybills() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<CompleteWaybill> completeWaybillList = sqlSession.selectList("com.skitchina.mapper.CompleteWaybillMapper.getAllCompleteWaybills", params);
+        List<CompleteWaybill> completeWaybillList = sqlSession.selectList("com.skitchina.mapper.CompleteWaybillMapper.getAllCompleteWaybills");
         sqlSession.commit();
         sqlSession.close();
         return completeWaybillList;

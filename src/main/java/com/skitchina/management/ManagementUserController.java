@@ -926,29 +926,29 @@ public class ManagementUserController {
         }
         int waybillNum = waybills.size();
         System.out.println("======waybills里有"+waybillNum+"个元素");
-        if (waybills.size() > 10) {
-            if (pages2 == 1) {
-                for (int i=10;i<waybillNum;i++) {
-                    waybills.remove(10);
-                }
-            } else if (pages2 > 1) {
-                int head = (pages2 - 1)*10;
-                for (int i=0;i<head;i++) {
-                    waybills.remove(0);
-                    if (waybills.size() == 10) {
-                        break;
-                    }
-                }
-                if (waybills.size()!=10) {
-                    for (int i = 10; i < waybillNum; i++) {
-                        waybills.remove(10);
-                        if (waybills.size() == 10) {
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+//        if (waybills.size() > 10) {
+//            if (pages2 == 1) {
+//                for (int i=10;i<waybillNum;i++) {
+//                    waybills.remove(10);
+//                }
+//            } else if (pages2 > 1) {
+//                int head = (pages2 - 1)*10;
+//                for (int i=0;i<head;i++) {
+//                    waybills.remove(0);
+//                    if (waybills.size() == 10) {
+//                        break;
+//                    }
+//                }
+//                if (waybills.size()!=10) {
+//                    for (int i = 10; i < waybillNum; i++) {
+//                        waybills.remove(10);
+//                        if (waybills.size() == 10) {
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
+//        }
         Map users = new HashMap();
         for (Waybill waybill : waybills) {
             User user = managementMapper.getUserById(waybill.getUser_id());
@@ -1025,29 +1025,29 @@ public class ManagementUserController {
             clientMapper.updateCheckSubmitCondition(checksubmit_id);
         }
         int waybillNum = waybills.size();
-        if (waybills.size() > 10) {
-            if (pages == 1) {
-                for (int i=10;i<waybillNum;i++) {
-                    waybills.remove(10);
-                }
-            } else if (pages > 1) {
-                int head = (pages - 1)*10;
-                for (int i=0;i<head;i++) {
-                    waybills.remove(0);
-                    if (waybills.size() == 10) {
-                        break;
-                    }
-                }
-                if (waybills.size()!=10) {
-                    for (int i = 10; i < waybillNum; i++) {
-                        waybills.remove(10);
-                        if (waybills.size() == 10) {
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+//        if (waybills.size() > 10) {
+//            if (pages == 1) {
+//                for (int i=10;i<waybillNum;i++) {
+//                    waybills.remove(10);
+//                }
+//            } else if (pages > 1) {
+//                int head = (pages - 1)*10;
+//                for (int i=0;i<head;i++) {
+//                    waybills.remove(0);
+//                    if (waybills.size() == 10) {
+//                        break;
+//                    }
+//                }
+//                if (waybills.size()!=10) {
+//                    for (int i = 10; i < waybillNum; i++) {
+//                        waybills.remove(10);
+//                        if (waybills.size() == 10) {
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         Map users = new HashMap();
         for (Waybill waybill : waybills) {
@@ -1297,15 +1297,15 @@ public class ManagementUserController {
     @RequestMapping(value = "/getAllCompleteWaybills", method = RequestMethod.GET)
     public void getAllCompleteWaybills(HttpServletRequest request, HttpServletResponse response)throws IOException {
 
-        int pages = Integer.parseInt(request.getParameter("pages"));
-        int rows = 10;
-        int m = (pages - 1) * rows;
+//        int pages = Integer.parseInt(request.getParameter("pages"));
+//        int rows = 10;
+//        int m = (pages - 1) * rows;
+//
+//        Map params = new HashMap();
+//        params.put("m", m);
+//        params.put("rows", 10);
 
-        Map params = new HashMap();
-        params.put("m", m);
-        params.put("rows", 10);
-
-        List<CompleteWaybill> completeWaybillList = completeWaybillMapper.getAllCompleteWaybills(params);
+        List<CompleteWaybill> completeWaybillList = completeWaybillMapper.getAllCompleteWaybills();
         List<Waybill> waybillList = new ArrayList<>();
         Map users1 = new HashMap();
 
@@ -1327,11 +1327,11 @@ public class ManagementUserController {
         request.getSession().setAttribute("type",0);
         request.getSession().setAttribute("waybills",waybillList);
         request.getSession().setAttribute("users", users1);
-        request.getSession().setAttribute("pagesNow",pages);
-        System.out.println("=============================pagesNow="+pages);
+        request.getSession().setAttribute("pagesNow",1);
+        System.out.println("=============================pagesNow="+1);
         request.getSession().setAttribute("waybillNum",waybillNum);
         System.out.println("=============================waybillNum="+waybillNum);
-        request.getSession().setAttribute("rows",rows);
+        request.getSession().setAttribute("rows",0);
         response.sendRedirect(request.getContextPath() + "/completewaybills.jsp");
 
     }
