@@ -810,7 +810,9 @@ public class ManagementUserController {
         int pagesAll = waybillNum / 10;
         for (Waybill waybill : waybills) {
             User user = managementMapper.getUserById(waybill.getUser_id());
-            users1.put(waybill.getUser_id(), user.getName());
+            if (user != null) {
+                users1.put(waybill.getUser_id(), user.getName());
+            }
         }
 
         request.getSession().setAttribute("consignor_company","no");
@@ -842,7 +844,9 @@ public class ManagementUserController {
         Map users1 = new HashMap();
         for (Waybill waybill : waybills) {
             User user = managementMapper.getUserById(waybill.getUser_id());
-            users1.put(waybill.getUser_id(), user.getName());
+            if (user != null) {
+                users1.put(waybill.getUser_id(), user.getName());
+            }
         }
         int waybillNum = managementMapper.getWaybillsReceiveAndNotSubmitNum();
 
