@@ -26,7 +26,7 @@ public class StationController {
     private StationMapper stationMapper;
 
     /**
-     * »ñÈ¡ËùÓĞÍøµã
+     * è·å–æ‰€æœ‰ç½‘ç‚¹
      * @param
      * @return
      */
@@ -44,7 +44,7 @@ public class StationController {
     }
 
     /**
-     * »ñÈ¡¸ÃÍøµã¿ÉÒÔ·¢»õµ½µÄÍøµã
+     * è·å–è¯¥ç½‘ç‚¹å¯ä»¥å‘è´§åˆ°çš„ç½‘ç‚¹
      * @param request
      * @return
      */
@@ -65,9 +65,9 @@ public class StationController {
     }
 
     /**
-     * É¾³ıÊı¾İ¿âËùÓĞÊı¾İ£¬ÒÔ±ãÖØĞÂµ¼Èë
+     * åˆ é™¤æ•°æ®åº“æ‰€æœ‰æ•°æ®ï¼Œä»¥ä¾¿é‡æ–°å¯¼å…¥
      *
-     * ½ûÖ¹ÔÚÔ¶³Ì·şÎñÆ÷Ê¹ÓÃ´Ë·½·¨£¬»áÔì³É¾Ş´óËğÊ§
+     * ç¦æ­¢åœ¨è¿œç¨‹æœåŠ¡å™¨ä½¿ç”¨æ­¤æ–¹æ³•ï¼Œä¼šé€ æˆå·¨å¤§æŸå¤±
      * @return
      */
     @ResponseBody
@@ -80,6 +80,6 @@ public class StationController {
         stationMapper.deleteAll4();
         stationMapper.deleteAll5();
 
-        return "Êı¾İ¿âÇå¿Õ³É¹¦";
+        return "æ•°æ®åº“æ¸…ç©ºæˆåŠŸ";
     }
 }

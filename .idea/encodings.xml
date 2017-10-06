@@ -2,15 +2,21 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/src" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/controller/ContactController.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/controller/StationController.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/controller/UserController.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/controller/WaybillController.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/management/ManagementUserController.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/ContactMapper.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/controller/ContactController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/controller/StationController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/controller/UserController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/controller/WaybillController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/management/ManagementUserController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/ContactMapper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/StationMapper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/SubmitMapper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/UserMapper.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/WaybillMapper.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/model/Submit.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/mapper/WaybillMapper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/model/ReturnResult.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/model/Submit.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/model/User.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/model/Waybill.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/skitchina/utils/Test.java" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

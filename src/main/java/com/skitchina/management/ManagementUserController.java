@@ -51,7 +51,7 @@ public class ManagementUserController {
     private WaybillMapper waybillMapper;
 
     /**
-     * ÓÃ»§µÇÂ½
+     * ç”¨æˆ·ç™»é™†
      * @param request
      * @param response
      * @throws IOException
@@ -59,26 +59,26 @@ public class ManagementUserController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
-        System.out.println("usernameÎª£º"+username);
+        System.out.println("usernameä¸ºï¼š"+username);
         String password = request.getParameter("password");
-        System.out.println("passwordÎª£º"+password);
+        System.out.println("passwordä¸ºï¼š"+password);
         if (username.equals("admin") && password.equals("456789")) {
-            //1ÎªµÇÂ½³É¹¦
+            //1ä¸ºç™»é™†æˆåŠŸ
             request.getSession().setAttribute("state", 1);
             response.sendRedirect(request.getContextPath()+"/management.jsp");
         } else {
             if (!username.equals("admin")) {
-                //2ÎªÕÊºÅ´íÎó
+                //2ä¸ºå¸å·é”™è¯¯
                 request.getSession().setAttribute("state",2);
             } else if (!password.equals("456789")) {
-                //3ÎªÃÜÂë´íÎó
+                //3ä¸ºå¯†ç é”™è¯¯
                 request.getSession().setAttribute("state",3);
             }
         }
     }
 
     /**
-     * ¸ù¾ÝIDÉ¾³ý¶©µ¥
+     * æ ¹æ®IDåˆ é™¤è®¢å•
      * @param request
      * @param response
      * @throws IOException
@@ -114,7 +114,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ÐÞ¸Ä¶©µ¥×´Ì¬
+     * ä¿®æ”¹è®¢å•çŠ¶æ€
      * @param request
      * @param response
      * @throws IOException
@@ -159,7 +159,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ÓÃ»§¹ÜÀí
+     * ç”¨æˆ·ç®¡ç†
      * @param request
      * @param response
      */
@@ -188,7 +188,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ÐÞ¸ÄÈ¨ÏÞ
+     * ä¿®æ”¹æƒé™
      * @param request
      * @param response
      * @throws IOException
@@ -209,7 +209,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ¸ù¾ÝIDÉ¾³ýÓÃ»§
+     * æ ¹æ®IDåˆ é™¤ç”¨æˆ·
      * @param request
      * @param response
      * @throws IOException
@@ -224,7 +224,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ¸ù¾ÝIDÐÞ¸ÄÍøµã
+     * æ ¹æ®IDä¿®æ”¹ç½‘ç‚¹
      * @param request
      * @param response
      * @throws IOException
@@ -244,7 +244,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ËÑË÷ÓÃ»§
+     * æœç´¢ç”¨æˆ·
      * @param request
      * @param response
      */
@@ -266,7 +266,7 @@ public class ManagementUserController {
     }
 
     /**
-     * Íøµã¹ÜÀí
+     * ç½‘ç‚¹ç®¡ç†
      * @param request
      * @param response
      */
@@ -283,7 +283,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ¸ù¾ÝIDÉ¾³ýÍøµã
+     * æ ¹æ®IDåˆ é™¤ç½‘ç‚¹
      * @param request
      * @param response
      */
@@ -296,7 +296,7 @@ public class ManagementUserController {
     }
 
     /**
-     * Ôö¼ÓÍøµã
+     * å¢žåŠ ç½‘ç‚¹
      * @param request
      * @param response
      */
@@ -328,7 +328,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ÐÞ¸Äwaybill
+     * ä¿®æ”¹waybill
      * @param request
      * @param response
      */
@@ -387,7 +387,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ×÷·Ï¶©µ¥
+     * ä½œåºŸè®¢å•
      * @param request
      * @param response
      */
@@ -421,7 +421,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ÐÞ¸ÄÓÃ»§
+     * ä¿®æ”¹ç”¨æˆ·
      * @param request
      * @param response
      */
@@ -453,7 +453,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ¸ù¾Ýconsignor_companyËÑË÷¶©µ¥
+     * æ ¹æ®consignor_companyæœç´¢è®¢å•
      * @param request
      * @param response
      */
@@ -499,7 +499,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ¸ù¾Ýconsignee_companyËÑË÷
+     * æ ¹æ®consignee_companyæœç´¢
      * @param request
      * @param response
      */
@@ -542,7 +542,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ¸ù¾Ýconsignor_companyºÍconsignee_companyËÑË÷
+     * æ ¹æ®consignor_companyå’Œconsignee_companyæœç´¢
      * @param request
      * @param response
      */
@@ -588,7 +588,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ¶©µ¥¹ÜÀí
+     * è®¢å•ç®¡ç†
      * @param request
      * @param response
      * @throws IOException
@@ -633,7 +633,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ¸ù¾Ýwaybill_idËÑË÷
+     * æ ¹æ®waybill_idæœç´¢
      * @param request
      * @param response
      */
@@ -671,7 +671,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ÐÞ¸ÄÖ§¸¶·½Ê½
+     * ä¿®æ”¹æ”¯ä»˜æ–¹å¼
      * @param request
      * @param response
      */
@@ -714,7 +714,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ÐÞ¸Ä×´Ì¬Îª½áÊø
+     * ä¿®æ”¹çŠ¶æ€ä¸ºç»“æŸ
      * @param request
      * @param response
      */
@@ -748,13 +748,13 @@ public class ManagementUserController {
     }
 
     /**
-     * ¸ù¾ÝIDÐÞ¸ÄÔË·Ñ»òÕß´úÊÕ¿î
+     * æ ¹æ®IDä¿®æ”¹è¿è´¹æˆ–è€…ä»£æ”¶æ¬¾
      * @param request
      * @param response
      */
     @RequestMapping(value = "/updateFreightOrPrice", method = RequestMethod.GET)
     public void updateFreightOrPrice(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("½øÈëµ½ÐÞ¸ÄÔË·Ñcontroller");
+        System.out.println("è¿›å…¥åˆ°ä¿®æ”¹è¿è´¹controller");
         int type = Integer.parseInt(request.getParameter("type"));
         String consignor_company = request.getParameter("consignor_company");
         String consignee_company = request.getParameter("consignee_company");
@@ -791,7 +791,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ²éÑ¯Î´½»ÕËµÄÔËµ¥
+     * æŸ¥è¯¢æœªäº¤è´¦çš„è¿å•
      * @param request
      * @param response
      */
@@ -828,7 +828,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ²éÑ¯ÒÑÊÕÕËÎ´½»ÕËµÄÔËµ¥
+     * æŸ¥è¯¢å·²æ”¶è´¦æœªäº¤è´¦çš„è¿å•
      * @param request
      * @param response
      */
@@ -862,7 +862,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ²ÆÎñ¹ÜÀí
+     * è´¢åŠ¡ç®¡ç†
      * @param request
      * @param response
      */
@@ -885,7 +885,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ²ÆÎñ¹ÜÀí ²é¿´ÏêÇé
+     * è´¢åŠ¡ç®¡ç† æŸ¥çœ‹è¯¦æƒ…
      * @param request
      * @param response
      */
@@ -929,7 +929,7 @@ public class ManagementUserController {
             }
         }
         int waybillNum = waybills.size();
-        System.out.println("======waybillsÀïÓÐ"+waybillNum+"¸öÔªËØ");
+        System.out.println("======waybillsé‡Œæœ‰"+waybillNum+"ä¸ªå…ƒç´ ");
 //        if (waybills.size() > 10) {
 //            if (pages2 == 1) {
 //                for (int i=10;i<waybillNum;i++) {
@@ -971,7 +971,7 @@ public class ManagementUserController {
     }
 
     /**
-     * »ñÈ¡Ìá½»¶ÔÕË¼ÇÂ¼
+     * èŽ·å–æäº¤å¯¹è´¦è®°å½•
      * @param request
      * @param response
      */
@@ -1002,7 +1002,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ¸ù¾Ýchecksubmit»ñÈ¡waybill
+     * æ ¹æ®checksubmitèŽ·å–waybill
      * @param request
      * @param response
      */
@@ -1070,13 +1070,13 @@ public class ManagementUserController {
     }
 
     /**
-     * ¶ÔÕËÍ¨¹ýÉóºË
+     * å¯¹è´¦é€šè¿‡å®¡æ ¸
      * @param request
      * @param response
      */
     @RequestMapping(value = "/checkPass", method = RequestMethod.GET)
     public void checkPass(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //´ËidÎªwaybill±íÀïÃæµÄÖ÷¼üid
+        //æ­¤idä¸ºwaybillè¡¨é‡Œé¢çš„ä¸»é”®id
         int id = Integer.parseInt(request.getParameter("waybillId"));
         int pages = Integer.parseInt(request.getParameter("pages"));
         int checkSubmitId = Integer.parseInt(request.getParameter("id"));
@@ -1097,7 +1097,7 @@ public class ManagementUserController {
     }
 
     /**
-     * »ñÈ¡ËùÓÐ¹«¸æ
+     * èŽ·å–æ‰€æœ‰å…¬å‘Š
      * @param request
      * @param response
      */
@@ -1122,7 +1122,7 @@ public class ManagementUserController {
     }
 
     /**
-     * É¾³ýnotice
+     * åˆ é™¤notice
      * @param request
      * @param response
      */
@@ -1141,7 +1141,7 @@ public class ManagementUserController {
         String content = request.getParameter("content");
         int pages = Integer.parseInt(request.getParameter("pagesNow"));
 
-        //»ñÈ¡µ±Ç°Ê±¼ä
+        //èŽ·å–å½“å‰æ—¶é—´
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = simpleDateFormat.format(new Date());
 
@@ -1155,7 +1155,7 @@ public class ManagementUserController {
     }
 
     /**
-     * »ñÈ¡ËùÓÐÉÌ¼Ò
+     * èŽ·å–æ‰€æœ‰å•†å®¶
      *
      * @param response
      */
@@ -1203,7 +1203,7 @@ public class ManagementUserController {
     }
 
     /**
-     * Õ¹Ê¾ÉÌ¼Ò
+     * å±•ç¤ºå•†å®¶
      * @param request
      * @param response
      * @throws IOException
@@ -1213,7 +1213,7 @@ public class ManagementUserController {
         int client_id = Integer.parseInt(request.getParameter("client_id"));
         int pagesNow = Integer.parseInt(request.getParameter("pagesNow"));
 
-        //»ñÈ¡µ±Ç°Ê±¼ä
+        //èŽ·å–å½“å‰æ—¶é—´
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = simpleDateFormat.format(new Date());
 
@@ -1227,7 +1227,7 @@ public class ManagementUserController {
     }
 
     /**
-     * Òþ²ØÉÌ¼Ò
+     * éšè—å•†å®¶
      * @param request
      * @param response
      * @throws IOException
@@ -1243,7 +1243,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ÐÂÔö³£¼ûÎÊÌâ
+     * æ–°å¢žå¸¸è§é—®é¢˜
      * @param request
      * @param response
      * @throws IOException
@@ -1253,7 +1253,7 @@ public class ManagementUserController {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
 
-        //»ñÈ¡µ±Ç°Ê±¼ä
+        //èŽ·å–å½“å‰æ—¶é—´
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = simpleDateFormat.format(new Date());
 
@@ -1268,7 +1268,7 @@ public class ManagementUserController {
     }
 
     /**
-     * »ñÈ¡³£¼ûÎÊÌâ
+     * èŽ·å–å¸¸è§é—®é¢˜
      * @param response
      * @throws IOException
      */
@@ -1280,7 +1280,7 @@ public class ManagementUserController {
     }
 
     /**
-     * É¾³ý³£¼ûÎÊÌâ
+     * åˆ é™¤å¸¸è§é—®é¢˜
      * @param request
      * @param response
      * @throws IOException
@@ -1293,7 +1293,7 @@ public class ManagementUserController {
     }
 
     /**
-     * »ñÈ¡ÒÑÍê³ÉµÄ¶©µ¥
+     * èŽ·å–å·²å®Œæˆçš„è®¢å•
      * @param request
      * @param response
      * @throws IOException
@@ -1341,7 +1341,7 @@ public class ManagementUserController {
     }
 
     /**
-     * ÐÞ¸Ä¶ÔÕË½ð¶î
+     * ä¿®æ”¹å¯¹è´¦é‡‘é¢
      * @param request
      * @param response
      * @throws IOException

@@ -27,7 +27,7 @@ public class Test {
         System.out.println(data2);
     }
 
-    //�ж��Ƿ�������
+    //?��??????????
     public static boolean isInteger(String str) {
         Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
         return pattern.matcher(str).matches();
@@ -36,16 +36,16 @@ public class Test {
     public static void createQR() throws WriterException, IOException {
         String filePath = "D://";
         String fileName = "faxisi.png";
-        String content = "�����Ƿ���˹�£�������������֣�����";
+        String content = "???????????????????????????????";
         int width = 200;
         int height = 200;
         String format = "png";
         Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         BitMatrix bitMatrix=new MultiFormatWriter().encode(content,
-                BarcodeFormat.QR_CODE, width, height, hints);// ���ɾ���
+                BarcodeFormat.QR_CODE, width, height, hints);// ???????
         Path path = FileSystems.getDefault().getPath(filePath, fileName);
-        MatrixToImageWriter.writeToPath(bitMatrix, format, path);// ���ͼ��
-        System.out.println("����ɹ�.");
+        MatrixToImageWriter.writeToPath(bitMatrix, format, path);// ??????
+        System.out.println("??????.");
     }
 }

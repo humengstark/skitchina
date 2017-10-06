@@ -15,31 +15,31 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ÒÔÏÂ²éÑ¯È«ÎªÄ£ºı²éÑ¯
+ * ä»¥ä¸‹æŸ¥è¯¢å…¨ä¸ºæ¨¡ç³ŠæŸ¥è¯¢
  */
 public interface ContactMapper {
 
-    //Ìí¼Ó³£ÓÃÁªÏµÈË
+    //æ·»åŠ å¸¸ç”¨è”ç³»äºº
     @Insert("INSERT INTO contact (user_id,cellphone,company,address) VALUES (#{user_id},#{cellphone},#{company},#{address})")
     void addContact(Map params);
 
-    //¸ù¾İcellphone²éÑ¯contact
+    //æ ¹æ®cellphoneæŸ¥è¯¢contact
     @Select("SELECT*FROM contact WHERE cellphone LIKE CONCAT('%','${value}','%') LIMIT #{m},#{rows}")
     List<Contact> getContactsByCellphone(Map params);
 
-    //¸ù¾İcompany²éÑ¯contact
+    //æ ¹æ®companyæŸ¥è¯¢contact
     @Select("SELECT*FROM contact WHERE company LIKE CONCAT('%','${value}','%') LIMIT #{m},#{rows}")
     List<Contact> getContactsByCompany(Map params);
 
-    //¸ù¾İcellphone²éÑ¯ contact
+    //æ ¹æ®cellphoneæŸ¥è¯¢ contact
     @Select("SELECT*FROM contact WHERE cellphone=#{cellphone}")
     Contact getContactByCellphone(String cellphone);
 
-    //¸ù¾İcellphoneÉ¾³ıcontact
+    //æ ¹æ®cellphoneåˆ é™¤contact
     @Delete("DELETE FROM contact WHERE cellphone=#{cellphone}")
     void deleteContact(String cellphone);
 
-    //¸ù¾İidÉ¾³ıcontact
+    //æ ¹æ®idåˆ é™¤contact
     @Delete("DELETE FROM contact WHERE id=#{id}")
     void deleteContactById(int id);
 }

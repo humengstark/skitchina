@@ -48,7 +48,7 @@ public class WaybillController {
     private ClientWaybillMapper clientWaybillMapper;
 
     /**
-     * ÏÂµ¥
+     * ä¸‹å•
      * @param request
      * @return
      */
@@ -71,10 +71,10 @@ public class WaybillController {
         int number = Integer.parseInt(request.getParameter("number"));
         String remark = request.getParameter("remark").trim();
 
-        //ÏÈÕÒ³öÕâ¸öÓÃ»§¿ªµÄ×îºóÒ»µ¥µÄĞÅÏ¢ÊÇ·ñºÍ´Ëµ¥Ò»Ñù£¬Èç¹ûÒ»Ñù£¬²»¿ªµ¥£¬·ÀÖ¹¶©µ¥ÖØ¸´
+        //å…ˆæ‰¾å‡ºè¿™ä¸ªç”¨æˆ·å¼€çš„æœ€åä¸€å•çš„ä¿¡æ¯æ˜¯å¦å’Œæ­¤å•ä¸€æ ·ï¼Œå¦‚æœä¸€æ ·ï¼Œä¸å¼€å•ï¼Œé˜²æ­¢è®¢å•é‡å¤
         Waybill waybill0 = waybillMapper.getLastWaybillByUserId(user_id);
 
-        //²úÉúÒ»¸ö4Î»Ëæ»úÊı
+        //äº§ç”Ÿä¸€ä¸ª4ä½éšæœºæ•°
         int random = Utils.getRandomNum();
 
         ReturnResult returnResult = new ReturnResult();
@@ -86,11 +86,11 @@ public class WaybillController {
 //                    waybill0.getPayway() != payway || waybill0.getNumber() != number) {
             if (1 == 1) {
 
-                //»ñÈ¡µ±Ç°Ê±¼ä
+                //è·å–å½“å‰æ—¶é—´
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String time = simpleDateFormat.format(new Date());
 
-                //±£´æ·¢»õÈËºÍÊÕ»õÈËĞÅÏ¢
+                //ä¿å­˜å‘è´§äººå’Œæ”¶è´§äººä¿¡æ¯
                 Contact contact1 = contactMapper.getContactByCellphone(consignor_tel);
                 Map params1 = new HashMap();
                 params1.put("user_id", user_id);
@@ -117,14 +117,14 @@ public class WaybillController {
                     contactMapper.addContact(params2);
                 }
 
-                //»ñÈ¡×î´óµÄwaybill_id£¬²¢ÇÒ+1Îª´ËÔËµ¥µÄµ¥ºÅ
+                //è·å–æœ€å¤§çš„waybill_idï¼Œå¹¶ä¸”+1ä¸ºæ­¤è¿å•çš„å•å·
                 Waybill waybill = waybillMapper.getMaxIdWaybill();
                 int waybill_id = waybill.getWaybill_id() + 1;
 
-                //conditionÎª0
+                //conditionä¸º0
                 int condition = 0;
 
-                //Èç¹û¸¶¿î·½Ê½ÎªÏÖ¸¶£¬ÔòË«·½µÄmark¸ÄÎª1
+                //å¦‚æœä»˜æ¬¾æ–¹å¼ä¸ºç°ä»˜ï¼Œåˆ™åŒæ–¹çš„markæ”¹ä¸º1
                 int consignor_mark = 0;
                 int consignee_mark = 0;
                 if (payway == 1) {
@@ -169,11 +169,11 @@ public class WaybillController {
                 returnResult.setData(waybill0);
             }
         } else {
-            //»ñÈ¡µ±Ç°Ê±¼ä
+            //è·å–å½“å‰æ—¶é—´
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time = simpleDateFormat.format(new Date());
 
-            //±£´æ·¢»õÈËºÍÊÕ»õÈËĞÅÏ¢
+            //ä¿å­˜å‘è´§äººå’Œæ”¶è´§äººä¿¡æ¯
             Contact contact1 = contactMapper.getContactByCellphone(consignor_tel);
             Map params1 = new HashMap();
             params1.put("user_id", user_id);
@@ -200,14 +200,14 @@ public class WaybillController {
                 contactMapper.addContact(params2);
             }
 
-            //»ñÈ¡×î´óµÄwaybill_id£¬²¢ÇÒ+1Îª´ËÔËµ¥µÄµ¥ºÅ
+            //è·å–æœ€å¤§çš„waybill_idï¼Œå¹¶ä¸”+1ä¸ºæ­¤è¿å•çš„å•å·
             Waybill waybill = waybillMapper.getMaxIdWaybill();
             int waybill_id = waybill.getWaybill_id() + 1;
 
-            //conditionÎª0
+            //conditionä¸º0
             int condition = 0;
 
-            //Èç¹û¸¶¿î·½Ê½ÎªÏÖ¸¶£¬ÔòË«·½µÄmark¸ÄÎª1
+            //å¦‚æœä»˜æ¬¾æ–¹å¼ä¸ºç°ä»˜ï¼Œåˆ™åŒæ–¹çš„markæ”¹ä¸º1
             int consignor_mark = 0;
             int consignee_mark = 0;
             if (payway == 1) {
@@ -242,7 +242,7 @@ public class WaybillController {
             Waybill waybill1 = waybillMapper.getWaybillByWaybillId(waybill_id);
 
             /**
-             * Èç¹ûÊÇÏÖ¸¶µ¥×Ó£¬×Ô¶¯ÊÕÔË·Ñ
+             * å¦‚æœæ˜¯ç°ä»˜å•å­ï¼Œè‡ªåŠ¨æ”¶è¿è´¹
              */
 //            if (payway == 1) {
 //                Map params3 = new HashMap();
@@ -270,7 +270,7 @@ public class WaybillController {
 
     }
     /**
-     * ¸ù¾İorigin²éÑ¯¶©µ¥
+     * æ ¹æ®originæŸ¥è¯¢è®¢å•
      * @param request
      * @return
      */
@@ -301,7 +301,7 @@ public class WaybillController {
     }
 
     /**
-     * ¸ù¾İdestination²éÑ¯¶©µ¥
+     * æ ¹æ®destinationæŸ¥è¯¢è®¢å•
      * @param request
      * @return
      */
@@ -333,7 +333,7 @@ public class WaybillController {
     }
 
     /**
-     * ¸ù¾İuser_id²éÑ¯¶©µ¥
+     * æ ¹æ®user_idæŸ¥è¯¢è®¢å•
      * @param request
      * @return
      */
@@ -365,7 +365,7 @@ public class WaybillController {
     }
 
     /**
-     * ĞŞ¸Ä¶©µ¥×´Ì¬
+     * ä¿®æ”¹è®¢å•çŠ¶æ€
      * @param request
      * @return
      */
@@ -376,7 +376,7 @@ public class WaybillController {
         int id = Integer.parseInt(request.getParameter("id"));
         int condition = Integer.parseInt(request.getParameter("condition"));
 
-        //»ñÈ¡µ±Ç°Ê±¼ä
+        //è·å–å½“å‰æ—¶é—´
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = simpleDateFormat.format(new Date());
 
@@ -411,7 +411,7 @@ public class WaybillController {
     }
 
     /**
-     * ¸ù¾İwaybill_id²éÑ¯¶©µ¥
+     * æ ¹æ®waybill_idæŸ¥è¯¢è®¢å•
      * @param request
      * @return
      */
@@ -439,15 +439,15 @@ public class WaybillController {
     }
 
     /**
-     * ÊÕÕË
+     * æ”¶è´¦
      * @param request
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/receive", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
     public synchronized String receive(HttpServletRequest request) {
-        //¼Ä¸¶£º0ÎªÊÕÔË·Ñ£¬1Îª»õ¿î
-        // µ½¸¶£º2ÎªÔË·Ñ+»õ¿î
+        //å¯„ä»˜ï¼š0ä¸ºæ”¶è¿è´¹ï¼Œ1ä¸ºè´§æ¬¾
+        // åˆ°ä»˜ï¼š2ä¸ºè¿è´¹+è´§æ¬¾
         int type = Integer.parseInt(request.getParameter("type"));
         int id = Integer.parseInt(request.getParameter("id"));
         int user2_id = Integer.parseInt(request.getParameter("user2_id"));
@@ -457,14 +457,14 @@ public class WaybillController {
         ReturnResult returnResult = new ReturnResult();
         returnResult.setDisplay(0);
 
-        //»ñÈ¡µ±Ç°Ê±¼ä
+        //è·å–å½“å‰æ—¶é—´
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time3 = simpleDateFormat.format(new Date());
 
             if (type == 0) {
                 /**
-                 * 0ÎªÖ»ÊÕÔË·Ñ£¬ĞŞ¸Äuser3_idÎª´ËÓÃ»§id£¬ĞŞ¸Äconsignor_markÎª0
-                 * ÅĞ¶Ïconsignee_markÊÇ·ñÎª0£¬Èç¹ûÎª0£¬ĞŞ¸ÄconditionÎª3
+                 * 0ä¸ºåªæ”¶è¿è´¹ï¼Œä¿®æ”¹user3_idä¸ºæ­¤ç”¨æˆ·idï¼Œä¿®æ”¹consignor_markä¸º0
+                 * åˆ¤æ–­consignee_markæ˜¯å¦ä¸º0ï¼Œå¦‚æœä¸º0ï¼Œä¿®æ”¹conditionä¸º3
                  */
                 Map params = new HashMap();
                 params.put("user3_id", user2_id);
@@ -482,11 +482,11 @@ public class WaybillController {
                     waybillMapper.updateCondition3(params1);
                 }
                 returnResult.setCode(0);
-                returnResult.setMessage("ÔË·ÑÒÑÊÕ");
+                returnResult.setMessage("è¿è´¹å·²æ”¶");
             } else if (type == 1) {
                 /**
-                 * 1ÎªÖ»ÊÕ»õ¿î£¬ĞŞ¸Äconsignee_markÎª0£¬ĞŞ¸Äuser2_idÎª´ËÓÃ»§id
-                 * ÅĞ¶Ïconsignor_markÊÇ·ñÎª0£¬ÊÔ¹ıÊÇ0£¬ĞŞ¸ÄconditionÎª3
+                 * 1ä¸ºåªæ”¶è´§æ¬¾ï¼Œä¿®æ”¹consignee_markä¸º0ï¼Œä¿®æ”¹user2_idä¸ºæ­¤ç”¨æˆ·id
+                 * åˆ¤æ–­consignor_markæ˜¯å¦ä¸º0ï¼Œè¯•è¿‡æ˜¯0ï¼Œä¿®æ”¹conditionä¸º3
                  */
                 Map params = new HashMap();
                 params.put("user2_id", user2_id);
@@ -504,11 +504,11 @@ public class WaybillController {
                     waybillMapper.updateCondition3(params1);
                 }
                 returnResult.setCode(0);
-                returnResult.setMessage("´úÊÕ¿îÒÑÊÕ");
+                returnResult.setMessage("ä»£æ”¶æ¬¾å·²æ”¶");
             } else if (type == 2) {
                 /**
-                 * 2Îªµ½¸¶ÔËµ¥
-                 * ½«user2_idĞŞ¸ÄÎª´ËÓÃ»§id£¬ĞŞ¸ÄconditionÎª3
+                 * 2ä¸ºåˆ°ä»˜è¿å•
+                 * å°†user2_idä¿®æ”¹ä¸ºæ­¤ç”¨æˆ·idï¼Œä¿®æ”¹conditionä¸º3
                  */
                 Map params = new HashMap();
                 params.put("user2_id", user2_id);
@@ -520,17 +520,17 @@ public class WaybillController {
                 params2.put("user2_time", time3);
                 waybillMapper.updateUser2Time(params2);
                 returnResult.setCode(0);
-                returnResult.setMessage("ÊÕÕË³É¹¦");
+                returnResult.setMessage("æ”¶è´¦æˆåŠŸ");
             } else {
                 returnResult.setCode(1);
-                returnResult.setMessage("ÊÕÕËÊ§°Ü£¬ÇëÉÔºóÔÙÊÔ");
+                returnResult.setMessage("æ”¶è´¦å¤±è´¥ï¼Œè¯·ç¨åå†è¯•");
             }
 
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
     /**
-     * ¸ù¾İuser2_id²éÑ¯ÒÑÊÕ¿îµ«ÊÇÃ»ÓĞ½»ÕËµÄÔËµ¥
+     * æ ¹æ®user2_idæŸ¥è¯¢å·²æ”¶æ¬¾ä½†æ˜¯æ²¡æœ‰äº¤è´¦çš„è¿å•
      * @param request
      * @return
      */
@@ -541,11 +541,11 @@ public class WaybillController {
 //        int pages = Integer.parseInt(request.getParameter("pages"));
 //        int rows = Integer.parseInt(request.getParameter("rows"));
 //        int m = (pages - 1) * rows;
-////        //µ½¸¶µ¥×Ó
+////        //åˆ°ä»˜å•å­
 ////        List<Waybill> waybills1;
-////        //¼Ä¸¶µ¥×Ó£¬·¢»õ·½£¬ÊÕµÄÔË·Ñ
+////        //å¯„ä»˜å•å­ï¼Œå‘è´§æ–¹ï¼Œæ”¶çš„è¿è´¹
 ////        List<Waybill> waybills2;
-////        //¼Ä¸¶µ¥×Ó£¬ÊÕ»õ·½£¬ÊÕµÄ»õ¿î
+////        //å¯„ä»˜å•å­ï¼Œæ”¶è´§æ–¹ï¼Œæ”¶çš„è´§æ¬¾
 ////        List<Waybill> waybills3;
 ////
 ////        waybills1 = waybillMapper.getReceivableWaybillsAndNotSubmit(user2_id);
@@ -574,7 +574,7 @@ public class WaybillController {
 //    }
 
     /**
-     * ¸ù¾İuser2_id²éÑ¯ÒÑ½»ÕËµ«ÊÇÎ´Íê³ÉµÄ¶©µ¥
+     * æ ¹æ®user2_idæŸ¥è¯¢å·²äº¤è´¦ä½†æ˜¯æœªå®Œæˆçš„è®¢å•
      * @param request
      * @return
      */
@@ -586,11 +586,11 @@ public class WaybillController {
         int pages = Integer.parseInt(request.getParameter("pages"));
         int rows = Integer.parseInt(request.getParameter("rows"));
         int m = (pages - 1) * rows;
-//        //µ½¸¶µ¥×Ó
+//        //åˆ°ä»˜å•å­
 //        List<Waybill> waybills1;
-//        //¼Ä¸¶£¬ÔË·ÑÒÑ½»ÕË
+//        //å¯„ä»˜ï¼Œè¿è´¹å·²äº¤è´¦
 //        List<Waybill> waybills2;
-//        //¼Ä¸¶£¬»õ¿îÒÑ½»ÕË
+//        //å¯„ä»˜ï¼Œè´§æ¬¾å·²äº¤è´¦
 //        List<Waybill> waybills3;
 //
 //        waybills1 = waybillMapper.getSubmitWaybillsAndNotComplete(user2_id);
@@ -618,7 +618,7 @@ public class WaybillController {
     }
 
     /**
-     * Ò»¼üÍê³ÉËùÓĞ¶©µ¥
+     * ä¸€é”®å®Œæˆæ‰€æœ‰è®¢å•
      * @param request
      * @return
      */
@@ -627,7 +627,7 @@ public class WaybillController {
     public synchronized String completeWaybills(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
 
-        //»ñÈ¡µ±Ç°Ê±¼ä
+        //è·å–å½“å‰æ—¶é—´
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time5 = simpleDateFormat.format(new Date());
 
@@ -681,13 +681,13 @@ public class WaybillController {
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);
         returnResult.setDisplay(1);
-        returnResult.setMessage("³É¹¦Íê³ÉËùÓĞ¶©µ¥");
+        returnResult.setMessage("æˆåŠŸå®Œæˆæ‰€æœ‰è®¢å•");
 
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
     /**
-     * Íê³Éµ¥¸ö¶©µ¥
+     * å®Œæˆå•ä¸ªè®¢å•
      * @param request
      * @return
      */
@@ -699,7 +699,7 @@ public class WaybillController {
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);
         returnResult.setDisplay(1);
-        //»ñÈ¡µ±Ç°Ê±¼ä
+        //è·å–å½“å‰æ—¶é—´
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time5 = simpleDateFormat.format(new Date());
 
@@ -708,16 +708,16 @@ public class WaybillController {
         params.put("time5", time5);
         if (waybill.getConsignor_mark() == 0) {
             waybillMapper.updateCondition5(params);
-            returnResult.setMessage("Íê³É¶©µ¥");
+            returnResult.setMessage("å®Œæˆè®¢å•");
         } else {
-            returnResult.setMessage("ÔË·Ñ»¹Ã»ÓĞÌá½»");
+            returnResult.setMessage("è¿è´¹è¿˜æ²¡æœ‰æäº¤");
         }
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
     /**
-     * Ìá½»×÷·Ï¶©µ¥ÉóºË
-     * ·µ»Øcode Îª0³É¹¦
+     * æäº¤ä½œåºŸè®¢å•å®¡æ ¸
+     * è¿”å›code ä¸º0æˆåŠŸ
      */
     @ResponseBody
     @RequestMapping(value = "/invalidWaybill", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
@@ -732,7 +732,7 @@ public class WaybillController {
     }
 
     /**
-     * »ñÈ¡×÷·ÏÉóºËÖĞµÄ¶©µ¥
+     * è·å–ä½œåºŸå®¡æ ¸ä¸­çš„è®¢å•
      * @return
      */
     @ResponseBody
@@ -743,7 +743,7 @@ public class WaybillController {
     }
 
     /**
-     * ×÷·ÏÉêÇëÍ¨¹ıÉóºË
+     * ä½œåºŸç”³è¯·é€šè¿‡å®¡æ ¸
      * @param request
      * @return
      */
@@ -756,7 +756,20 @@ public class WaybillController {
     }
 
     /**
-     * ¸ù¾İuser_idºÍtime4²éÑ¯¶©µ¥
+     * ä½œåºŸå®¡æ ¸ ä¸é€šè¿‡
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "notInvalidWaybill", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+    public String notInvalidWaybill(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        waybillMapper.notInvalidWaybill(id);
+        return ReturnResultUtil.ReturnResultToJSON(new ReturnResult(0));
+    }
+
+    /**
+     * æ ¹æ®user_idå’Œtime4æŸ¥è¯¢è®¢å•
      * @param request
      * @return
      */
@@ -774,7 +787,7 @@ public class WaybillController {
         List<Waybill> waybills3 = new ArrayList<Waybill>();
 
         Submit submit = submitMapper.getSubmitById(id);
-        //ÔË·ÑµÄ¶©µ¥
+        //è¿è´¹çš„è®¢å•
         String ids = submit.getFreight();
         if (!ids.equals("no")) {
             String[] ids_id = ids.split(",");
@@ -783,7 +796,7 @@ public class WaybillController {
                 waybills1.add(waybill);
             }
         }
-        //»õ¿î
+        //è´§æ¬¾
         String ids2 = submit.getPrice();
         if (!ids2.equals("no")) {
             String[] ids2_id = ids2.split(",");
@@ -792,7 +805,7 @@ public class WaybillController {
                 waybills2.add(waybill);
             }
         }
-        //µ½¸¶
+        //åˆ°ä»˜
         String ids3 = submit.getFreightandprice();
         if (!ids3.equals("no")) {
             String[] ids3_id = ids3.split(",");
@@ -816,7 +829,7 @@ public class WaybillController {
     }
 
     /**
-     * Èí¼şÀïµÄËÑË÷¹¦ÄÜ
+     * è½¯ä»¶é‡Œçš„æœç´¢åŠŸèƒ½
      * @param request
      * @return
      */
@@ -832,18 +845,18 @@ public class WaybillController {
         List<Waybill> waybills = new ArrayList<Waybill>();
 
         if (type == 1) {
-            //¸ù¾İwaybill_id²éÑ¯
+            //æ ¹æ®waybill_idæŸ¥è¯¢
             Waybill waybill = waybillMapper.getWaybillByWaybill_id(Integer.parseInt(str));
             waybills.add(waybill);
         } else if (type == 2) {
-            //¸ù¾İConsignorCompanny²éÑ¯
+            //æ ¹æ®ConsignorCompannyæŸ¥è¯¢
             Map params = new HashMap();
             params.put("consignor_company", str);
             params.put("m", m);
             params.put("rows", rows);
             waybills = waybillMapper.getWaybillsByConsignorCompany(params);
         } else if (type == 3) {
-            //¸ù¾İConsigneeCompany²éÑ¯
+            //æ ¹æ®ConsigneeCompanyæŸ¥è¯¢
             Map params = new HashMap();
             params.put("consignee_company", str);
             params.put("m", m);
@@ -860,7 +873,7 @@ public class WaybillController {
     }
 
     /**
-     * Íøµã×öÕË
+     * ç½‘ç‚¹åšè´¦
      * @param request
      * @return
      */
@@ -889,7 +902,7 @@ public class WaybillController {
     }
 
     /**
-     * ÎÒµÄÏÖ¸¶
+     * æˆ‘çš„ç°ä»˜
      * @param request
      * @return
      */
@@ -920,7 +933,7 @@ public class WaybillController {
     }
 
     /**
-     * ´ÓclientÄÇÀï½Óµ¥£¬£¨ĞÂµÄÏÂµ¥½Ó¿Ú£©
+     * ä»clienté‚£é‡Œæ¥å•ï¼Œï¼ˆæ–°çš„ä¸‹å•æ¥å£ï¼‰
      * @param request
      * @return
      */
@@ -946,10 +959,10 @@ public class WaybillController {
 
         ClientWaybill clientWaybill = clientWaybillMapper.getClientWaybillById(clientWaybill_id);
 
-        //ÏÈÕÒ³öÕâ¸öÓÃ»§¿ªµÄ×îºóÒ»µ¥µÄĞÅÏ¢ÊÇ·ñºÍ´Ëµ¥Ò»Ñù£¬Èç¹ûÒ»Ñù£¬²»¿ªµ¥£¬·ÀÖ¹¶©µ¥ÖØ¸´
+        //å…ˆæ‰¾å‡ºè¿™ä¸ªç”¨æˆ·å¼€çš„æœ€åä¸€å•çš„ä¿¡æ¯æ˜¯å¦å’Œæ­¤å•ä¸€æ ·ï¼Œå¦‚æœä¸€æ ·ï¼Œä¸å¼€å•ï¼Œé˜²æ­¢è®¢å•é‡å¤
         Waybill waybill0 = waybillMapper.getLastWaybillByUserId(user_id);
 
-        //²úÉúÒ»¸ö4Î»Ëæ»úÊı
+        //äº§ç”Ÿä¸€ä¸ª4ä½éšæœºæ•°
         int random = Utils.getRandomNum();
 
         ReturnResult returnResult = new ReturnResult();
@@ -961,11 +974,11 @@ public class WaybillController {
 //                    waybill0.getPayway() != payway || waybill0.getNumber() != number) {
             if (1==1) {
 
-                //»ñÈ¡µ±Ç°Ê±¼ä
+                //è·å–å½“å‰æ—¶é—´
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String time = simpleDateFormat.format(new Date());
 
-                //±£´æ·¢»õÈËºÍÊÕ»õÈËĞÅÏ¢
+                //ä¿å­˜å‘è´§äººå’Œæ”¶è´§äººä¿¡æ¯
                 Contact contact1 = contactMapper.getContactByCellphone(consignor_tel);
                 Map params1 = new HashMap();
                 params1.put("user_id", user_id);
@@ -992,14 +1005,14 @@ public class WaybillController {
                     contactMapper.addContact(params2);
                 }
 
-                //»ñÈ¡×î´óµÄwaybill_id£¬²¢ÇÒ+1Îª´ËÔËµ¥µÄµ¥ºÅ
+                //è·å–æœ€å¤§çš„waybill_idï¼Œå¹¶ä¸”+1ä¸ºæ­¤è¿å•çš„å•å·
                 Waybill waybill = waybillMapper.getMaxIdWaybill();
                 int waybill_id = waybill.getWaybill_id() + 1;
 
-                //conditionÎª0
+                //conditionä¸º0
                 int condition = 0;
 
-                //Èç¹û¸¶¿î·½Ê½ÎªÏÖ¸¶£¬ÔòË«·½µÄmark¸ÄÎª1
+                //å¦‚æœä»˜æ¬¾æ–¹å¼ä¸ºç°ä»˜ï¼Œåˆ™åŒæ–¹çš„markæ”¹ä¸º1
                 int consignor_mark = 0;
                 int consignee_mark = 0;
                 if (payway == 1) {
@@ -1052,11 +1065,11 @@ public class WaybillController {
                 returnResult.setData(waybill0);
             }
         } else {
-            //»ñÈ¡µ±Ç°Ê±¼ä
+            //è·å–å½“å‰æ—¶é—´
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time = simpleDateFormat.format(new Date());
 
-            //±£´æ·¢»õÈËºÍÊÕ»õÈËĞÅÏ¢
+            //ä¿å­˜å‘è´§äººå’Œæ”¶è´§äººä¿¡æ¯
             Contact contact1 = contactMapper.getContactByCellphone(consignor_tel);
             Map params1 = new HashMap();
             params1.put("user_id", user_id);
@@ -1083,14 +1096,14 @@ public class WaybillController {
                 contactMapper.addContact(params2);
             }
 
-            //»ñÈ¡×î´óµÄwaybill_id£¬²¢ÇÒ+1Îª´ËÔËµ¥µÄµ¥ºÅ
+            //è·å–æœ€å¤§çš„waybill_idï¼Œå¹¶ä¸”+1ä¸ºæ­¤è¿å•çš„å•å·
             Waybill waybill = waybillMapper.getMaxIdWaybill();
             int waybill_id = waybill.getWaybill_id() + 1;
 
-            //conditionÎª0
+            //conditionä¸º0
             int condition = 0;
 
-            //Èç¹û¸¶¿î·½Ê½ÎªÏÖ¸¶£¬ÔòË«·½µÄmark¸ÄÎª1
+            //å¦‚æœä»˜æ¬¾æ–¹å¼ä¸ºç°ä»˜ï¼Œåˆ™åŒæ–¹çš„markæ”¹ä¸º1
             int consignor_mark = 0;
             int consignee_mark = 0;
             if (payway == 1) {
@@ -1131,7 +1144,7 @@ public class WaybillController {
             params3.put("waybill_id", waybill_id);
             clientWaybillMapper.updateClientWaybillCondition(params3);
             /**
-             * Èç¹ûÊÇÏÖ¸¶µ¥×Ó£¬×Ô¶¯ÊÕÔË·Ñ
+             * å¦‚æœæ˜¯ç°ä»˜å•å­ï¼Œè‡ªåŠ¨æ”¶è¿è´¹
              */
 //            if (payway == 1) {
 //                Map params3 = new HashMap();
@@ -1160,7 +1173,7 @@ public class WaybillController {
     }
 
     /**
-     * ½Óµ¥
+     * æ¥å•
      * @param request
      * @return
      */

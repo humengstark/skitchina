@@ -11,23 +11,23 @@ import java.util.List;
  */
 public interface StationMapper {
 
-    //²éÕÒËùÓĞÍøµã
+    //æŸ¥æ‰¾æ‰€æœ‰ç½‘ç‚¹
     @Select("SELECT*FROM station")
     List<Station> getAllStations();
 
-    //¸ù¾İname²éÕÒÍøµã
+    //æ ¹æ®nameæŸ¥æ‰¾ç½‘ç‚¹
     @Select("SELECT*FROM station WHERE `name`=#{name}")
     Station getStationByName(String name);
 
-    //¸ù¾İid²éÑ¯Íøµã
+    //æ ¹æ®idæŸ¥è¯¢ç½‘ç‚¹
     @Select("SELECT*FROM station WHERE id=#{id}")
     Station getStationById(int id);
 
-    //¸ù¾İname²éÑ¯ÆäËûËùÓĞÍøµã
+    //æ ¹æ®nameæŸ¥è¯¢å…¶ä»–æ‰€æœ‰ç½‘ç‚¹
     @Select("SELECT*FROM station WHERE name<>#{name}")
     List<Station> getOtherStations(String name);
 
-    //É¾³ıÊı¾İ¿âËùÓĞ
+    //åˆ é™¤æ•°æ®åº“æ‰€æœ‰
     @Delete("DELETE FROM contact")
     void deleteAll1();
 

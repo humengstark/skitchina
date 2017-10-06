@@ -8,10 +8,10 @@ import java.io.Serializable;
 public class User implements Serializable {
     private int id;
 
-    //ÊÖ»úºÅ£¬Ò²ÊÇÕÊ»§
+    //æ‰‹æœºå·ï¼Œä¹Ÿæ˜¯å¸æˆ·
     private String cellphone;
 
-    //ÃÜÂë£¬×î¶à16Î»
+    //å¯†ç ï¼Œæœ€å¤š16ä½
     private String password;
 
     private String company_name;
@@ -34,7 +34,7 @@ public class User implements Serializable {
 
     private String station;
 
-    //È¨ÏŞ£¬0ÎªÆÕÍ¨£¬1ÎªÒµÎñÔ±£¬2ÎªÄÜÊÕ¿î£¬½»ÕË£¬3ÎªÄÜÍê³É
+    //æƒé™ï¼Œ0ä¸ºæ™®é€šï¼Œ1ä¸ºä¸šåŠ¡å‘˜ï¼Œ2ä¸ºèƒ½æ”¶æ¬¾ï¼Œäº¤è´¦ï¼Œ3ä¸ºèƒ½å®Œæˆ
     private int power;
 
     public int getPower() {

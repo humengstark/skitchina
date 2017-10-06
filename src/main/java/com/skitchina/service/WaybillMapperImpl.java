@@ -360,4 +360,12 @@ public class WaybillMapperImpl implements WaybillMapper {
         sqlSession.close();
         return waybills;
     }
+
+    @Override
+    public void notInvalidWaybill(int id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.WaybillMapper.notInvalidWaybill", id);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

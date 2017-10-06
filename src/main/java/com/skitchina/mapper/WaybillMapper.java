@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface WaybillMapper {
 
-    //ÏÂµ¥
+    //ä¸‹å•
     @Insert("INSERT INTO waybill (user_id,waybill_id,origin,destination,consignor_tel,consignee_tel," +
             "consignor_company,consignee_company,consignor_address,consignee_address,price,freight," +
             "number,payway,`condition`,consignor_mark,consignee_mark,remark,time,random) VALUES (#{user_id},#{waybill_id}," +
@@ -21,184 +21,187 @@ public interface WaybillMapper {
             "#{consignee_mark},#{remark},#{time},#{random})")
     void addWaybill(Map params);
 
-    //ÕÒ³öwaybill_id×î´óµÄÔËµ¥
+    //æ‰¾å‡ºwaybill_idæœ€å¤§çš„è¿å•
     @Select("SELECT*FROM waybill WHERE waybill_id=(SELECT MAX(waybill_id) FROM waybill)")
     Waybill getMaxIdWaybill();
 
-    //¸ù¾İorigin,condition²éÑ¯ÔËµ¥
+    //æ ¹æ®origin,conditionæŸ¥è¯¢è¿å•
     @Select("SELECT*FROM waybill WHERE origin=#{origin} AND `condition`=#{condition} AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
     @Results()
     List<Waybill> getWaybillsByOrigin(Map params);
 
-    //¸ù¾İdestination,condition²éÑ¯ÔËµ¥
+    //æ ¹æ®destination,conditionæŸ¥è¯¢è¿å•
     @Select("SELECT*FROM waybill WHERE destination=#{destination} AND `condition`=#{condition} AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByDestination(Map params);
 
-    //¸ù¾İuser_id²éÑ¯ÔËµ¥
+    //æ ¹æ®user_idæŸ¥è¯¢è¿å•
     @Select("SELECT*FROM waybill WHERE user_id=#{user_id} AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByUserId(Map params);
 
-    //ĞŞ¸ÄÔËµ¥×´Ì¬Îª1
+    //ä¿®æ”¹è¿å•çŠ¶æ€ä¸º1
     @Update("UPDATE waybill SET `condition`=1,time1=#{time1} WHERE id=#{id}")
     void updateCondition1(Map params);
 
-    //ĞŞ¸ÄÔËµ¥×´Ì¬Îª2
+    //ä¿®æ”¹è¿å•çŠ¶æ€ä¸º2
     @Update("UPDATE waybill SET `condition`=2,time2=#{time2} WHERE id=#{id}")
     void updateCondition2(Map params);
 
-    //ĞŞ¸ÄÔËµ¥×´Ì¬Îª4
+    //ä¿®æ”¹è¿å•çŠ¶æ€ä¸º4
     @Update("UPDATE waybill SET `condition`=4,time4=#{time4} WHERE id=#{id}")
     void updateCondition4(Map params);
 
-    //ĞŞ¸ÄÔËµ¥×´Ì¬Îª5
+    //ä¿®æ”¹è¿å•çŠ¶æ€ä¸º5
     @Update("UPDATE waybill SET `condition`=5,time5=#{time5} WHERE id=#{id}")
     void updateCondition5(Map params);
 
-    //¸ù¾İwaybill_id²éÑ¯Ã»ÓĞ×÷·ÏµÄÔËµ¥
+    //æ ¹æ®waybill_idæŸ¥è¯¢æ²¡æœ‰ä½œåºŸçš„è¿å•
     @Select("SELECT*FROM waybill WHERE waybill_id=#{waybill_id} AND invalid<>1 ")
     Waybill getWaybillByWaybillId(int waybill_id);
 
-    //ÊÕÕË£¬ĞŞ¸Ä×´Ì¬Îª3
+    //æ”¶è´¦ï¼Œä¿®æ”¹çŠ¶æ€ä¸º3
     @Update("UPDATE waybill SET user2_id=#{user2_id},`condition`=3,time3=#{time3} WHERE id=#{id} ")
     void receive(Map params);
 
-    //¸ù¾İuser2_id²éÑ¯ÒÑÊÕ¿îµ«Ã»ÓĞ½»ÕËµÄÔËµ¥£¬µ½¸¶
+    //æ ¹æ®user2_idæŸ¥è¯¢å·²æ”¶æ¬¾ä½†æ²¡æœ‰äº¤è´¦çš„è¿å•ï¼Œåˆ°ä»˜
 //    @Select("SELECT*FROM waybill WHERE user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid<>1")
 //    List<Waybill> getReceivableWaybillsAndNotSubmit(int user2_id);
 
-    //¸ù¾İuser2_id²éÑ¯ÒÑ½»ÕËµ«ÊÇ»¹Î´Íê³ÉµÄÔËµ¥
+    //æ ¹æ®user2_idæŸ¥è¯¢å·²äº¤è´¦ä½†æ˜¯è¿˜æœªå®Œæˆçš„è¿å•
 //    @Select("SELECT*FROM waybill WHERE user2_id=#{user2_id} AND `condition`=4 AND payway=0 AND invalid<>1")
 //    List<Waybill> getSubmitWaybillsAndNotComplete(int user2_id);
 
-    //¸ù¾İid²éÑ¯Waybill
+    //æ ¹æ®idæŸ¥è¯¢Waybill
     @Select("SELECT*FROM waybill WHERE id=#{id}")
     Waybill getWaybillById(int id);
 
-    //×÷·ÏÔËµ¥
+    //ä½œåºŸè¿å•
     @Update("UPDATE waybill SET invalid=1 WHERE id=#{id}")
     void invalidWaybill(int id);
 
-    //¸ù¾İtime4ºÍuser_id²éÑ¯ÔËµ¥
+    //æ ¹æ®time4å’Œuser_idæŸ¥è¯¢è¿å•
     @Select("SELECT*FROM waybill WHERE user2_id=#{user2_id} AND time4=#{time4} AND invalid<>1 LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByUserIdAndTime4(Map params);
 
-    //¸ù¾İ·¢»õÈËID ²éÑ¯ ÏÖ¸¶ÔËµ¥
+    //æ ¹æ®å‘è´§äººID æŸ¥è¯¢ ç°ä»˜è¿å•
     @Select("SELECT*FROM waybill WHERE user_id=#{user_id} AND consignor_mark=1 AND invalid<>1")
     List<Waybill> getWaybillsByUserIdAndConsignorMark(int user_id);
 
-    //ĞŞ¸Äconsignor_markÎª0
+    //ä¿®æ”¹consignor_markä¸º0
     @Update("UPDATE waybill SET consignor_mark=0 WHERE id=#{id}")
     void updateConsignorMark(int id);
 
-    //ĞŞ¸Äconsignee_markÎª0
+    //ä¿®æ”¹consignee_markä¸º0
     @Update("UPDATE waybill SET consignee_mark=0 WHERE id=#{id}")
     void updateConsigneeMark(int id);
-    //¸ù¾İwaybill_id²éÑ¯ÔËµ¥
+    //æ ¹æ®waybill_idæŸ¥è¯¢è¿å•
     @Select("SELECT*FROM waybill WHERE waybill_id=#{waybill_id} AND invalid<>1")
     Waybill getWaybillByWaybill_id(int waybill_id);
 
-    //¸ù¾İConsignorCompany²éÑ¯ÔËµ¥
+    //æ ¹æ®ConsignorCompanyæŸ¥è¯¢è¿å•
     @Select("SELECT*FROM waybill WHERE consignor_company LIKE CONCAT('%','${consignor_company}','%') AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByConsignorCompany(Map params);
 
-    //¸ù¾İConsigneeCompany²éÑ¯ÔËµ¥
+    //æ ¹æ®ConsigneeCompanyæŸ¥è¯¢è¿å•
     @Select("SELECT*FROM waybill WHERE consignee_company LIKE CONCAT('%','${consignee_company}','%') AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByConsigneeCompany(Map params);
 
-    //¸ù¾İconsignor_mark=0£¬consignee_mark=1²éÑ¯
+    //æ ¹æ®consignor_mark=0ï¼Œconsignee_mark=1æŸ¥è¯¢
     @Select("SELECT*FROM waybill WHERE user3_id=#{user_id} AND consignor_mark=0 AND `condition`<>3 AND `condition`<>4 AND `condition`<>5 AND invalid=0")
     List<Waybill> getWaybillsByConsignor0(int user_id);
 
-    //¸ù¾İconsignee_mark=0£¬consignor_mark=1²éÑ¯
+    //æ ¹æ®consignee_mark=0ï¼Œconsignor_mark=1æŸ¥è¯¢
     @Select("SELECT*FROM waybill WHERE user2_id=#{user_id} AND consignee_mark=0 AND `condition`<>3 AND `condition`<>4 AND `condition`<>5 AND invalid=0")
     List<Waybill> getWaybillsByConsignee0(int user_id);
 
-    //½«consignor_mark¸ÄÎª2
+    //å°†consignor_markæ”¹ä¸º2
     @Update("UPDATE waybill SET consignor_mark=2 WHERE id=#{id}")
     void updateConsignorMark2(int id);
 
-    //ĞŞ¸Äconsignee_markÎª2
+    //ä¿®æ”¹consignee_markä¸º2
     @Update("UPDATE waybill SET consignee_mark=2 WHERE id=#{id}")
     void updateConsigneeMark2(int id);
 
-    //ĞŞ¸ÄwaybillµÄuser2_id
+    //ä¿®æ”¹waybillçš„user2_id
     @Update("UPDATE waybill SET user2_id=#{user2_id} WHERE id=#{id}")
     void updateWaybillUser2Id(Map params);
 
-    //ĞŞ¸Äuser3_id
+    //ä¿®æ”¹user3_id
     @Update("UPDATE waybill SET user3_id=#{user3_id} WHERE id=#{id}")
     void updateUser3Id(Map params);
 
-    //¸ù¾İuser3_id²éÑ¯ÒÑÊÕ¿îµ«ÊÇÃ»ÓĞ½»ÕËµÄÔËµ¥
+    //æ ¹æ®user3_idæŸ¥è¯¢å·²æ”¶æ¬¾ä½†æ˜¯æ²¡æœ‰äº¤è´¦çš„è¿å•
     @Select("SELECT*FROM waybill WHERE user3_id=#{user3_id} AND `condition`=3 AND consignor_mark<>2 AND consignee_mark<>2 AND invalid<>1")
     List<Waybill> getWaybillsByUser3Id(int user3_id);
 
-    //ÎÒµÄÏÖ¸¶ ²éÑ¯ÒÑÊÕÔË·Ñµ¥×Ó
+    //æˆ‘çš„ç°ä»˜ æŸ¥è¯¢å·²æ”¶è¿è´¹å•å­
     @Select("SELECT*FROM waybill WHERE payway=1 AND `condition`<>3 AND `condition`<>4 AND consignor_mark<>2 AND consignor_mark<>3 AND origin=#{origin} AND invalid=0 LIMIT #{m},#{rows}")
     List<Waybill> getFreightReceivableWaybillsByStation(Map params);
 
-    //²éÑ¯ÒÑÊÕ»õ¿îÔËµ¥
+    //æŸ¥è¯¢å·²æ”¶è´§æ¬¾è¿å•
     @Select("SELECT*FROM waybill WHERE payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0")
     List<Waybill> getPriceReceivableWaybills(int user2_id);
 
-    //²éÑ¯ÔË·ÑÒÑ½»ÕËµÄÔËµ¥
+    //æŸ¥è¯¢è¿è´¹å·²äº¤è´¦çš„è¿å•
     @Select("SELECT*FROM waybill WHERE payway=1 AND consignor_mark=2 AND user3_id=#{user3_id} AND invalid=0")
     List<Waybill> getFreightSubmitWaybills(int user3_id);
 
-    //²éÑ¯»õ¿îÒÑ½»ÕËµÄÔËµ¥
+    //æŸ¥è¯¢è´§æ¬¾å·²äº¤è´¦çš„è¿å•
     @Select("SELECT*FROM waybill WHERE payway=1 AND consignee_mark=2 AND user2_id=#{user2_id} AND invalid=0")
     List<Waybill> getPriceSubmitWaybills(int user2_id);
 
     //getReceivableWaybillsAndNotSubmit
-    //²éÑ¯ÒÑÊÕ¿î£¬»¹Ã»ÓĞ½»ÕËµÄÔËµ¥
+    //æŸ¥è¯¢å·²æ”¶æ¬¾ï¼Œè¿˜æ²¡æœ‰äº¤è´¦çš„è¿å•
 //    @Select("SELECT*FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid<>1) OR (payway=1 AND consignor_mark=0 AND user3_id=#{user2_id} AND invalid=0) OR (payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0) LIMIT #{m},#{rows}")
     @Select("SELECT*FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid<>1) OR (payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0) LIMIT #{m},#{rows}")
     List<Waybill> getReceivableWaybillsAndNotSubmit(Map params);
 
     //getSubmitWaybillsAndNotComplete
-    //²éÑ¯ÒÑ½»ÕË£¬»¹Ã»ÓĞÍê³ÉµÄÔËµ¥
+    //æŸ¥è¯¢å·²äº¤è´¦ï¼Œè¿˜æ²¡æœ‰å®Œæˆçš„è¿å•
     @Select("SELECT*FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=4 AND payway=0 AND invalid<>1) OR (payway=1 AND consignor_mark=2 AND user3_id=#{user2_id} AND invalid=0) OR (payway=1 AND consignee_mark=2 AND user2_id=#{user2_id} AND invalid=0) LIMIT #{m},#{rows}")
     List<Waybill> getSubmitWaybillsAndNotComplete(Map params);
 
-    //ĞŞ¸Äconsignor_markÎª3
+    //ä¿®æ”¹consignor_markä¸º3
     @Update("UPDATE waybill SET consignor_mark=3 WHERE id=#{id}")
     void updateConsignorMark3(int id);
 
-    //ĞŞ¸Äconsignee_markÎª3
+    //ä¿®æ”¹consignee_markä¸º3
     @Update("UPDATE waybill SET consignee_mark=3 WHERE id=#{id}")
     void updateConsigneeMark3(int id);
 
-    //ĞŞ¸Äuser2_time
+    //ä¿®æ”¹user2_time
     @Update("UPDATE waybill SET user2_time=#{user2_time} WHERE id=#{id}")
     void updateUser2Time(Map params);
 
-    //ĞŞ¸Äuser3_time
+    //ä¿®æ”¹user3_time
     @Update("UPDATE waybill SET user3_time=#{user3_time} WHERE id=#{id}")
     void updateUser3Time(Map params);
 
-    //Íøµã×öÕË£¬°´ÊÕÕËÊ±¼äÅÅĞò
+    //ç½‘ç‚¹åšè´¦ï¼ŒæŒ‰æ”¶è´¦æ—¶é—´æ’åº
     @Select("(SELECT*,user2_time AS time_all FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid<>1) OR" +
             " (payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0)) " +
             "UNION (SELECT*,user3_time AS time_all FROM waybill WHERE payway=1 AND consignor_mark=0 AND user3_id=#{user2_id} AND invalid=0)" +
             " ORDER BY time_all LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsNotSubmit(Map params);
 
-    //ĞŞ¸Ä×´Ì¬Îª3
+    //ä¿®æ”¹çŠ¶æ€ä¸º3
     @Update("UPDATE waybill SET `condition`=3,time3=#{time3} WHERE id=#{id}")
     void updateCondition3(Map params);
 
-    //¼ÇÂ¼×°³µµÄÓÃ»§
+    //è®°å½•è£…è½¦çš„ç”¨æˆ·
     @Update("UPDATE waybill SET user1_id=#{user1_id} WHERE id=#{id}")
     void updateUser1Id(Map params);
 
-    //¸ù¾İuser_id²éÑ¯´ËÓÃ»§×î½üÒ»´ÎÏÂµÄµ¥
+    //æ ¹æ®user_idæŸ¥è¯¢æ­¤ç”¨æˆ·æœ€è¿‘ä¸€æ¬¡ä¸‹çš„å•
     @Select("SELECT*FROM waybill WHERE user_id=#{user_id} AND waybill_id=(SELECT MAX(waybill_id) FROM waybill WHERE user_id=#{user_id})")
     Waybill getLastWaybillByUserId(int user_id);
 
-    //Ìá½»¶©µ¥×÷·ÏÉêÇë
+    //æäº¤è®¢å•ä½œåºŸç”³è¯·
     @Update("UPDATE waybill SET invalid=2 WHERE id=#{id}")
     void invalidWaybill2(int id);
 
     @Select("SELECT*FROM waybill WHERE invalid=2")
     List<Waybill> getInvalid2Waybills();
+
+    @Update("UPDATE waybill SET invalid=0")
+    void notInvalidWaybill(int id);
 }

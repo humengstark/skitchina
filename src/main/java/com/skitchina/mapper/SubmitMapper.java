@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface SubmitMapper {
 
-    //查找所有Submit
+    //鏌ユ壘鎵�鏈塖ubmit
     @Select("SELECT*FROM submit ORDER BY time4 DESC LIMIT #{m},#{rows}")
     List<Submit> getAllSubmits(Map params);
 
@@ -21,7 +21,7 @@ public interface SubmitMapper {
     @Insert("INSERT INTO submit (user2_id,achievement,time4,name,freight,price,freightandprice) VALUES (#{user2_id},#{achievement},#{time4},#{name},#{freight},#{price},#{freightandprice})")
     void addSubmit(Map params);
 
-    //根据user_id查询submit
+    //鏍规嵁user_id鏌ヨsubmit
     @Select("SELECT*FROM submit WHERE id=#{id}")
     Submit getSubmitById(int id);
 

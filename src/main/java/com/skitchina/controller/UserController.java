@@ -46,7 +46,7 @@ public class UserController {
     private ClientWaybillMapper clientWaybillMapper;
 
     /**
-     * ÓÃ»§×¢²á
+     * ç”¨æˆ·æ³¨å†Œ
      * @param request
      * @return
      */
@@ -81,17 +81,17 @@ public class UserController {
         User user = userMapper.getUserByCellphone(cellphone);
         if (user == null) {
             userMapper.addUser(params);
-            returnResult.setMessage("×¢²á³É¹¦");
+            returnResult.setMessage("æ³¨å†ŒæˆåŠŸ");
         } else {
-            returnResult.setMessage("´ËÓÃ»§ÒÑ´æÔÚ");
+            returnResult.setMessage("æ­¤ç”¨æˆ·å·²å­˜åœ¨");
         }
 
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
     /**
-     * ÓÃ»§µÇÂ½
-     * message 0ÎªµÇÂ½³É¹¦£¬1ÕÊ»§²»´æÔÚ£¬2ÃÜÂë´íÎó
+     * ç”¨æˆ·ç™»é™†
+     * message 0ä¸ºç™»é™†æˆåŠŸï¼Œ1å¸æˆ·ä¸å­˜åœ¨ï¼Œ2å¯†ç é”™è¯¯
      * @param request
      * @return
      */
@@ -101,7 +101,7 @@ public class UserController {
         String cellphone1 = request.getParameter("cellphone");
         String password1 = request.getParameter("password");
 //        String registration_id = request.getParameter("registration_id");
-        logger.info("²ÎÊıÎª£ºcellphone:"+cellphone1+"£¬password:"+password1);
+        logger.info("å‚æ•°ä¸ºï¼šcellphone:"+cellphone1+"ï¼Œpassword:"+password1);
         User user = userMapper.getUserByCellphone(cellphone1);
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);
@@ -116,17 +116,17 @@ public class UserController {
 //                userMapper.updateRegistrationId(params);
             } else {
                 returnResult.setCode(1);
-                returnResult.setMessage("ÃÜÂë´íÎó");
+                returnResult.setMessage("å¯†ç é”™è¯¯");
             }
         } else {
             returnResult.setCode(1);
-            returnResult.setMessage("ÕÊºÅ²»´æÔÚ");
+            returnResult.setMessage("å¸å·ä¸å­˜åœ¨");
         }
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
     /**
-     * ½»ÕË
+     * äº¤è´¦
      * @param request
      * @return
      */
@@ -136,11 +136,11 @@ public class UserController {
 //        int waybill_num = Integer.parseInt(request.getParameter("waybill_num"));
         double money = Double.parseDouble(request.getParameter("money"));
 
-        //»õ¿îµÄidºÅ
+        //è´§æ¬¾çš„idå·
         String ids = request.getParameter("ids");
-        //ÔË·ÑµÄidºÅ
+        //è¿è´¹çš„idå·
         String ids3 = request.getParameter("ids3");
-        //µ½¸¶µÄidºÅ
+        //åˆ°ä»˜çš„idå·
         String ids2 = request.getParameter("ids2");
 
         int user_id = Integer.parseInt(request.getParameter("user_id"));
@@ -170,7 +170,7 @@ public class UserController {
         ReturnResult returnResult = new ReturnResult();
 //        if (idsLength + idsLength2 + idsLength3 == waybill_num) {
             if (1==1){
-            //»ñÈ¡µ±Ç°Ê±¼ä
+            //è·å–å½“å‰æ—¶é—´
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time4 = simpleDateFormat.format(new Date());
 
@@ -222,20 +222,20 @@ public class UserController {
 
             returnResult.setCode(0);
             returnResult.setDisplay(1);
-            returnResult.setMessage("½»ÕË³É¹¦");
+            returnResult.setMessage("äº¤è´¦æˆåŠŸ");
 
         } else {
 
             returnResult.setCode(1);
             returnResult.setDisplay(1);
-            returnResult.setMessage("½»ÕËÊ§°Ü£¬ÇëÖØÊÔ");
+            returnResult.setMessage("äº¤è´¦å¤±è´¥ï¼Œè¯·é‡è¯•");
         }
 
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
     /**
-     * ²éÑ¯ËùÓĞÈËµÄ×ÜÕË
+     * æŸ¥è¯¢æ‰€æœ‰äººçš„æ€»è´¦
      * @param request
      * @return
      */
@@ -262,7 +262,7 @@ public class UserController {
     }
 
     /**
-     * »ñÈ¡¿ÉÒÔ½ÓµÄµ¥×Ó
+     * è·å–å¯ä»¥æ¥çš„å•å­
      * @param request
      * @return
      */
@@ -273,7 +273,7 @@ public class UserController {
         int pages = Integer.parseInt(request.getParameter("pages"));
         int rows = Integer.parseInt(request.getParameter("rows"));
         int m = (pages - 1) * rows;
-        System.out.println("station="+station+"£¬pages="+pages+"£¬m="+m+"£¬rows="+rows);
+        System.out.println("station="+station+"ï¼Œpages="+pages+"ï¼Œm="+m+"ï¼Œrows="+rows);
         Map params = new HashMap();
         params.put("station", station);
         params.put("m", m);
@@ -287,7 +287,7 @@ public class UserController {
     }
 
     /**
-     * ²éÑ¯´ÓÓÃ»§ÄÇ±ß½ÓÁËµÄµ¥×Ó
+     * æŸ¥è¯¢ä»ç”¨æˆ·é‚£è¾¹æ¥äº†çš„å•å­
      * @param request
      * @return
      */
@@ -311,7 +311,7 @@ public class UserController {
 
 
     /**
-     * »ñÈ¡NewWaybillNum
+     * è·å–NewWaybillNum
      * @param request
      * @return
      */
@@ -325,7 +325,7 @@ public class UserController {
     }
 
     /**
-     * ½«NewWaybillNumÇåÁã
+     * å°†NewWaybillNumæ¸…é›¶
      * @param request
      * @return
      */

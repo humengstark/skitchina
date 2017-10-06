@@ -49,13 +49,13 @@ public class ContactController {
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);
         returnResult.setDisplay(1);
-        returnResult.setMessage("Ìí¼Ó³É¹¦");
+        returnResult.setMessage("æ·»åŠ æˆåŠŸ");
 
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
 
     /**
-     * ²éÑ¯³£ÓÃÁªÏµÈË
+     * æŸ¥è¯¢å¸¸ç”¨è”ç³»äºº
      * @param request
      * @return
      */
@@ -91,7 +91,7 @@ public class ContactController {
     }
 
     /**
-     * ¸ù¾İidÉ¾³ıcontact
+     * æ ¹æ®idåˆ é™¤contact
      * @param request
      * @return
      */
@@ -104,7 +104,7 @@ public class ContactController {
         ReturnResult returnResult = new ReturnResult();
         returnResult.setCode(0);
         returnResult.setDisplay(1);
-        returnResult.setMessage("É¾³ı³É¹¦");
+        returnResult.setMessage("åˆ é™¤æˆåŠŸ");
 
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }

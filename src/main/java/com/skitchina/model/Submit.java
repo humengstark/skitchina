@@ -11,11 +11,11 @@ public class Submit implements Serializable {
     private double achievement;
     private String time4;
     private String name;
-    //Ö»½»ÔË·ÑµÄµ¥ºÅ
+    //åªäº¤è¿è´¹çš„å•å·
     private String freight;
-    //Ö»½»»õ¿îµÄµ¥ºÅ
+    //åªäº¤è´§æ¬¾çš„å•å·
     private String price;
-    //»õ¿îºÍÔË·ÑÒ»Æğ½»µÄµ¥ºÅ
+    //è´§æ¬¾å’Œè¿è´¹ä¸€èµ·äº¤çš„å•å·
     private String freightandprice;
 
     public String getPrice() {
