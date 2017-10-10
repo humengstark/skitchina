@@ -11,6 +11,7 @@ import com.skitchina.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -136,6 +137,11 @@ public class ClientController {
         ReturnClient client = clientMapper.getClientByCellphone(cellphone);
         if (client != null) {
             if (client.getPassword().equals(password)) {
+                if (StringUtils.isEmpty(client.getDraw_password())) {
+                    client.setDraw_password("0");
+                } else {
+                    client.setDraw_password("1");
+                }
                 returnResult.setCode(0);
                 returnResult.setData(client);
             } else {
