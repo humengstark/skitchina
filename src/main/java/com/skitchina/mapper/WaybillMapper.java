@@ -26,16 +26,16 @@ public interface WaybillMapper {
     Waybill getMaxIdWaybill();
 
     //根据origin,condition查询运单
-    @Select("SELECT*FROM waybill WHERE origin=#{origin} AND `condition`=#{condition} AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE origin=#{origin} AND `condition`=#{condition} AND invalid=0 ORDER BY time DESC LIMIT #{m},#{rows}")
     @Results()
     List<Waybill> getWaybillsByOrigin(Map params);
 
     //根据destination,condition查询运单
-    @Select("SELECT*FROM waybill WHERE destination=#{destination} AND `condition`=#{condition} AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE destination=#{destination} AND `condition`=#{condition} AND invalid=0 ORDER BY time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByDestination(Map params);
 
     //根据user_id查询运单
-    @Select("SELECT*FROM waybill WHERE user_id=#{user_id} AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE user_id=#{user_id} AND invalid=0 ORDER BY time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByUserId(Map params);
 
     //修改运单状态为1
@@ -55,7 +55,7 @@ public interface WaybillMapper {
     void updateCondition5(Map params);
 
     //根据waybill_id查询没有作废的运单
-    @Select("SELECT*FROM waybill WHERE waybill_id=#{waybill_id} AND invalid<>1 ")
+    @Select("SELECT*FROM waybill WHERE waybill_id=#{waybill_id} AND invalid=0 ")
     Waybill getWaybillByWaybillId(int waybill_id);
 
     //收账，修改状态为3
@@ -79,11 +79,11 @@ public interface WaybillMapper {
     void invalidWaybill(int id);
 
     //根据time4和user_id查询运单
-    @Select("SELECT*FROM waybill WHERE user2_id=#{user2_id} AND time4=#{time4} AND invalid<>1 LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE user2_id=#{user2_id} AND time4=#{time4} AND invalid=0 LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByUserIdAndTime4(Map params);
 
     //根据发货人ID 查询 现付运单
-    @Select("SELECT*FROM waybill WHERE user_id=#{user_id} AND consignor_mark=1 AND invalid<>1")
+    @Select("SELECT*FROM waybill WHERE user_id=#{user_id} AND consignor_mark=1 AND invalid=0")
     List<Waybill> getWaybillsByUserIdAndConsignorMark(int user_id);
 
     //修改consignor_mark为0
@@ -94,15 +94,15 @@ public interface WaybillMapper {
     @Update("UPDATE waybill SET consignee_mark=0 WHERE id=#{id}")
     void updateConsigneeMark(int id);
     //根据waybill_id查询运单
-    @Select("SELECT*FROM waybill WHERE waybill_id=#{waybill_id} AND invalid<>1")
+    @Select("SELECT*FROM waybill WHERE waybill_id=#{waybill_id} AND invalid=0")
     Waybill getWaybillByWaybill_id(int waybill_id);
 
     //根据ConsignorCompany查询运单
-    @Select("SELECT*FROM waybill WHERE consignor_company LIKE CONCAT('%','${consignor_company}','%') AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE consignor_company LIKE CONCAT('%','${consignor_company}','%') AND invalid=0 ORDER BY time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByConsignorCompany(Map params);
 
     //根据ConsigneeCompany查询运单
-    @Select("SELECT*FROM waybill WHERE consignee_company LIKE CONCAT('%','${consignee_company}','%') AND invalid<>1 ORDER BY time DESC LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE consignee_company LIKE CONCAT('%','${consignee_company}','%') AND invalid=0 ORDER BY time DESC LIMIT #{m},#{rows}")
     List<Waybill> getWaybillsByConsigneeCompany(Map params);
 
     //根据consignor_mark=0，consignee_mark=1查询
@@ -130,7 +130,7 @@ public interface WaybillMapper {
     void updateUser3Id(Map params);
 
     //根据user3_id查询已收款但是没有交账的运单
-    @Select("SELECT*FROM waybill WHERE user3_id=#{user3_id} AND `condition`=3 AND consignor_mark<>2 AND consignee_mark<>2 AND invalid<>1")
+    @Select("SELECT*FROM waybill WHERE user3_id=#{user3_id} AND `condition`=3 AND consignor_mark<>2 AND consignee_mark<>2 AND invalid=0")
     List<Waybill> getWaybillsByUser3Id(int user3_id);
 
     //我的现付 查询已收运费单子
@@ -152,12 +152,12 @@ public interface WaybillMapper {
     //getReceivableWaybillsAndNotSubmit
     //查询已收款，还没有交账的运单
 //    @Select("SELECT*FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid<>1) OR (payway=1 AND consignor_mark=0 AND user3_id=#{user2_id} AND invalid=0) OR (payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0) LIMIT #{m},#{rows}")
-    @Select("SELECT*FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid<>1) OR (payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0) LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid=0) OR (payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0) LIMIT #{m},#{rows}")
     List<Waybill> getReceivableWaybillsAndNotSubmit(Map params);
 
     //getSubmitWaybillsAndNotComplete
     //查询已交账，还没有完成的运单
-    @Select("SELECT*FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=4 AND payway=0 AND invalid<>1) OR (payway=1 AND consignor_mark=2 AND user3_id=#{user2_id} AND invalid=0) OR (payway=1 AND consignee_mark=2 AND user2_id=#{user2_id} AND invalid=0) LIMIT #{m},#{rows}")
+    @Select("SELECT*FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=4 AND payway=0 AND invalid=0) OR (payway=1 AND consignor_mark=2 AND user3_id=#{user2_id} AND invalid=0) OR (payway=1 AND consignee_mark=2 AND user2_id=#{user2_id} AND invalid=0) LIMIT #{m},#{rows}")
     List<Waybill> getSubmitWaybillsAndNotComplete(Map params);
 
     //修改consignor_mark为3
@@ -177,7 +177,7 @@ public interface WaybillMapper {
     void updateUser3Time(Map params);
 
     //网点做账，按收账时间排序
-    @Select("(SELECT*,user2_time AS time_all FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid<>1) OR" +
+    @Select("(SELECT*,user2_time AS time_all FROM waybill WHERE (user2_id=#{user2_id} AND `condition`=3 AND payway=0 AND invalid=0) OR" +
             " (payway=1 AND consignee_mark=0 AND user2_id=#{user2_id} AND invalid=0)) " +
             "UNION (SELECT*,user3_time AS time_all FROM waybill WHERE payway=1 AND consignor_mark=0 AND user3_id=#{user2_id} AND invalid=0)" +
             " ORDER BY time_all LIMIT #{m},#{rows}")
@@ -202,6 +202,6 @@ public interface WaybillMapper {
     @Select("SELECT*FROM waybill WHERE invalid=2")
     List<Waybill> getInvalid2Waybills();
 
-    @Update("UPDATE waybill SET invalid=0")
+    @Update("UPDATE waybill SET invalid=0 WHERE id=#{id}")
     void notInvalidWaybill(int id);
 }
