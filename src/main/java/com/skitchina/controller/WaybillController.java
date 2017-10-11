@@ -118,8 +118,7 @@ public class WaybillController {
                 }
 
                 //获取最大的waybill_id，并且+1为此运单的单号
-                Waybill waybill = waybillMapper.getMaxIdWaybill();
-                int waybill_id = waybill.getWaybill_id() + 1;
+                int waybill_id = waybillMapper.getMaxIdWaybill()+ 1;
 
                 //condition为0
                 int condition = 0;
@@ -201,8 +200,7 @@ public class WaybillController {
             }
 
             //获取最大的waybill_id，并且+1为此运单的单号
-            Waybill waybill = waybillMapper.getMaxIdWaybill();
-            int waybill_id = waybill.getWaybill_id() + 1;
+            int waybill_id = waybillMapper.getMaxIdWaybill()+ 1;
 
             //condition为0
             int condition = 0;
@@ -1006,8 +1004,7 @@ public class WaybillController {
                 }
 
                 //获取最大的waybill_id，并且+1为此运单的单号
-                Waybill waybill = waybillMapper.getMaxIdWaybill();
-                int waybill_id = waybill.getWaybill_id() + 1;
+                int waybill_id = waybillMapper.getMaxIdWaybill()+ 1;
 
                 //condition为0
                 int condition = 0;
@@ -1097,8 +1094,7 @@ public class WaybillController {
             }
 
             //获取最大的waybill_id，并且+1为此运单的单号
-            Waybill waybill = waybillMapper.getMaxIdWaybill();
-            int waybill_id = waybill.getWaybill_id() + 1;
+            int waybill_id = waybillMapper.getMaxIdWaybill()+ 1;
 
             //condition为0
             int condition = 0;

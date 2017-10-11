@@ -26,12 +26,12 @@ public class WaybillMapperImpl implements WaybillMapper {
         sqlSession.close();
     }
 
-    public Waybill getMaxIdWaybill() {
+    public int getMaxIdWaybill() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        Waybill waybill= sqlSession.selectOne("com.skitchina.mapper.WaybillMapper.getMaxIdWaybill");
+        int waybill_id= sqlSession.selectOne("com.skitchina.mapper.WaybillMapper.getMaxIdWaybill");
         sqlSession.commit();
         sqlSession.close();
-        return waybill;
+        return waybill_id;
     }
 
     public List<Waybill> getWaybillsByOrigin(Map params) {

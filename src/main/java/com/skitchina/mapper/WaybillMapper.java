@@ -22,8 +22,8 @@ public interface WaybillMapper {
     void addWaybill(Map params);
 
     //找出waybill_id最大的运单
-    @Select("SELECT*FROM waybill WHERE waybill_id=(SELECT MAX(waybill_id) FROM waybill)")
-    Waybill getMaxIdWaybill();
+    @Select("SELECT MAX(waybill_id) FROM waybill")
+    int getMaxIdWaybill();
 
     //根据origin,condition查询运单
     @Select("SELECT*FROM waybill WHERE origin=#{origin} AND `condition`=#{condition} AND invalid=0 ORDER BY time DESC LIMIT #{m},#{rows}")
