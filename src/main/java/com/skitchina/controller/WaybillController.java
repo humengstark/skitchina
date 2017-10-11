@@ -737,7 +737,7 @@ public class WaybillController {
      */
     @ResponseBody
     @RequestMapping(value = "/getInvalid2Waybills", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
-    public String getInvalid2Waybills() {
+    public synchronized String getInvalid2Waybills() {
         List<Waybill> waybills = waybillMapper.getInvalid2Waybills();
         return ReturnResultUtil.ReturnResultToJSON(new ReturnResult(0, 0, "", waybills));
     }
@@ -749,7 +749,7 @@ public class WaybillController {
      */
     @ResponseBody
     @RequestMapping(value = "/invalidWaybill2", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
-    public String invalidWaybill2(HttpServletRequest request) {
+    public synchronized String invalidWaybill2(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         waybillMapper.invalidWaybill(id);
         return ReturnResultUtil.ReturnResultToJSON(new ReturnResult(0));
@@ -762,7 +762,7 @@ public class WaybillController {
      */
     @ResponseBody
     @RequestMapping(value = "notInvalidWaybill", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
-    public String notInvalidWaybill(HttpServletRequest request) {
+    public synchronized String notInvalidWaybill(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         waybillMapper.notInvalidWaybill(id);
         return ReturnResultUtil.ReturnResultToJSON(new ReturnResult(0));
