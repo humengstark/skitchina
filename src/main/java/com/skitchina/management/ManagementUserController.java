@@ -649,7 +649,9 @@ public class ManagementUserController {
             waybills.add(waybill);
             users.add(user);
             for (User user2 : users) {
-                users1.put(user2.getId(), user2.getName());
+                if (user2 != null) {
+                    users1.put(user2.getId(), user2.getName());
+                }
             }
         } else {
             users1.put("", "");
