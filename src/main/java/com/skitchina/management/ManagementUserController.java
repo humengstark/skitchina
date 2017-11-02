@@ -958,7 +958,9 @@ public class ManagementUserController {
         Map users = new HashMap();
         for (Waybill waybill : waybills) {
             User user = managementMapper.getUserById(waybill.getUser_id());
-            users.put(waybill.getUser_id(), user.getName());
+            if (user != null) {
+                users.put(waybill.getUser_id(), user.getName());
+            }
         }
 
         request.getSession().setAttribute("id", id);
@@ -1094,6 +1096,7 @@ public class ManagementUserController {
         params.put("id", checkSubmit.getClient_id());
 
         clientMapper.updateBalance(params);
+        waybillMapper.updateCondition6(waybill.getId());
 
         response.sendRedirect(request.getContextPath()+"/management/getWaybillsByCheckSubmit?pagesOnCheckSubmits="+pagesOnCheckSubmits+"&pages="+pages+"&id="+checkSubmitId);
     }
@@ -1303,28 +1306,37 @@ public class ManagementUserController {
     @RequestMapping(value = "/getAllCompleteWaybills", method = RequestMethod.GET)
     public void getAllCompleteWaybills(HttpServletRequest request, HttpServletResponse response)throws IOException {
 
-//        int pages = Integer.parseInt(request.getParameter("pages"));
-//        int rows = 10;
-//        int m = (pages - 1) * rows;
-//
-//        Map params = new HashMap();
-//        params.put("m", m);
-//        params.put("rows", 10);
+        int pages = Integer.parseInt(request.getParameter("pages"));
+        int rows = 10;
+        int m = (pages - 1) * rows;
 
-        List<CompleteWaybill> completeWaybillList = completeWaybillMapper.getAllCompleteWaybills();
-        List<Waybill> waybillList = new ArrayList<>();
+        Map params = new HashMap();
+        params.put("m", m);
+        params.put("rows", 10);
+
+//        List<CompleteWaybill> completeWaybillList = completeWaybillMapper.getAllCompleteWaybills(params);
+//        List<Waybill> waybillList = new ArrayList<>();
         Map users1 = new HashMap();
 
-        for (CompleteWaybill completeWaybill : completeWaybillList) {
-            Waybill waybill = waybillMapper.getWaybillByWaybill_id(completeWaybill.getWaybill_id());
-            if (waybill!=null) {
-                User user = managementMapper.getUserById(waybill.getUser_id());
-                if (user != null) {
-                    users1.put(user.getId(), user.getName());
-                }
-                waybillList.add(waybill);
+//        for (CompleteWaybill completeWaybill : completeWaybillList) {
+//            Waybill waybill = waybillMapper.getWaybillByWaybill_id(completeWaybill.getWaybill_id());
+//            if (waybill!=null) {
+//                User user = managementMapper.getUserById(waybill.getUser_id());
+//                if (user != null) {
+//                    users1.put(user.getId(), user.getName());
+//                }
+//                waybillList.add(waybill);
+//            }
+//        }
+
+        List<Waybill> waybillList = completeWaybillMapper.getCompleteWaybills(params);
+        for (Waybill waybill : waybillList) {
+            User user = managementMapper.getUserById(waybill.getUser_id());
+            if (user != null) {
+                users1.put(user.getId(), user.getName());
             }
         }
+
 
         int waybillNum = completeWaybillMapper.getCompleteWaybillsNum();
 
@@ -1333,11 +1345,11 @@ public class ManagementUserController {
         request.getSession().setAttribute("type",0);
         request.getSession().setAttribute("waybills",waybillList);
         request.getSession().setAttribute("users", users1);
-        request.getSession().setAttribute("pagesNow",1);
-        System.out.println("=============================pagesNow="+1);
+        request.getSession().setAttribute("pagesNow",pages);
+        System.out.println("=============================pagesNow="+pages);
         request.getSession().setAttribute("waybillNum",waybillNum);
         System.out.println("=============================waybillNum="+waybillNum);
-        request.getSession().setAttribute("rows",0);
+        request.getSession().setAttribute("rows",10);
         response.sendRedirect(request.getContextPath() + "/completewaybills.jsp");
 
     }

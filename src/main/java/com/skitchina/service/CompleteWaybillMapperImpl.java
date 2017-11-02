@@ -2,6 +2,7 @@ package com.skitchina.service;
 
 import com.skitchina.mapper.CompleteWaybillMapper;
 import com.skitchina.model.CompleteWaybill;
+import com.skitchina.model.Waybill;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -29,9 +30,9 @@ public class CompleteWaybillMapperImpl implements CompleteWaybillMapper {
     }
 
     @Override
-    public List<CompleteWaybill> getAllCompleteWaybills() {
+    public List<CompleteWaybill> getAllCompleteWaybills(Map params) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<CompleteWaybill> completeWaybillList = sqlSession.selectList("com.skitchina.mapper.CompleteWaybillMapper.getAllCompleteWaybills");
+        List<CompleteWaybill> completeWaybillList = sqlSession.selectList("com.skitchina.mapper.CompleteWaybillMapper.getAllCompleteWaybills",params);
         sqlSession.commit();
         sqlSession.close();
         return completeWaybillList;
@@ -52,5 +53,14 @@ public class CompleteWaybillMapperImpl implements CompleteWaybillMapper {
         sqlSession.delete("com.skitchina.mapper.CompleteWaybillMapper.deleteCompleteWaybillByWaybillId", waybill_id);
         sqlSession.commit();
         sqlSession.close();
+    }
+
+    @Override
+    public List<Waybill> getCompleteWaybills(Map params) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Waybill> waybillList = sqlSession.selectList("com.skitchina.mapper.CompleteWaybillMapper.getCompleteWaybills", params);
+        sqlSession.commit();
+        sqlSession.close();
+        return waybillList;
     }
 }

@@ -368,4 +368,12 @@ public class WaybillMapperImpl implements WaybillMapper {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Override
+    public void updateCondition6(int id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.update("com.skitchina.mapper.WaybillMapper.updateCondition6", id);
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

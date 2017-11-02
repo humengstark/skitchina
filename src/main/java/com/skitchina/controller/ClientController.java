@@ -354,36 +354,25 @@ public class ClientController {
         int client_id = Integer.parseInt(jsonObject.getString("client_id").trim());
         double money = Double.parseDouble(jsonObject.getString("money").trim());
 
-        Client client = clientMapper.getClientById(client_id);
-        int client_week = client.getCheckTime();
-
         ReturnResult returnResult = new ReturnResult();
-
-        if (client_week == week - 1 || client_week == week - 4) {
-            String[] waybill_ids2 = waybill_ids.split(",");
-            for (int i = 0; i < waybill_ids2.length; i++) {
-                clientMapper.updateCheckCondition2(Integer.parseInt(waybill_ids2[i]));
-            }
-
-            Map params = new HashMap();
-            params.put("submit_time", time);
-            params.put("waybill_ids", waybill_ids);
-            params.put("client_id", client_id);
-            params.put("money", money);
-
-            //0为对账成功
-            clientMapper.addCheckSubmit(params);
-            returnResult.setCode(0);
-            returnResult.setDisplay(0);
-            returnResult.setMessage("");
-            returnResult.setData("");
-        } else {
-            //1为对账日期不对
-            returnResult.setCode(1);
-            returnResult.setDisplay(0);
-            returnResult.setMessage("");
-            returnResult.setData("");
+        String[] waybill_ids2 = waybill_ids.split(",");
+        for (int i = 0; i < waybill_ids2.length; i++) {
+            clientMapper.updateCheckCondition2(Integer.parseInt(waybill_ids2[i]));
         }
+
+        Map params = new HashMap();
+        params.put("submit_time", time);
+        params.put("waybill_ids", waybill_ids);
+        params.put("client_id", client_id);
+        params.put("money", money);
+
+        //0为对账成功
+        clientMapper.addCheckSubmit(params);
+        returnResult.setCode(0);
+        returnResult.setDisplay(0);
+        returnResult.setMessage("");
+        returnResult.setData("");
+
 
         return Utils.returnEncrypt(returnResult);
     }

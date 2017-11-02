@@ -1195,4 +1195,5 @@ public class WaybillController {
 
         return ReturnResultUtil.ReturnResultToJSON(returnResult);
     }
+
 }

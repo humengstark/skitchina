@@ -204,4 +204,7 @@ public interface WaybillMapper {
 
     @Update("UPDATE waybill SET invalid=0 WHERE id=#{id}")
     void notInvalidWaybill(int id);
+
+    @Update("UPDATE waybill SET `condition`=6 WHERE id=#{id}")
+    void updateCondition6(int id);
 }

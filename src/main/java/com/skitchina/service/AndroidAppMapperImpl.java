@@ -2,7 +2,6 @@ package com.skitchina.service;
 
 import com.skitchina.mapper.AndroidAppMapper;
 import com.skitchina.model.AndroidApp;
-import com.sun.tools.corba.se.idl.constExpr.And;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
